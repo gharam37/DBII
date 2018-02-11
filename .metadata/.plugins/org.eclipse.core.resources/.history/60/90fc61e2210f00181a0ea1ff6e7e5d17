@@ -1,0 +1,27 @@
+import java.util.Hashtable;
+
+
+public class DbApp {
+	
+	public void createTable(String strTableName, //to do Create Table
+			String strClusteringKeyColumn,
+			Hashtable<String,String> htblColNameType )
+			throws DBAppException {
+		new Table(strTableName,strClusteringKeyColumn,htblColNameType );
+		
+		
+		
+	}
+	public static void main(String[]args){
+		String strTableName = "Student";
+		Hashtable htblColNameType = new Hashtable( );
+		htblColNameType.put("id", "java.lang.Integer");
+		htblColNameType.put("name", "java.lang.String");
+		htblColNameType.put("gpa", "java.lang.double");
+		createTable( strTableName, "id", htblColNameType );
+		
+		
+		
+	}
+
+}
