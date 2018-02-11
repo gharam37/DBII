@@ -54,10 +54,9 @@ public class Table implements Serializable  {
 		ObjectOutputStream ObjectOutputStream;
 		try {
 			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
-			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
-			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser 
+			new File(this.strTableName + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
+			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser
 			ObjectOutputStream.close();
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

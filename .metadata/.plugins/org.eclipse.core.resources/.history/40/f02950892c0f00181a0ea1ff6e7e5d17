@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Map.Entry; 
@@ -27,7 +26,6 @@ public class Table implements Serializable  {
 	String strTableName; //table name
 	private static final long serialVersionUID = 1L;
 	Hashtable<String,Object> htblColNameValue;	
-	ArrayList<Page> Pages;
 	Hashtable<String,String> htblColNameType; // hashtable of the attributes and their types.. to put inserted in a metadata file
 	public Table(String strTableName,
 			String strClusteringKeyColumn, 
@@ -35,7 +33,6 @@ public class Table implements Serializable  {
 		this.strTableName=strTableName;
 		this.strClusteringKeyColumn=strClusteringKeyColumn;
 		this.htblColNameType=htblColNameType;
-		this.Pages=new ArrayList<Page>();
 		
 		try {
 			MakeMeta(htblColNameType);
@@ -54,10 +51,9 @@ public class Table implements Serializable  {
 		ObjectOutputStream ObjectOutputStream;
 		try {
 			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
-			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
-			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser 
+			new File(this.strTableName + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
+			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser
 			ObjectOutputStream.close();
-			
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
