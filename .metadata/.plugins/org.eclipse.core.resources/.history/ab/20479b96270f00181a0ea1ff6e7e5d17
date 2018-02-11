@@ -76,8 +76,8 @@ public class Table implements Serializable  {
 			while (iterator1.hasNext()) {
 				Entry<String, String> en = iterator1.next();
 				writer.append(strTableName+",");
-				writer.append(en.getKey()+",");
-				writer.append(en.getValue()+",");
+				writer.append(en.getKey());
+				writer.append(en.getValue());
 				if (strClusteringKeyColumn.equals(en.getKey())) {
 					writer.append("True"+",");
 				} else {
