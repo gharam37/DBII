@@ -13,7 +13,7 @@ import java.util.Set;
 
 
 
-public class Table implements Serializable  {
+public class Table  {
 	//should implement serializable 
 	//should have an attribute arraylist of pages , a hashtable for type , a string for name 
     
@@ -55,7 +55,7 @@ public class Table implements Serializable  {
 		try {
 			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
 			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
-			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser 
+			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser
 			ObjectOutputStream.close();
 			
 		} catch (FileNotFoundException e) {
