@@ -6,10 +6,8 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map.Entry; 
+import java.util.Map.Entry;
 import java.util.Set;
-
 
 
 public class Table implements Serializable  {
@@ -70,7 +68,7 @@ public class Table implements Serializable  {
 			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 			
 			
-			Iterator <Entry<String, String>> iterator1 = FirstTuple.iterator();
+			Iterator<Entry<String, String>> iterator1 = FirstTuple.iterator();
 			
 			
 			while (iterator1.hasNext()) {
@@ -95,9 +93,8 @@ public class Table implements Serializable  {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		System.out.println("meta");
 
 		
 		
-	}
-}
+	}*/
+}}
