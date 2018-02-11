@@ -4,10 +4,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 
+@SuppressWarnings("serial")
 public class Page implements Serializable {
 
     //should implement serializable ///
@@ -22,52 +22,49 @@ public class Page implements Serializable {
         this.tuples = new String[columnNumber][200];// 200 max no of tuples
         this.file = file;
 }
-    //check for page if full or not
-    public boolean check(){
-        if(this.currentLine==200){
-        	this.WritePage();
-        	return true;
-        }
-        return false;
+    //check for page if full or not 
+    //if full it calls WritePage 
+    @SuppressWarnings("static-access")
+	public boolean check(){
+       return this.currentLine==200;
     }
     // insert method for pages 
-    public void insert(Hashtable<String,String> input){
+    public void insertIntoPage(Hashtable<String, Object> htblColNameVale){
         	int column = 0;
         	String key="";
-        	Enumeration<String> names = input.keys();
+        	Enumeration<String> names = htblColNameVale.keys();
         	   while(names.hasMoreElements()) {
         	       key = (String) names.nextElement();
         	       
             	this.tuples[column][currentLine] = key;
             	column++;
-            	this.tuples[column][currentLine]= input.get(key);
+            	this.tuples[column][currentLine]= (String) htblColNameVale.get(key).toString();
             	column++;
+            	
             }   
+        	   ObjectOutputStream ObjectOutputStream;
+       		try {
+       			ObjectOutputStream = new ObjectOutputStream(
+       					new FileOutputStream(
+       							this.file));
+       			//intially writing the page as a big fat serializable thing .. make this our page XD 
+       			ObjectOutputStream.writeObject(this); // page already made
+       			ObjectOutputStream.close();
+       			
+       		} catch (FileNotFoundException e) {
+       			// TODO Auto-generated catch block
+       			e.printStackTrace();
+       		} catch (IOException e) {
+       			// TODO Auto-generated catch block
+       			e.printStackTrace();
+       		}
+       		
         currentLine++;
         }
     
-    	public void WritePage(){
-    		ObjectOutputStream ObjectOutputStream;
-    		try {
-    			ObjectOutputStream = new ObjectOutputStream(
-    					new FileOutputStream(
-    							this.file)); //intially writing the page as a big fat serializable thing .. make this our page XD 
-    			ObjectOutputStream.writeObject(this);   // page already made
-    			ObjectOutputStream.close();
-    			
-    		} catch (FileNotFoundException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		} catch (IOException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
-    		
-    		
     	
-    		}
-    		
-    	}
+   }
     
+
 
 

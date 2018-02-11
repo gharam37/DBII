@@ -1,17 +1,37 @@
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 
 public class DbApp {
 	
+	static ArrayList<Table> Tables = new ArrayList<Table>();
+	
 	public static void createTable(String strTableName, //to do Create Table
 			String strClusteringKeyColumn,
 			Hashtable<String,String> htblColNameType )
+			
 			throws DBAppException {
-		new Table(strTableName,strClusteringKeyColumn,htblColNameType );
 		
-		
-		
+		Table Table= new Table(strTableName,strClusteringKeyColumn,htblColNameType );
+		Tables.add(Table);
 	}
+	// inserts into table if table name inserted exists
+	public static void insertIntoTable(String strTableName,Hashtable<String,Object> htblColNameVale){
+		boolean Flag = true;
+		for(int i = 0; i<Tables.size();i++){
+			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
+				((Table)Tables.get(i)).insertIntoTable(htblColNameVale);
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag){
+			System.out.println("Table Name not found");
+		}
+	}
+			
+	
+	@SuppressWarnings("unchecked")
 	public static void main(String[]args){
 		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
@@ -19,7 +39,7 @@ public class DbApp {
 		htblColNameType.put("id", "java.lang.Integer");
 		htblColNameType.put("name", "java.lang.String");
 		htblColNameType.put("gpa", "java.lang.double");
-		
+		Hashtable<String,Object> htblColNameValue = new Hashtable<String,Object>( );
 		try {
 			
 			createTable( strTableName, "id", htblColNameType );
@@ -27,9 +47,35 @@ public class DbApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		htblColNameValue.put("id", new Integer( 2343432 ));
+		htblColNameValue.put("name", new String("Ahmed Noor" ) );
+		htblColNameValue.put("gpa", new Double( 0.95 ) );
+		insertIntoTable( strTableName , htblColNameValue );
+		htblColNameValue.clear( );
+		htblColNameValue.put("id", new Integer( 453455 ));
+		htblColNameValue.put("name", new String("Ahmed Noor" ) );
+		htblColNameValue.put("gpa", new Double( 0.95 ) );
+		insertIntoTable( strTableName , htblColNameValue );
+		htblColNameValue.clear( );
+		htblColNameValue.put("id", new Integer( 5674567 ));
+		htblColNameValue.put("name", new String("Dalia Noor" ) );
+		htblColNameValue.put("gpa", new Double( 1.25 ) );
+		insertIntoTable( strTableName , htblColNameValue );
+		htblColNameValue.clear( );
 		
+		htblColNameValue.put("id", new Integer( 23498 ));
+		htblColNameValue.put("name", new String("John Noor" ) );
+		htblColNameValue.put("gpa", new Double( 1.5 ) );
+		insertIntoTable( strTableName , htblColNameValue );
+		htblColNameValue.clear( );
+		
+		htblColNameValue.put("id", new Integer( 78452 ));
+		htblColNameValue.put("name", new String("Zaky Noor" ) );
+		htblColNameValue.put("gpa", new Double( 0.88 ) );
+		insertIntoTable( strTableName , htblColNameValue );
 		
 		
 	}
 
 }
+
