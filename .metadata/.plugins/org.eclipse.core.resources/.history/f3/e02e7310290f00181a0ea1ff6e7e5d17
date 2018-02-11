@@ -65,17 +65,19 @@ public class Table implements Serializable  {
 		
 		
 		try {
-			FileWriter writer = new FileWriter(this.strTableName+"metadata.csv");
-			
+			CSVWriter writer = new CSVWriter(this.strTableName+"metadata.csv");
+			String[] entries = {"eid","name","vid","emp_id","balance_amt","handover_to","entry_date"};
+			writer.writeNext(entries);
+
 
 			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 			
 			
-			Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
+			Iterator <Entry<String, String>> iterator1 = FirstTuple.iterator();
 			
 			
-			while (Iterator.hasNext()) {
-				Entry<String, String> en = Iterator.next();
+			while (iterator1.hasNext()) {
+				Entry<String, String> en = iterator1.next();
 				writer.append(strTableName+",");
 				writer.append(en.getKey()+",");
 				writer.append(en.getValue()+",");
