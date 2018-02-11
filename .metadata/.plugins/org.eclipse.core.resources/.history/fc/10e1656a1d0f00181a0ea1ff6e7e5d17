@@ -1,8 +1,7 @@
-import java.io.Serializable;
 import java.util.Hashtable;
 
 
-public class Table implements Serializable  {
+public class Table {
 	//should implement serializable 
 	//should have an attribute arraylist of pages , a hashtable for type , a string for name 
     

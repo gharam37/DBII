@@ -3,7 +3,7 @@ import java.util.Hashtable;
 
 public class DbApp {
 	
-	public void createTable(String strTableName, //to do Create Table
+	public void createTable(String strTableName, //to do 
 			String strClusteringKeyColumn,
 			Hashtable<String,String> htblColNameType )
 			throws DBAppException {
