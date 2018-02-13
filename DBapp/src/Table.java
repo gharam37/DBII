@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -130,7 +131,7 @@ public class Table implements Serializable  {
 	
 	// checks if no pages exist or page is full to create new page and insert in it then add it to ArrayList Pages
 	// if page exist and not full it inserts Into the page
-	public void insertIntoTable(Hashtable<String, Object> htblColNameVale){
+	public void insertIntoTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now)); //testing if it prints correcting
@@ -138,11 +139,27 @@ public class Table implements Serializable  {
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
 			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
-			Page page = new Page((Pages.size()+1)+"",htblColNameVale.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
+			Page page = new Page((Pages.size()+1),htblColNameVale.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
 			Pages.add(page);		
 		}
 			
-		Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale);
-		
+		//Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale);
+		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
+			Object key= htblColNameVale.get(strClusteringKeyColumn);
+			if(key instanceof String){
+				String primary=(String)key;
+				try {
+					byte[] infoBin = primary.getBytes("UTF-8");
+					
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				
+			}
+		}else{
+			throw new DBAppException();//TO-DO message
+		}
 	}
 }

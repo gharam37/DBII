@@ -6,20 +6,21 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.LinkedList;
 
 @SuppressWarnings("serial")
 public class Page implements Serializable {
 
     //should implement serializable ///
-    String No;
-    String[][] tuples;
+    int No;
+    LinkedList<Hashtable<String,String>> tuples;
     File file;
      public static int currentLine = 0;//the line to add data too
 
     //constructor 
-    public Page(String pageNo, int columnNumber,File file) {
+    public Page(int pageNo, int columnNumber,File file) {
         this.No = pageNo;
-        this.tuples = new String[columnNumber][200];// 200 max no of tuples
+        this.tuples = new LinkedList();// 200 max no of tuples
         this.file = file;
 }
     //check for page if full or not 

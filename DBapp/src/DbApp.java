@@ -1,3 +1,4 @@
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -33,7 +34,7 @@ public class DbApp {
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args){
-		String strTableName = "Student";
+		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
 		htblColNameType.put("id", "java.lang.Integer");
@@ -72,7 +73,25 @@ public class DbApp {
 		htblColNameValue.put("id", new Integer( 78452 ));
 		htblColNameValue.put("name", new String("Zaky Noor" ) );
 		htblColNameValue.put("gpa", new Double( 0.88 ) );
-		insertIntoTable( strTableName , htblColNameValue );
+		insertIntoTable( strTableName , htblColNameValue );*/
+		
+		String a="ala";
+		String b="bna";
+		try {
+			byte[] infoBin = a.getBytes("UTF-8");
+			byte[] infoBin1 = b.getBytes("UTF-8");
+			for(int i=0;i<infoBin.length;i++){
+				System.out.print(infoBin[i]+"  ");
+			}
+			System.out.println("");
+			for(int i=0;i<infoBin1.length;i++){
+				System.out.print(infoBin1[i]+"  ");
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 		
 	}
