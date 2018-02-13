@@ -93,10 +93,10 @@ public class Table implements Serializable  {
 			
 			Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
 			writer.append("Table name"+",");
-			writer.append("Column Name"+",");
-			writer.append("Column Type"+",");
-			writer.append("Key?"+",");
-			writer.append("Indexed?"+",");
+			writer.append(en.getKey()+",");
+			writer.append(en.getValue()+",");
+			writer.append("True"+",");
+			writer.append("False"+",");
 			writer.append("\n");
 			while (Iterator.hasNext()) {
 				Entry<String, String> en = Iterator.next();

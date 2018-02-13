@@ -95,7 +95,7 @@ public class Table implements Serializable  {
 			writer.append("Table name"+",");
 			writer.append("Column Name"+",");
 			writer.append("Column Type"+",");
-			writer.append("Key?"+",");
+			writer.append("Key"+",");
 			writer.append("Indexed?"+",");
 			writer.append("\n");
 			while (Iterator.hasNext()) {

@@ -92,12 +92,8 @@ public class Table implements Serializable  {
 			
 			
 			Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
-			writer.append("Table name"+",");
-			writer.append("Column Name"+",");
-			writer.append("Column Type"+",");
-			writer.append("Key?"+",");
-			writer.append("Indexed?"+",");
-			writer.append("\n");
+			
+			
 			while (Iterator.hasNext()) {
 				Entry<String, String> en = Iterator.next();
 				writer.append(strTableName+",");
