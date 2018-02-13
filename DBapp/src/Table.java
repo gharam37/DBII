@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Map.Entry; 
 import java.util.Set;
 
@@ -144,6 +145,7 @@ public class Table implements Serializable  {
 			Pages.add(page);		
 		}
 			
+		boolean IsString=false;
 		
 		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
 			Object key= htblColNameVale.get(strClusteringKeyColumn);
@@ -157,16 +159,84 @@ public class Table implements Serializable  {
 						clusterKeyPrimary=infoBin[i]+""+clusterKeyPrimary;
 					}
 					parseInt= Integer.parseInt(clusterKeyPrimary);
-					Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale, parseInt,true);
-				} catch (UnsupportedEncodingException e) {
+					
+					
+					for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+						Page p=Pages.get(i);
+						LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+						Hashtable<String,Object> first=tuples.getFirst();
+						Hashtable<String,Object> Last=tuples.getLast();
+						String firstValue= (String)first.get(strClusteringKeyColumn);
+						String SecondValue= (String)Last.get(strClusteringKeyColumn);
+						
+						String FirstKey= "0";
+						String SecondKey="0";
+						byte[] ByteFirst = firstValue.getBytes("UTF-8");
+						byte[] ByteSecond = SecondValue.getBytes("UTF-8");
+						for(int j = ByteFirst.length-1;j>0;j--){
+							FirstKey=ByteFirst[i]+""+FirstKey;}
+						
+						for(int j = ByteFirst.length-1;j>0;j--){
+							SecondKey=ByteSecond+""+SecondKey;
+							
+						}
+						int firstParsed=Integer.parseInt(FirstKey);
+						int secondParsed=Integer.parseInt(SecondKey);
+						/// this check is for when the value exists between the first two values of two pages 
+						// indicating that the value must be inserted in the first page of
+						if(parseInt>firstParsed && parseInt<secondParsed){
+							
+							p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							updatePages(i);
+							break;
+					}
+						
+					}
+				}
+					//
+			 catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}else{
+				//case numerical
+				double key1=(double)htblColNameVale.get(strClusteringKeyColumn);
 				
+				for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+					Page p=Pages.get(i);
+					LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					Hashtable<String,Object> first=tuples.getFirst();
+					Hashtable<String,Object> Last=tuples.getLast();
+					double firstValue= (double)first.get(strClusteringKeyColumn);
+					double SecondValue= (double)Last.get(strClusteringKeyColumn);
+					
+					if(key1>firstValue&& key1<SecondValue){
+					p.insertIntoPage(htblColNameVale, key1,IsString);
+						updatePages(i);
+						break;}
+				
+
 			}
-		}else{
+		}}else{
 			throw new DBAppException();//TO-DO message
 		}
+	}
+	
+	public void updatePages(int startingPage){
+		Page p = Pages.get(startingPage);
+		if(p.check()){
+			for(int i = startingPage;i<Pages.size()-1;i++){
+				if((Pages.get(i).check())){
+				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
+				Pages.get(i).tuples.removeLast();
+				Pages.get(i).currentLine--;
+				Pages.get(i+1).currentLine++;
+				}
+			
+			}
+		}
+		
+		
+		
 	}
 }

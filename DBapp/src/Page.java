@@ -19,7 +19,7 @@ public class Page implements Serializable {
     int No;
     LinkedList<Hashtable<String,Object>> tuples;
     File file;
-     public static int currentLine = 0;//the line to add data too
+    int currentLine = 0;//the line to add data too
      String strClusteringKeyColumn = "";
 
     //constructor 
@@ -33,10 +33,10 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     @SuppressWarnings("static-access")
 	public boolean check(){
-       return this.currentLine==200;
+       return this.currentLine>=200;
     }
     // insert method for pages 
-    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, int clusterKeyPrimary,Boolean isString) throws DBAppException{
+    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, double clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
     	
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -93,6 +93,32 @@ public class Page implements Serializable {
 		
 		else{
 			///case int 
+			for(int i = 0;i<tuples.size();i++){
+    			hashtable= tuples.get(i);
+    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
+    			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
+    			
+    			double ToIntHashCurrentValue=0;
+    			while (Iterator2.hasNext()) {
+    				Entry<String, Object> en1 = Iterator2.next();
+    			
+    				
+    				if (strClusteringKeyColumn.equals(en1.getKey())) {
+    				    ToIntHashCurrentValue = (double)en1.getValue();
+    				}
+    				
+    			}
+    			if(ToIntHashCurrentValue==clusterKeyPrimary){
+    				throw new DBAppException(); ///print already exists
+    				
+    			}
+    			else if(ToIntHashCurrentValue>clusterKeyPrimary){
+    				tuples.add(i,htblColNameVale);
+    				
+    			}
+    		
+    			
+    		}
 		}
     		
         	
