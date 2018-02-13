@@ -133,7 +133,7 @@ public class Table implements Serializable  {
 	public void insertIntoTable(Hashtable<String, Object> htblColNameValue){
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		System.out.println(dtf.format(now)); //testing if it prints correcting
+		System.out.println(dtf.format(now));
 		htblColNameValue.put("Last updated", now);
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
