@@ -67,11 +67,15 @@ public class Table implements Serializable  {
 	public void MakeMeta ( Hashtable<String,String> htblColNameTypehtblColNameType)throws DBAppException{
 		
 	 
-		/*ObjectOutputStream ObjectOutputStream;
+		ObjectOutputStream ObjectOutputStream;
 		try {
+			
+			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
+			Page page = new Page((Pages.size()+1)+"",htblColNameValue.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
+			Pages.add(page);
 			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
-			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
-			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser 
+			file)); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
+			ObjectOutputStream.writeObject(page);   /// instead of .strtablename it will be 0.ser 
 			ObjectOutputStream.close();
 			
 		} catch (FileNotFoundException e) {
@@ -80,7 +84,7 @@ public class Table implements Serializable  {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 		

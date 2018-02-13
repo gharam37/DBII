@@ -67,7 +67,7 @@ public class Table implements Serializable  {
 	public void MakeMeta ( Hashtable<String,String> htblColNameTypehtblColNameType)throws DBAppException{
 		
 	 
-		/*ObjectOutputStream ObjectOutputStream;
+		ObjectOutputStream ObjectOutputStream;
 		try {
 			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
 			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
@@ -80,7 +80,7 @@ public class Table implements Serializable  {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 		
