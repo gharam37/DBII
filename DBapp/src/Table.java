@@ -119,7 +119,8 @@ public class Table implements Serializable  {
 				writer.append("\n");
 			}
 
-			// generate whatever data you want
+			// generate whatever data you want 
+			
 
 			writer.flush();
 			writer.close();
@@ -139,18 +140,24 @@ public class Table implements Serializable  {
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
 			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
-			Page page = new Page((Pages.size()+1),htblColNameVale.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
+			Page page = new Page((Pages.size()+1),htblColNameVale.size()*2,file, strClusteringKeyColumn);//doesnt work with (htblColNameval.size()*2)-1??
 			Pages.add(page);		
 		}
 			
-		//Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale);
+		
 		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
 			Object key= htblColNameVale.get(strClusteringKeyColumn);
 			if(key instanceof String){
 				String primary=(String)key;
+				int parseInt = 0;
 				try {
+					String clusterKeyPrimary = "0";
 					byte[] infoBin = primary.getBytes("UTF-8");
-					
+					for(int i = infoBin.length-1;i>0;i--){
+						clusterKeyPrimary=infoBin[i]+""+clusterKeyPrimary;
+					}
+					parseInt= Integer.parseInt(clusterKeyPrimary);
+					Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale, parseInt,true);
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
