@@ -134,15 +134,15 @@ public class Table implements Serializable  {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		System.out.println(dtf.format(now)); //testing if it prints correcting
-		htblColNameVale.put("Last updated", now);
+		htblColNameValue.put("Last updated", now);
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
 			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
-			Page page = new Page((Pages.size()+1)+"",htblColNameVale.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
+			Page page = new Page((Pages.size()+1)+"",htblColNameValue.size()*2,file);//doesnt work with (htblColNameval.size()*2)-1??
 			Pages.add(page);		
 		}
 			
-		Pages.get(Pages.size()-1).insertIntoPage(htblColNameVale);
+		Pages.get(Pages.size()-1).insertIntoPage(htblColNameValue);
 		
 	}
 }
