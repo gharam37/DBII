@@ -33,7 +33,7 @@ public class DbApp {
 			
 	
 	@SuppressWarnings("unchecked")
-	public static void main(String[]args) throws DBAppException{
+	public static void main(String[]args){
 		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );

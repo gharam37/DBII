@@ -93,7 +93,6 @@ public class Page implements Serializable {
 		
 		else{
 			///case int 
-		 if(!tuples.isEmpty()){
 			for(int i = 0;i<tuples.size();i++){
     			hashtable= tuples.get(i);
     			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
@@ -119,10 +118,7 @@ public class Page implements Serializable {
     			}
     		
     			
-    		}}
-		 else{
-			tuples.add(0,htblColNameVale);
-		 }
+    		}
 		}
     		
         	

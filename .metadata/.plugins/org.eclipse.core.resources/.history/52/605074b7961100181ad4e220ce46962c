@@ -17,11 +17,11 @@ public class DbApp {
 		Tables.add(Table);
 	}
 	// inserts into table if table name inserted exists
-	public static void insertIntoTable(String strTableName,Hashtable<String,Object> htblColNameVale) throws DBAppException{
+	public static void insertIntoTable(String strTableName,Hashtable<String,Object> htblColNameVale){
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
 			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
-				((Table)Tables.get(i)).insertIntoTable(htblColNameVale);
+				//((Table)Tables.get(i)).insertIntoTable(htblColNameVale);
 				Flag = false;
 				break;
 			}
@@ -33,7 +33,7 @@ public class DbApp {
 			
 	
 	@SuppressWarnings("unchecked")
-	public static void main(String[]args) throws DBAppException{
+	public static void main(String[]args){
 		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );

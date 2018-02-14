@@ -220,7 +220,7 @@ public class Table implements Serializable  {
 					
 				 }
 				 else{
-					 p.insertIntoPage(htblColNameVale, key1,IsString);
+					 
 					 
 				 }
 				

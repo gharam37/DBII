@@ -36,7 +36,7 @@ public class Page implements Serializable {
        return this.currentLine>=200;
     }
     // insert method for pages 
-    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, int clusterKeyPrimary,Boolean isString) throws DBAppException{
+    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, double clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
     	
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -93,19 +93,18 @@ public class Page implements Serializable {
 		
 		else{
 			///case int 
-		 if(!tuples.isEmpty()){
 			for(int i = 0;i<tuples.size();i++){
     			hashtable= tuples.get(i);
     			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
     			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
     			
-    			int ToIntHashCurrentValue=0;
+    			double ToIntHashCurrentValue=0;
     			while (Iterator2.hasNext()) {
     				Entry<String, Object> en1 = Iterator2.next();
     			
     				
     				if (strClusteringKeyColumn.equals(en1.getKey())) {
-    				    ToIntHashCurrentValue = (int)en1.getValue();
+    				    ToIntHashCurrentValue = (double)en1.getValue();
     				}
     				
     			}
@@ -119,10 +118,7 @@ public class Page implements Serializable {
     			}
     		
     			
-    		}}
-		 else{
-			tuples.add(0,htblColNameVale);
-		 }
+    		}
 		}
     		
         	

@@ -121,7 +121,7 @@ public class Page implements Serializable {
     			
     		}}
 		 else{
-			tuples.add(0,htblColNameVale);
+			
 		 }
 		}
     		
