@@ -48,7 +48,7 @@ public class Table implements Serializable  {
 	String strClusteringKeyColumn; //table primary key
 	String strTableName; //table name
 	private static final long serialVersionUID = 1L;
-	Hashtable<String,Object> htblColNameValue;	
+	
 	ArrayList<Page> Pages;
 	Hashtable<String,String> htblColNameType; // hashtable of the attributes and their types.. to put inserted in a metadata file
 	
@@ -141,7 +141,10 @@ public class Table implements Serializable  {
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
 			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
-			Page page = new Page((Pages.size()+1),htblColNameVale.size()*2,file, strClusteringKeyColumn);//doesnt work with (htblColNameval.size()*2)-1??
+			Page page = new Page((Pages.size()+1),file, strClusteringKeyColumn);
+			//doesnt work with (htblColNameval.size()*2)-1??
+		   //Not here
+			//System.out.println("Bla");
 			Pages.add(page);		
 		}
 			
@@ -150,6 +153,8 @@ public class Table implements Serializable  {
 		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
 			Object key= htblColNameVale.get(strClusteringKeyColumn);
 			if(key instanceof String){
+				
+				System.out.println("Here"); //So the bug isn't cased by this if
 				String primary=(String)key;
 				int parseInt = 0;
 				try {
@@ -177,8 +182,8 @@ public class Table implements Serializable  {
 						for(int j = ByteFirst.length-1;j>0;j--){
 							FirstKey=ByteFirst[i]+""+FirstKey;}
 						
-						for(int j = ByteFirst.length-1;j>0;j--){
-							SecondKey=ByteSecond+""+SecondKey;
+						for(int j = ByteSecond.length-1;j>0;j--){
+							SecondKey=ByteSecond[j]+""+SecondKey;
 							
 						}
 						int firstParsed=Integer.parseInt(FirstKey);
@@ -188,10 +193,17 @@ public class Table implements Serializable  {
 						if(parseInt>firstParsed && parseInt<secondParsed){
 							
 							p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							
+                            
 							p.loadPage(i,this.strTableName);
 							updatePages(i);
 							break;
-					}}
+					}
+						
+					 
+					}
+					 
+					
 					 else{
 						 p.insertIntoPage(htblColNameVale, parseInt,!IsString);
 							p.loadPage(i,this.strTableName);
@@ -215,53 +227,102 @@ public class Table implements Serializable  {
 				for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
 					Page p=Pages.get(i);
 					LinkedList<Hashtable<String,Object>> tuples=p.tuples;
-				 if(!tuples.isEmpty()){
-					 System.out.println(key1);
-					Hashtable<String,Object> first=tuples.getFirst();
-					//System.out.println(first);
 					
-					Hashtable<String,Object> Last=tuples.getLast();
+				
+				 if(!tuples.isEmpty()){
+					//System.out.println(tuples.size());
+					//System.out.println(tuples.get(0));
+					for(int j=0;j<tuples.size() && tuples.size()>4;j++){
+						System.out.println(tuples.get(j));
+						
+					}
+					System.out.println(key1);
+					Hashtable<String,Object> first=tuples.getFirst();
+					
+					//System.out.println(tuples.getFirst());
+					Hashtable<String,Object> Last=Pages.get(i).tuples.getLast();
 					int firstValue= (int)first.get(strClusteringKeyColumn);
 					System.out.println(firstValue+"first"); //it prints our value
 					int SecondValue= (int)Last.get(strClusteringKeyColumn);
 					System.out.println(SecondValue+"last");
+					
+                    
+                    	
+                     /*if(key1>firstValue){
+                    	 //p.insertIntoPage(htblColNameVale, key1,IsString);
+                    	 tuples.addLast(htblColNameVale);
+                    	
+                     }
+                     
+                     else if(key1<SecondValue){
+                    	 
+                    	 tuples.addFirst(htblColNameVale);
+                     }*/
+                    	 
+                    
+                    
+                     
+                  
+                    	
+                    if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
 
-					if(key1>firstValue&& key1<SecondValue){
 					p.insertIntoPage(htblColNameVale, key1,IsString);
+					Pages.add(i, p);
+					
 					p.loadPage(i,this.strTableName);
 						updatePages(i);
-						break;}
-					
-				 }
+						break;
+					}
+				
+			
+				
+
+			}
+				 
 				 else{
 					 p.insertIntoPage(htblColNameVale, key1,IsString);
+					
+					 Pages.add(i, p);
+					 
+					 
+					
 					 p.loadPage(i,this.strTableName);
 					 updatePages(i);
 					 break;
 				 }
+		}
 				
-
-			}
-		}}else{
+			
+			
+	  }
+			
+		
+		
+		
+		}
+		
+		
+		else{
 			throw new DBAppException();//TO-DO message
 		}
 	}
 	
-	public void updatePages(int startingPage){
-		Page p = Pages.get(startingPage);
+	public void updatePages(int startingPage){ 
+		/*Page p = Pages.get(startingPage);
 		if(p.check()){
 			for(int i = startingPage;i<Pages.size()-1;i++){
 				if((Pages.get(i).check())){
 				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
 				Pages.get(i).tuples.removeLast();
+				System.out.println("here");
 				Pages.get(i).currentLine--;
 				Pages.get(i+1).currentLine++;
 				}
 			
-			}
-		}
+		}*/
 		
 		
 		
-	}
-}
+		
+
+}}

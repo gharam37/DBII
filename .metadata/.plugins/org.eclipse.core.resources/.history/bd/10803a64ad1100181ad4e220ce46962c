@@ -1,0 +1,315 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.Map.Entry; 
+import java.util.Set;
+
+
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.Iterator;
+import java.util.Map.Entry; 
+import java.util.Set;
+
+
+
+public class Table implements Serializable  {
+	//should implement serializable 
+	//should have an attribute arraylist of pages , a hashtable for type , a string for name 
+    
+	///should have an insert method called by DbApp .. it called an insert method in Page
+	
+	//should implement serializable 
+	//should have an attribute arraylist of pages , a hashtable for type , a string for name 
+    ///should have an insert method called by DbApp .. it called an insert method in Page
+	
+	String strClusteringKeyColumn; //table primary key
+	String strTableName; //table name
+	private static final long serialVersionUID = 1L;
+	
+	ArrayList<Page> Pages;
+	Hashtable<String,String> htblColNameType; // hashtable of the attributes and their types.. to put inserted in a metadata file
+	
+	public Table(String strTableName,
+			String strClusteringKeyColumn, 
+			Hashtable<String,String> htblColNameType){ //to do the exception 
+		this.strTableName=strTableName;
+		this.strClusteringKeyColumn=strClusteringKeyColumn;
+		this.htblColNameType=htblColNameType;
+		this.Pages=new ArrayList<Page>();
+		
+		try {
+			MakeMeta(htblColNameType);
+			
+			System.out.println("Created");
+		} catch (DBAppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	public void MakeMeta ( Hashtable<String,String> htblColNameTypehtblColNameType)throws DBAppException{
+		
+	 
+		/*ObjectOutputStream ObjectOutputStream;
+		try {
+			ObjectOutputStream = new ObjectOutputStream(new FileOutputStream(
+			new File(this.strTableName+"0" + ".ser"))); //intially writing the table as a big fat serializable thing .. make this our first page XD ..  when we merge i'll be put it in the array of pages
+			ObjectOutputStream.writeObject(this);   /// instead of .strtablename it will be 0.ser 
+			ObjectOutputStream.close();
+			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+		
+		
+		try {
+			FileWriter writer = new FileWriter(this.strTableName+"metadata.csv");
+			
+
+			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
+			
+			
+			Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
+			writer.append("Table name"+",");
+			writer.append("Column Name"+",");
+			writer.append("Column Type"+",");
+			writer.append("Key?"+",");
+			writer.append("Indexed?"+",");
+			writer.append("\n");
+			while (Iterator.hasNext()) {
+				Entry<String, String> en = Iterator.next();
+				writer.append(strTableName+",");
+				writer.append(en.getKey()+",");
+				writer.append(en.getValue()+",");
+				if (strClusteringKeyColumn.equals(en.getKey())) {
+					writer.append("True"+",");
+				} else {
+					writer.append("False"+",");
+				}
+				writer.append("False"+",");
+				
+				writer.append("\n");
+			}
+
+			// generate whatever data you want 
+			
+
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		System.out.println("meta");
+	}
+	
+	// checks if no pages exist or page is full to create new page and insert in it then add it to ArrayList Pages
+	// if page exist and not full it inserts Into the page
+	public void insertIntoTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		//System.out.println(dtf.format(now)); //testing if it prints correcting
+		htblColNameVale.put("Last updated", now);
+		
+		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
+			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
+			Page page = new Page((Pages.size()+1),file, strClusteringKeyColumn);
+			//doesnt work with (htblColNameval.size()*2)-1??
+		   //Not here
+			//System.out.println("Bla");
+			Pages.add(page);		
+		}
+			
+		boolean IsString=false;
+		
+		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
+			Object key= htblColNameVale.get(strClusteringKeyColumn);
+			if(key instanceof String){
+				
+				System.out.println("Here"); //So the bug isn't cased by this if
+				String primary=(String)key;
+				int parseInt = 0;
+				try {
+					String clusterKeyPrimary = "0";
+					byte[] infoBin = primary.getBytes("UTF-8");
+					for(int i = infoBin.length-1;i>0;i--){
+						clusterKeyPrimary=infoBin[i]+""+clusterKeyPrimary;
+					}
+					parseInt= Integer.parseInt(clusterKeyPrimary);
+					
+					
+					for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+						Page p=Pages.get(i);
+						LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					 if(!tuples.isEmpty()){
+						Hashtable<String,Object> first=tuples.getFirst();
+						Hashtable<String,Object> Last=tuples.getLast();
+						String firstValue= (String)first.get(strClusteringKeyColumn);
+						String SecondValue= (String)Last.get(strClusteringKeyColumn);
+						
+						String FirstKey= "0";
+						String SecondKey="0";
+						byte[] ByteFirst = firstValue.getBytes("UTF-8");
+						byte[] ByteSecond = SecondValue.getBytes("UTF-8");
+						for(int j = ByteFirst.length-1;j>0;j--){
+							FirstKey=ByteFirst[i]+""+FirstKey;}
+						
+						for(int j = ByteSecond.length-1;j>0;j--){
+							SecondKey=ByteSecond[j]+""+SecondKey;
+							
+						}
+						int firstParsed=Integer.parseInt(FirstKey);
+						int secondParsed=Integer.parseInt(SecondKey);
+						/// this check is for when the value exists between the first two values of two pages 
+						// indicating that the value must be inserted in the first page of
+						if(parseInt>firstParsed && parseInt<secondParsed){
+							
+							p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							
+                            
+							p.loadPage(i,this.strTableName);
+							updatePages(i);
+							break;
+					}}
+					 else{
+						 p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							p.loadPage(i,this.strTableName);
+							updatePages(i);
+						 
+					 }
+						
+					}
+				}
+					//
+			 catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
+				//case numerical
+				
+				
+				int key1=(int)htblColNameVale.get(strClusteringKeyColumn);
+				
+				for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+					Page p=Pages.get(i);
+					LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					
+				
+				 if(!tuples.isEmpty()){
+					System.out.println(tuples.size());
+					System.out.println(tuples.get(0));
+					System.out.println(key1);
+					Hashtable<String,Object> first=tuples.getFirst();
+					
+					
+					Hashtable<String,Object> Last=tuples.getLast();
+					int firstValue= (int)first.get(strClusteringKeyColumn);
+					System.out.println(firstValue+"first"); //it prints our value
+					int SecondValue= (int)Last.get(strClusteringKeyColumn);
+					System.out.println(SecondValue+"last");
+					
+                    /*if(tuples.size()==1){
+                    	
+                     if(key1>firstValue){
+                    	 tuples.addLast(htblColNameVale);
+                    	
+                     }
+                     
+                     else if(key1<SecondValue){
+                    	 
+                    	 tuples.addFirst(htblColNameVale);
+                     }
+                    	 
+                    }*/
+                    
+                     
+                  
+                    	
+                    
+				  if (key1>firstValue&& key1<SecondValue){ //missing case
+						 System.out.println("Here");
+
+					p.insertIntoPage(htblColNameVale, key1,IsString);
+					Pages.add(i, p);
+					
+					//Pages.add(i, p);
+					p.loadPage(i,this.strTableName);
+						updatePages(i);
+						break;
+					}
+				
+				 else{
+					 p.insertIntoPage(htblColNameVale, key1,IsString);
+					
+					 Pages.add(i, p);
+					 
+					 
+					 //Pages.add(i, p);
+					 p.loadPage(i,this.strTableName);
+					 updatePages(i);
+					 break;
+				 }
+				
+
+			}
+		}}
+			
+		
+		
+		
+		}
+		
+		
+		else{
+			throw new DBAppException();//TO-DO message
+		}
+	}
+	
+	public void updatePages(int startingPage){ 
+		/*Page p = Pages.get(startingPage);
+		if(p.check()){
+			for(int i = startingPage;i<Pages.size()-1;i++){
+				if((Pages.get(i).check())){
+				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
+				Pages.get(i).tuples.removeLast();
+				System.out.println("here");
+				Pages.get(i).currentLine--;
+				Pages.get(i+1).currentLine++;
+				}
+			
+		}*/
+		
+		
+		
+		
+
+}}

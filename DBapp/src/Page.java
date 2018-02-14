@@ -18,21 +18,21 @@ public class Page implements Serializable {
 
     //should implement serializable ///
     int No;
-    LinkedList<Hashtable<String,Object>> tuples;
+    public LinkedList<Hashtable<String,Object>> tuples;
     File file;
     int currentLine = 0;//the line to add data too
      String strClusteringKeyColumn = "";
 
     //constructor 
-    public Page(int pageNo, int columnNumber,File file, String strClusteringKeyColumn) {
+    public Page(int pageNo,File file, String strClusteringKeyColumn) {
         this.No = pageNo;
-        this.tuples = new LinkedList();// 200 max no of tuples
+        this.tuples = new LinkedList<>();// 200 max no of tuples
         this.file = file;
         this.strClusteringKeyColumn = strClusteringKeyColumn;
 }
     //check for page if full or not 
     //if full it calls WritePage 
-    @SuppressWarnings("static-access")
+    
 	public boolean check(){
        return this.currentLine>=200;
     }
@@ -57,7 +57,7 @@ public class Page implements Serializable {
 				
 			}
 		}
-		if(isString){
+		if(isString){ /////////////Remember to add currentLine
 		
 				
 				for(int i = 0;i<tuples.size();i++){
@@ -82,6 +82,8 @@ public class Page implements Serializable {
 	    				
 	    			}
 	    			else if(ToIntHashCurrentValue>clusterKeyPrimary){
+	    				
+	    				
 	    				tuples.add(i,htblColNameVale);
 	    				
 	    			}
@@ -97,6 +99,9 @@ public class Page implements Serializable {
 		else{
 			///case int 
 		 if(!tuples.isEmpty()){
+			 System.out.println("Here");
+			 //System.out.println(htblColNameVale); //What empties tuples ? 
+			
 			for(int i = 0;i<tuples.size();i++){
     			hashtable= tuples.get(i);
     			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
@@ -112,19 +117,36 @@ public class Page implements Serializable {
     				}
     				
     			}
-    			if(ToIntHashCurrentValue==clusterKeyPrimary){
+				
+    	  if(ToIntHashCurrentValue>clusterKeyPrimary && i==tuples.size()-1){
+                	   tuples.addFirst(htblColNameVale);
+                	   currentLine++;
+                	   break;}
+    	  else  if(ToIntHashCurrentValue<clusterKeyPrimary && i==0){
+    	    	
+            	   tuples.addLast(htblColNameVale); 
+            	   currentLine++;
+            	   break;}
+    	    if(ToIntHashCurrentValue<clusterKeyPrimary){
+   				tuples.add(i,htblColNameVale);
+   				currentLine++;
+   		         break;
+   				
+   			}
+               else if(ToIntHashCurrentValue==clusterKeyPrimary){
     				throw new DBAppException(); ///print already exists
     				
     			}
-    			else if(ToIntHashCurrentValue>clusterKeyPrimary){
-    				tuples.add(i,htblColNameVale);
-    				
-    			}
+    			
     		
     			
     		}}
+		 
+		 
 		 else{
 			tuples.add(0,htblColNameVale);
+			//htblColNameVale.clear();
+			//Only enters with the first insertion
 		 }
 		}
     		
@@ -146,7 +168,7 @@ public class Page implements Serializable {
        			e.printStackTrace();
        		}
        		
-        currentLine++;
+        
         }
     
     
@@ -184,8 +206,8 @@ public class Page implements Serializable {
 		}
     	
     
-    
-    /*else{
+      }
+   /* else{
     	
     	try
     	{
@@ -220,8 +242,23 @@ public class Page implements Serializable {
     	    System.err.println("IOException: " + ioe.getMessage());
     	}
     }*/
+
+
+    
+    
+    
+    
     	
-   }}
+    
+
+ public Page(int pageNo,File file, String strClusteringKeyColumn,LinkedList<Hashtable<String,Object>> tuples){
+	 this.tuples=tuples;
+	 this.file=file;
+	 this.No=pageNo;
+	 this.strClusteringKeyColumn=strClusteringKeyColumn;
+ }
+
+}
     
 
 
