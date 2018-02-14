@@ -136,7 +136,7 @@ public class Table implements Serializable  {
 	public void insertIntoTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
-		System.out.println(dtf.format(now)); //testing if it prints correcting
+		//System.out.println(dtf.format(now)); //testing if it prints correcting
 		htblColNameVale.put("Last updated", now);
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
@@ -164,6 +164,7 @@ public class Table implements Serializable  {
 					for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
 						Page p=Pages.get(i);
 						LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					 if(!tuples.isEmpty()){
 						Hashtable<String,Object> first=tuples.getFirst();
 						Hashtable<String,Object> Last=tuples.getLast();
 						String firstValue= (String)first.get(strClusteringKeyColumn);
@@ -187,9 +188,16 @@ public class Table implements Serializable  {
 						if(parseInt>firstParsed && parseInt<secondParsed){
 							
 							p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							p.loadPage(i,this.strTableName);
 							updatePages(i);
 							break;
-					}
+					}}
+					 else{
+						 p.insertIntoPage(htblColNameVale, parseInt,!IsString);
+							p.loadPage(i,this.strTableName);
+							updatePages(i);
+						 
+					 }
 						
 					}
 				}
@@ -208,20 +216,28 @@ public class Table implements Serializable  {
 					Page p=Pages.get(i);
 					LinkedList<Hashtable<String,Object>> tuples=p.tuples;
 				 if(!tuples.isEmpty()){
+					 System.out.println(key1);
 					Hashtable<String,Object> first=tuples.getFirst();
+					//System.out.println(first);
+					
 					Hashtable<String,Object> Last=tuples.getLast();
 					int firstValue= (int)first.get(strClusteringKeyColumn);
+					System.out.println(firstValue+"first"); //it prints our value
 					int SecondValue= (int)Last.get(strClusteringKeyColumn);
-					
+					System.out.println(SecondValue+"last");
+
 					if(key1>firstValue&& key1<SecondValue){
 					p.insertIntoPage(htblColNameVale, key1,IsString);
+					p.loadPage(i,this.strTableName);
 						updatePages(i);
 						break;}
 					
 				 }
 				 else{
 					 p.insertIntoPage(htblColNameVale, key1,IsString);
-					 
+					 p.loadPage(i,this.strTableName);
+					 updatePages(i);
+					 break;
 				 }
 				
 

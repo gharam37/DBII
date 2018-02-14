@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -38,7 +39,7 @@ public class Page implements Serializable {
     // insert method for pages 
     public void insertIntoPage(Hashtable<String, Object> htblColNameVale, int clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
-    	
+    	//System.out.println(clusterKeyPrimary);
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
 		
 		
@@ -49,8 +50,10 @@ public class Page implements Serializable {
 			Entry<String, Object> en = Iterator.next();
 		
 		
-			if (strClusteringKeyColumn.equals(en.getKey())) {
-				 HashValue=en.getValue(); /// got the value of the primary key of the wanted to insert value
+			if (strClusteringKeyColumn.equals((String)en.getKey())) {
+				//System.out.println((String)en.getKey());
+				 HashValue=en.getValue();/// got the value of the primary key of the wanted to insert value
+				 //System.out.println(HashValue);
 				
 			}
 		}
@@ -146,9 +149,89 @@ public class Page implements Serializable {
         currentLine++;
         }
     
-    	
-   }
     
+    public void loadPage(int Index,String tablename){
+    	File pagefile = new File(tablename+Index+".csv");
+    	boolean exists = pagefile.exists();
+      
+		try {
+			FileWriter writer = new FileWriter(tablename+Index+".csv");
+			
+           for(int i=0;i<tuples.size();i++){
+        	   
+           
+			Set<Entry<String, Object>> FirstTuple = tuples.get(i).entrySet();
+			
+			
+			Iterator <Entry<String, Object>> Iterator= FirstTuple.iterator();
+			
+			while (Iterator.hasNext()) {
+				Entry<String, Object> en = Iterator.next();
+				writer.append(en.getKey()+en.getValue()+",");
+				
+				
+				
+			}
+			writer.append("\n");
+            System.out.println(tuples.get(i));
+			// generate whatever data you want 
+			
+           }
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+    	
+    
+    
+    /*else{
+    	
+    	try
+    	{
+    	    String filename= tablename+Index+".csv";
+    	    FileWriter fw = new FileWriter(filename,true); //the true will append the new data
+    	    for(int i=0;i<tuples.size();i++){
+         	   
+    	           
+    			Set<Entry<String, Object>> FirstTuple = tuples.get(i).entrySet();
+    			
+    			
+    			Iterator <Entry<String, Object>> Iterator= FirstTuple.iterator();
+    			
+    			while (Iterator.hasNext()) {
+    				Entry<String, Object> en = Iterator.next();
+    				fw.append(en.getKey()+en.getValue()+",");
+    				
+    				
+    			}
+    			fw.append("\n");
+
+    			// generate whatever data you want 
+                System.out.println(tuples.get(i));
+
+    			
+               }
+    	    fw.flush();
+			fw.close();
+    	}
+    	catch(IOException ioe)
+    	{
+    	    System.err.println("IOException: " + ioe.getMessage());
+    	}
+    }*/
+    	
+   }}
+    
+
+
+
+
+
+
+
+
+
 
 
 

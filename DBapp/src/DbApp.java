@@ -33,7 +33,7 @@ public class DbApp {
 			
 	
 	@SuppressWarnings("unchecked")
-	public static void main(String[]args) throws DBAppException{
+	public static void main(String[]args) throws DBAppException, InterruptedException{
 		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
@@ -52,28 +52,33 @@ public class DbApp {
 		htblColNameValue.put("name", new String("Ahmed Noor" ) );
 		htblColNameValue.put("gpa", new Double( 0.95 ) );
 		insertIntoTable( strTableName , htblColNameValue );
+		//Thread.sleep(10);
 		htblColNameValue.clear( );
+		
 		htblColNameValue.put("id", new Integer( 453455 ));
 		htblColNameValue.put("name", new String("Ahmed Noor" ) );
 		htblColNameValue.put("gpa", new Double( 0.95 ) );
 		insertIntoTable( strTableName , htblColNameValue );
+		//Thread.sleep(10000);
 		htblColNameValue.clear( );
 		htblColNameValue.put("id", new Integer( 5674567 ));
 		htblColNameValue.put("name", new String("Dalia Noor" ) );
 		htblColNameValue.put("gpa", new Double( 1.25 ) );
 		insertIntoTable( strTableName , htblColNameValue );
+		//Thread.sleep(100000);
 		htblColNameValue.clear( );
 		
 		htblColNameValue.put("id", new Integer( 23498 ));
 		htblColNameValue.put("name", new String("John Noor" ) );
 		htblColNameValue.put("gpa", new Double( 1.5 ) );
+		//Thread.sleep(1000000);
 		insertIntoTable( strTableName , htblColNameValue );
 		htblColNameValue.clear( );
 		
 		htblColNameValue.put("id", new Integer( 78452 ));
 		htblColNameValue.put("name", new String("Zaky Noor" ) );
 		htblColNameValue.put("gpa", new Double( 0.88 ) );
-		insertIntoTable( strTableName , htblColNameValue );
+		//insertIntoTable( strTableName , htblColNameValue );
 		
 		/*String a="ala";
 		String b="bna";
