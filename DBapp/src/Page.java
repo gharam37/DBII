@@ -78,15 +78,29 @@ public class Page implements Serializable {
 	    				}
 	    				
 	    			}
-	    			  if(HashCurrentValue.compareTo(KeyValue)<0 && i==tuples.size()-1){
+	    			
+	    			  if(HashCurrentValue.compareTo(KeyValue)>0 && i== tuples.size()-1){
+		  	    	    	
+		            	   tuples.addLast(htblColNameVale); 
+		            	   currentLine++;
+		            	   break;}
+	    			  else  if(HashCurrentValue.compareTo(KeyValue)<0 && i==0){
 	                	   tuples.addFirst(htblColNameVale);
 	                	   currentLine++;
 	                	   break;}
-	    	  else  if(HashCurrentValue.compareTo(KeyValue)>0 && i==0){
-	    	    	
-	            	   tuples.addLast(htblColNameVale); 
-	            	   currentLine++;
-	            	   break;}
+	    			  else if(HashCurrentValue.compareTo(KeyValue)<0){
+		    				
+		    				
+		    				tuples.add(i,htblColNameVale);
+		    				 currentLine++;
+		    				 break;
+		    				
+		    			}
+	    			
+	    			
+	    			 
+	    			
+	    	      
 	    			else if(HashCurrentValue.compareTo(KeyValue)==0){
 	    				throw new DBAppException(); ///print already exists
 	    				
@@ -95,6 +109,7 @@ public class Page implements Serializable {
 	    				
 	    				
 	    				tuples.add(i,htblColNameVale);
+	    				 currentLine++;
 	    				
 	    			}
 	    		
@@ -274,6 +289,18 @@ public class Page implements Serializable {
 
 }
     
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

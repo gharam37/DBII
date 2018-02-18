@@ -10,12 +10,12 @@
 		<list key="findhistory">
 			<item value="here"/>
 			<item value="system"/>
+			<item value="sys"/>
+			<item value="meta"/>
+			<item value="last"/>
 			<item value="system.out.println"/>
 			<item value="syste"/>
 			<item value="key"/>
-			<item value="key1"/>
-			<item value="meta"/>
-			<item value="column"/>
 		</list>
 		<list key="replacehistory">
 		</list>
