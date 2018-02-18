@@ -204,10 +204,7 @@ public class Table implements Serializable  {
 							
                             
 							//p.loadPage(i,this.strTableName);
-							if(p.check()){
-								updatePages(i);
-							 }
-							LoadAll();
+							updatePages(i);
 							break;
 					}
 						
@@ -218,11 +215,8 @@ public class Table implements Serializable  {
 					 else{
 						 p.insertIntoPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
 							//p.loadPage(i,this.strTableName);
-						 if(p.check()){
-								updatePages(i);
-							 }
-							LoadAll();
-							break;
+							updatePages(i);
+						 
 					 }
 						
 					}
@@ -281,10 +275,7 @@ public class Table implements Serializable  {
 					Pages.add(i, p);
 					
 					//p.loadPage(i,this.strTableName);
-					 if(p.check()){
 						updatePages(i);
-					 }
-						LoadAll();
 						break;
 					}
 				
@@ -300,11 +291,8 @@ public class Table implements Serializable  {
 					 
 					 
 					
-					
-					 if(p.check()){
-							updatePages(i);
-						 }
-					 LoadAll();
+					LoadAll();
+					 updatePages(i);
 					 break;
 				 }
 		}
@@ -333,18 +321,18 @@ public class Table implements Serializable  {
 	}
 
 	public void updatePages(int startingPage){ 
-		
-		
+		Page p = Pages.get(startingPage);
+		if(p.check()){
 			for(int i = startingPage;i<Pages.size()-1;i++){
 				if((Pages.get(i).check())){
 				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
 				Pages.get(i).tuples.removeLast();
-				
+				System.out.println("here");
 				Pages.get(i).currentLine--;
 				Pages.get(i+1).currentLine++;
 				}
 			
-		
+		}
 		
 		
 		

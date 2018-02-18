@@ -160,12 +160,6 @@ public class DbApp {
 		htblColName3.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName , htblColName3);
 		
-		Hashtable<String,Object> htblColName6 = new Hashtable<String,Object>( );
-
-		htblColName6.put("Social Security number", new Integer( 78452 ));
-		htblColName6.put("name", new String("Darine Omar" ) );
-		htblColName6.put("age", new Integer( 50 ) );
-		insertIntoTable( strTableName , htblColName6);
 		
 		
 		

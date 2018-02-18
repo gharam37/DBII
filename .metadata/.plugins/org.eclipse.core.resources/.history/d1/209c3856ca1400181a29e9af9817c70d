@@ -333,7 +333,7 @@ public class Table implements Serializable  {
 	}
 
 	public void updatePages(int startingPage){ 
-		
+		Page p = Pages.get(startingPage);
 		
 			for(int i = startingPage;i<Pages.size()-1;i++){
 				if((Pages.get(i).check())){
