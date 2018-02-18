@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -35,7 +37,7 @@ public class DbApp {
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) throws DBAppException, InterruptedException{
-		/*String strTableName = "Student";
+		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
 		htblColNameType.put("id", "java.lang.Integer");
@@ -48,15 +50,16 @@ public class DbApp {
 		} catch (DBAppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
+		Hashtable<String,Object> htblColNameValueGharamWantsToChange = new Hashtable<String,Object>( );
 
-		/*htblColNameValue.put("id", new Integer( 2343432 ));
-		htblColNameValue.put("name", new String("Ahmed Noor" ) );
-		htblColNameValue.put("gpa", new Double( 0.95 ) );
-		insertIntoTable( strTableName , htblColNameValue );
+		htblColNameValueGharamWantsToChange.put("id", new Integer( 2343432 ));
+		htblColNameValueGharamWantsToChange.put("name", new String("Ahmed Noor" ) );
+		htblColNameValueGharamWantsToChange.put("gpa", new Double( 0.95 ) );
+		insertIntoTable( strTableName , htblColNameValueGharamWantsToChange );
 		//Thread.sleep(10);
-		htblColNameValue.clear( );*/
-		/*Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
+		htblColNameValueGharamWantsToChange.clear( );
+		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
 
 		htblColName1.put("id", new Integer( 453455 ));
 		htblColName1.put("name", new String("Ahmed Mohammed" ) );
@@ -83,7 +86,7 @@ public class DbApp {
 		htblColName3.put("id", new Integer( 78452 ));
 		htblColName3.put("name", new String("Zaky Noor" ) );
 		htblColName3.put("gpa", new Double( 0.88 ) );
-		insertIntoTable( strTableName , htblColName3);*/
+		insertIntoTable( strTableName , htblColName3);
 		
 		/*String a="ala";
 		String b="bna";
@@ -100,7 +103,7 @@ public class DbApp {
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 		
 		
 		
@@ -110,7 +113,7 @@ public class DbApp {
 		
 		
 		
-		
+		/*
 		
 		String strTableName = "Person";
 		@SuppressWarnings("rawtypes")
@@ -167,9 +170,14 @@ public class DbApp {
 		htblColName6.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName , htblColName6);
 		
+		Hashtable<String,Object> htblColName7 = new Hashtable<String,Object>( );
+
+		htblColName7.put("Social Security number", new Integer( 78452 ));
+		htblColName7.put("name", new String("Darine othman" ) );
+		htblColName7.put("age", new Integer( 50 ) );
+		insertIntoTable( strTableName , htblColName7);
 		
-		
-		
+		*/
 		
 		/*String a="ala";
 		String b="bna";

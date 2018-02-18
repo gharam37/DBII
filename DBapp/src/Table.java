@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -157,7 +159,7 @@ public class Table implements Serializable  {
 				
 				//System.out.println("Here"); //So the bug isn't cased by this if
 				String primary=(String)key;
-				System.out.println(key);
+				//System.out.println(key);
 				/*Long parseInt = (long) 0;
 				try {
 					String clusterKeyPrimary = "0";
@@ -180,8 +182,8 @@ public class Table implements Serializable  {
 						
 						
 						int Lower=primary.compareTo(SecondValue);
-						System.out.println(Upper);
-						System.out.println(Lower);
+						//System.out.println(Upper);
+						//System.out.println(Lower);
 
 						/*String FirstKey= "0";
 						String SecondKey="0";
@@ -199,13 +201,13 @@ public class Table implements Serializable  {
 						/// this check is for when the value exists between the first two values of two pages 
 						// indicating that the value must be inserted in the first page of
 						if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
-							System.out.println("Entered");
+							
 							p.insertIntoPage(htblColNameVale,primary, -1,!IsString);
 							
                             
 							//p.loadPage(i,this.strTableName);
 							if(p.check()){
-								updatePages(i);
+								 updatePages(i,primary, -1, !IsString);
 							 }
 							LoadAll();
 							break;
@@ -219,7 +221,7 @@ public class Table implements Serializable  {
 						 p.insertIntoPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
 							//p.loadPage(i,this.strTableName);
 						 if(p.check()){
-								updatePages(i);
+							 updatePages(i,primary, -1, !IsString);
 							 }
 							LoadAll();
 							break;
@@ -243,10 +245,7 @@ public class Table implements Serializable  {
 				 if(!tuples.isEmpty()){
 					//System.out.println(tuples.size());
 					//System.out.println(tuples.get(0));
-					for(int j=0;j<tuples.size() && tuples.size()>4;j++){
-						System.out.println(tuples.get(j));
-						
-					}
+					
 					//System.out.println(key1);
 					Hashtable<String,Object> first=tuples.getFirst();
 					
@@ -282,7 +281,7 @@ public class Table implements Serializable  {
 					
 					//p.loadPage(i,this.strTableName);
 					 if(p.check()){
-						updatePages(i);
+						 updatePages(i,"", key1, IsString);
 					 }
 						LoadAll();
 						break;
@@ -302,7 +301,7 @@ public class Table implements Serializable  {
 					
 					
 					 if(p.check()){
-							updatePages(i);
+							updatePages(i,"", key1, IsString);
 						 }
 					 LoadAll();
 					 break;
@@ -332,25 +331,32 @@ public class Table implements Serializable  {
 		}
 	}
 
-	public void updatePages(int startingPage){ 
+	public void updatePages(int startingPage,String key,int strClusterKey,boolean flag){ 
 		
 		
 			for(int i = startingPage;i<Pages.size()-1;i++){
-				if((Pages.get(i).check())){
-				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
-				Pages.get(i).tuples.removeLast();
-				
-				Pages.get(i).currentLine--;
-				Pages.get(i+1).currentLine++;
-				}
+				if((Pages.get(i).check()))
+					try {
+												
+						Pages.get(i+1).insertIntoPage((Pages.get(i).tuples.getLast()),key,strClusterKey,flag);
+						Pages.get(i).tuples.removeLast();
+						
+						//Pages.get(i).currentLine--;
+						//Pages.get(i+1).currentLine++;
+
+					 }catch (DBAppException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}	}
 			
-		
-		
-		
+				for(int i = 0;i<Pages.size();i++){
+					System.out.println(Pages.get(i).tuples.size()+"::://*");
+					//System.out.println(Pages.get(i).currentLine);
+				}
 		
 		
 
-}}}
+}}
 
 					 
 					 

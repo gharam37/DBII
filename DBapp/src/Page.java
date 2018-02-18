@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,7 +36,7 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>=2;
+       return this.currentLine>199;
     }
     // insert method for pages 
     public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
@@ -114,6 +116,7 @@ public class Page implements Serializable {
 			}
 			else{
 				tuples.add(0,htblColNameVale);
+				currentLine++;
 			}
 
 			
