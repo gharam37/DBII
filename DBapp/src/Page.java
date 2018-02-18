@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -34,10 +36,10 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>=200;
+       return this.currentLine<2;
     }
     // insert method for pages 
-    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, Long parseInt,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
     	//System.out.println(clusterKeyPrimary);
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -59,61 +61,80 @@ public class Page implements Serializable {
 		}
 		if(isString){ /////////////Remember to add currentLine
 		
-			if(!tuples.isEmpty()){
+				if(!tuples.isEmpty()){
 				for(int i = 0;i<tuples.size();i++){
 	    			hashtable= tuples.get(i);
 	    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
 	    			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
 	    			
-	    			//int ToIntHashCurrentValue=0;
-	    			String HashCurrentValue="";
+	    			Long ToIntHashCurrentValue=(long)0;
+	    			String HashCurrentValue = "0";
 	    			while (Iterator2.hasNext()) {
 	    				Entry<String, Object> en1 = Iterator2.next();
 	    			
 	    				
 	    				if (strClusteringKeyColumn.equals(en1.getKey())) {
+	    					
 	    					 HashCurrentValue=(String)en1.getValue(); 
-	    				  //ToIntHashCurrentValue=Integer.parseInt(HashCurrentValue);
+	    				  break;
 	    				    
 	    				}
 	    				
 	    			}
-	    			  if(HashCurrentValue.compareTo(KeyValue)<0 && i==tuples.size()-1){
+					
+					String FirstKey= "";
+					
+					byte[] ByteFirst = null;
+					try {
+						ByteFirst = HashCurrentValue.getBytes("UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					for(int j = ByteFirst.length-1;j>0;j--){
+						FirstKey=ByteFirst[i]+""+FirstKey;}
+					
+					
+					 ToIntHashCurrentValue=Long.parseLong(FirstKey);
+					 if(ToIntHashCurrentValue>parseInt && i==tuples.size()-1){
 	                	   tuples.addFirst(htblColNameVale);
 	                	   currentLine++;
 	                	   break;}
-	    	  else  if(HashCurrentValue.compareTo(KeyValue)>0 && i==0){
+	    	  else  if(ToIntHashCurrentValue<parseInt && i==0){
 	    	    	
 	            	   tuples.addLast(htblColNameVale); 
 	            	   currentLine++;
 	            	   break;}
-	    			else if(HashCurrentValue.compareTo(KeyValue)==0){
+	    	    if(ToIntHashCurrentValue<parseInt){
+	   				tuples.add(i,htblColNameVale);
+	   				currentLine++;
+	   		         break;
+	   				
+	   			}
+	               else if(ToIntHashCurrentValue==parseInt){
 	    				throw new DBAppException(); ///print already exists
 	    				
 	    			}
-	    			else if(HashCurrentValue.compareTo(KeyValue)>0){
-	    				
-	    				
-	    				tuples.add(i,htblColNameVale);
-	    				
-	    			}
+	    			
 	    		
 	    			
 	    		}
-			}
-			else{
-				tuples.add(0,htblColNameVale);
-			}
 
 			
 		}
-		
+				else{
+					 System.out.println("first");
+					tuples.add(0,htblColNameVale);
+					//htblColNameVale.clear();
+					//Only enters with the first insertion
+				 }
+		}
 		
 		
 		else{
 			///case int 
 		 if(!tuples.isEmpty()){
-			 //System.out.println("Here");
+			 System.out.println("Here");
 			 //System.out.println(htblColNameVale); //What empties tuples ? 
 			
 			for(int i = 0;i<tuples.size();i++){
@@ -132,22 +153,22 @@ public class Page implements Serializable {
     				
     			}
 				
-    	  if(ToIntHashCurrentValue>clusterKeyPrimary && i==tuples.size()-1){
+    	  if(ToIntHashCurrentValue>parseInt && i==tuples.size()-1){
                 	   tuples.addFirst(htblColNameVale);
                 	   currentLine++;
                 	   break;}
-    	  else  if(ToIntHashCurrentValue<clusterKeyPrimary && i==0){
+    	  else  if(ToIntHashCurrentValue<parseInt && i==0){
     	    	
             	   tuples.addLast(htblColNameVale); 
             	   currentLine++;
             	   break;}
-    	    if(ToIntHashCurrentValue<clusterKeyPrimary){
+    	    if(ToIntHashCurrentValue<parseInt){
    				tuples.add(i,htblColNameVale);
    				currentLine++;
    		         break;
    				
    			}
-               else if(ToIntHashCurrentValue==clusterKeyPrimary){
+               else if(ToIntHashCurrentValue==parseInt){
     				throw new DBAppException(); ///print already exists
     				
     			}
@@ -158,6 +179,7 @@ public class Page implements Serializable {
 		 
 		 
 		 else{
+			 System.out.println("first");
 			tuples.add(0,htblColNameVale);
 			//htblColNameVale.clear();
 			//Only enters with the first insertion

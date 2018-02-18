@@ -1,3 +1,5 @@
+package Task1;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -63,7 +65,7 @@ public class Table implements Serializable  {
 		try {
 			MakeMeta(htblColNameType);
 			
-			//System.out.println("Created");
+			System.out.println("Created");
 		} catch (DBAppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,7 +130,7 @@ public class Table implements Serializable  {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		//System.out.println("meta");
+		System.out.println("meta");
 	}
 	
 	// checks if no pages exist or page is full to create new page and insert in it then add it to ArrayList Pages
@@ -140,12 +142,14 @@ public class Table implements Serializable  {
 		htblColNameVale.put("Last updated", now);
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
-			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".ser");
+			System.out.println("1");
+			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".class");
 			Page page = new Page((Pages.size()+1),file, strClusteringKeyColumn);
 			//doesnt work with (htblColNameval.size()*2)-1??
 		   //Not here
 			//System.out.println("Bla");
-			Pages.add(page);		
+			Pages.add(page);
+			System.out.println(Pages.size());
 		}
 			
 		boolean IsString=false;
@@ -154,17 +158,16 @@ public class Table implements Serializable  {
 			Object key= htblColNameVale.get(strClusteringKeyColumn);
 			if(key instanceof String){
 				
-				//System.out.println("Here"); //So the bug isn't cased by this if
+				System.out.println("Here"); //So the bug isn't cased by this if
 				String primary=(String)key;
-				System.out.println(key);
-				/*Long parseInt = (long) 0;
+				Long parseInt = (long) 0;
 				try {
 					String clusterKeyPrimary = "0";
 					byte[] infoBin = primary.getBytes("UTF-8");
 					for(int i = infoBin.length-1;i>0;i--){
 						clusterKeyPrimary=infoBin[i]+""+clusterKeyPrimary;
 					}
-					parseInt= Long.parseLong(clusterKeyPrimary);*/
+					parseInt=  Long.parseLong(clusterKeyPrimary);
 					
 					
 					for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
@@ -175,14 +178,8 @@ public class Table implements Serializable  {
 						Hashtable<String,Object> Last=tuples.getLast();
 						String firstValue= (String)first.get(strClusteringKeyColumn);
 						String SecondValue= (String)Last.get(strClusteringKeyColumn);
-						int Upper=primary.compareTo(firstValue);
 						
-						
-						int Lower=primary.compareTo(SecondValue);
-						System.out.println(Upper);
-						System.out.println(Lower);
-
-						/*String FirstKey= "0";
+						String FirstKey= "0";
 						String SecondKey="0";
 						byte[] ByteFirst = firstValue.getBytes("UTF-8");
 						byte[] ByteSecond = SecondValue.getBytes("UTF-8");
@@ -193,13 +190,13 @@ public class Table implements Serializable  {
 							SecondKey=ByteSecond[j]+""+SecondKey;
 							
 						}
-						long firstParsed=Long.parseLong(FirstKey);
-						long secondParsed=Long.parseLong(SecondKey);*/
+						Long firstParsed=Long.parseLong(FirstKey);
+						Long secondParsed=Long.parseLong(SecondKey);
 						/// this check is for when the value exists between the first two values of two pages 
 						// indicating that the value must be inserted in the first page of
-						if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
-							System.out.println("Entered");
-							p.insertIntoPage(htblColNameVale,primary, -1,!IsString);
+						if(parseInt>firstParsed && parseInt<secondParsed){
+							
+							p.insertIntoPage(htblColNameVale, parseInt,!IsString);
 							
                             
 							p.loadPage(i,this.strTableName);
@@ -212,21 +209,25 @@ public class Table implements Serializable  {
 					 
 					
 					 else{
-						 p.insertIntoPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
+						 p.insertIntoPage(htblColNameVale, parseInt,!IsString);
 							p.loadPage(i,this.strTableName);
 							updatePages(i);
+							break;
 						 
 					 }
 						
 					}
 				}
 					//
-			
-			else{
+			 catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}else{
 				//case numerical
 				
 				
-				int key1=(int)htblColNameVale.get(strClusteringKeyColumn);
+				long key1=(int) htblColNameVale.get(strClusteringKeyColumn);
 				
 				for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
 					Page p=Pages.get(i);
@@ -240,15 +241,15 @@ public class Table implements Serializable  {
 						System.out.println(tuples.get(j));
 						
 					}
-					//System.out.println(key1);
+					System.out.println(key1);
 					Hashtable<String,Object> first=tuples.getFirst();
 					
 					//System.out.println(tuples.getFirst());
 					Hashtable<String,Object> Last=Pages.get(i).tuples.getLast();
-					int firstValue= (int)first.get(strClusteringKeyColumn);
-					//System.out.println(firstValue+"first"); //it prints our value
-					int SecondValue= (int)Last.get(strClusteringKeyColumn);
-					//System.out.println(SecondValue+"last");
+					Long firstValue= (Long)first.get(strClusteringKeyColumn);
+					System.out.println(firstValue+"first"); //it prints our value
+					Long SecondValue= (Long)Last.get(strClusteringKeyColumn);
+					System.out.println(SecondValue+"last");
 					
                     
                     	
@@ -270,7 +271,7 @@ public class Table implements Serializable  {
                     	
                     if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
 
-					p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
+					p.insertIntoPage(htblColNameVale, key1,IsString);
 					Pages.add(i, p);
 					
 					p.loadPage(i,this.strTableName);
@@ -284,7 +285,7 @@ public class Table implements Serializable  {
 			}
 				 
 				 else{
-					 p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
+					 p.insertIntoPage(htblColNameVale, key1,IsString);
 					
 					 Pages.add(i, p);
 					 
@@ -305,19 +306,17 @@ public class Table implements Serializable  {
 		
 		}
 		
+		
 		else{
 			throw new DBAppException();//TO-DO message
 		}
 	}
-		
-		
 	
-		
-	
-
 	public void updatePages(int startingPage){ 
-		/*Page p = Pages.get(startingPage);
+		Page p = Pages.get(startingPage);
+		System.out.println("Hna");
 		if(p.check()){
+			System.out.println("Hna");
 			for(int i = startingPage;i<Pages.size()-1;i++){
 				if((Pages.get(i).check())){
 				Pages.get(i+1).tuples.addFirst((Pages.get(i).tuples.getLast()));
@@ -327,10 +326,10 @@ public class Table implements Serializable  {
 				Pages.get(i+1).currentLine++;
 				}
 			
-		}*/
+		}
 		
 		
 		
 		
 
-}}
+}}}
