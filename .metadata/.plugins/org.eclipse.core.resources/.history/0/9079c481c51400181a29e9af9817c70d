@@ -34,7 +34,7 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>=2;
+       return this.currentLine>=200;
     }
     // insert method for pages 
     public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
@@ -81,23 +81,21 @@ public class Page implements Serializable {
 	    			
 	    			
 	    	 
-	    	   
+	    	    if(HashCurrentValue.compareTo(KeyValue)<0 && i==0){
+	    	    	
+	          	   tuples.addLast(htblColNameVale); 
+	          	   currentLine++;
+	          	   break;}
 	    	    
-	    	    if(HashCurrentValue.compareTo(KeyValue)>0 && i==0){
+	    	    if(HashCurrentValue.compareTo(KeyValue)>0 && i==tuples.size()-1){
              	   tuples.addFirst(htblColNameVale);
              	   currentLine++;
              	   break;}
-	    	 
 	    	
 	    	   if(HashCurrentValue.compareTo(KeyValue)>0){
 	   				tuples.add(i,htblColNameVale);
 	   				currentLine++;
 	   		         break;}
-	    	    if(HashCurrentValue.compareTo(KeyValue)<0 && i==tuples.size()-1){
-   	    	
-          	   tuples.addLast(htblColNameVale); 
-          	   currentLine++;
-          	   break;}
 	    	
 	    	
 	    			

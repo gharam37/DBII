@@ -141,18 +141,13 @@ public class DbApp {
 		insertIntoTable( strTableName , htblColName1 );
 		
 		Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
+
+		htblColName4.put("name", new String("Bass Mahmoud" ) );
 		htblColName4.put("Social Security number", new Integer( 453455 ));
-		htblColName4.put("name", new String("Bassem Mahmoud" ) );
-	
 		htblColName4.put("age", new Integer( 30 ) );
 		insertIntoTable( strTableName , htblColName4 );
 		//Thread.sleep(100000);
-		Hashtable<String,Object> htblColName5 = new Hashtable<String,Object>( );
-		htblColName5.put("Social Security number", new Integer( 453455 ));
-		htblColName5.put("name", new String("Bassem Ahmed" ) );
-	
-		htblColName5.put("age", new Integer( 30 ) );
-		insertIntoTable( strTableName , htblColName5 );
+		
 		Hashtable<String,Object> htblColName3 = new Hashtable<String,Object>( );
 
 		htblColName3.put("Social Security number", new Integer( 78452 ));
