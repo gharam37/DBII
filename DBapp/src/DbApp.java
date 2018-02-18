@@ -37,6 +37,77 @@ public class DbApp {
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) throws DBAppException, InterruptedException{
+		
+		
+		
+		
+		String strTableName1 = "Person";
+		@SuppressWarnings("rawtypes")
+		Hashtable htblColNameType1 = new Hashtable( );
+		htblColNameType1.put("name", "java.lang.String");
+		htblColNameType1.put("Social Security number", "java.lang.Integer");
+		htblColNameType1.put("age", "java.lang.double");
+
+		try {
+			
+			createTable( strTableName1, "name", htblColNameType1 );
+		} catch (DBAppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Hashtable<String,Object> htblColName20 = new Hashtable<String,Object>( );
+		htblColName20.put("Social Security number", new Integer( 23498 ));
+		htblColName20.put("name", new String("Cenq David" ) );
+		htblColName20.put("age", new Integer( 30 ) );
+		//Thread.sleep(1000000);
+		insertIntoTable( strTableName1 , htblColName20 );
+	
+		Hashtable<String,Object> htblColName10 = new Hashtable<String,Object>( );
+		htblColName10.put("Social Security number", new Integer( 453455 ));
+		htblColName10.put("name", new String("Ahmed Mohammed" ) );
+		
+		htblColName10.put("age", new Integer( 20 ) );
+		insertIntoTable( strTableName1 , htblColName10 );
+		
+		Hashtable<String,Object> htblColName40 = new Hashtable<String,Object>( );
+		htblColName40.put("Social Security number", new Integer( 453455 ));
+		htblColName40.put("name", new String("Bassem Mahmoud" ) );
+	
+		htblColName40.put("age", new Integer( 30 ) );
+		insertIntoTable( strTableName1 , htblColName40 );
+		//Thread.sleep(100000);
+		Hashtable<String,Object> htblColName50 = new Hashtable<String,Object>( );
+		htblColName50.put("Social Security number", new Integer( 453455 ));
+		htblColName50.put("name", new String("Bassem Ahmed" ) );
+	
+		htblColName50.put("age", new Integer( 30 ) );
+		insertIntoTable( strTableName1 , htblColName50 );
+		Hashtable<String,Object> htblColName30 = new Hashtable<String,Object>( );
+
+		htblColName30.put("Social Security number", new Integer( 78452 ));
+		htblColName30.put("name", new String("Darine Noor" ) );
+		htblColName30.put("age", new Integer( 50 ) );
+		insertIntoTable( strTableName1 , htblColName30);
+		
+		Hashtable<String,Object> htblColName60 = new Hashtable<String,Object>( );
+
+		htblColName60.put("Social Security number", new Integer( 78452 ));
+		htblColName60.put("name", new String("Darine Omar" ) );
+		htblColName60.put("age", new Integer( 50 ) );
+		insertIntoTable( strTableName1 , htblColName60);
+		
+		Hashtable<String,Object> htblColName70 = new Hashtable<String,Object>( );
+
+		htblColName70.put("Social Security number", new Integer( 78452 ));
+		htblColName70.put("name", new String("Darine othman" ) );
+		htblColName70.put("age", new Integer( 50 ) );
+		insertIntoTable( strTableName1 , htblColName70);
+		
+		
+		
+		
+		
+		
 		String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
@@ -51,7 +122,7 @@ public class DbApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Hashtable<String,Object> htblColNameValueGharamWantsToChange = new Hashtable<String,Object>( );
+		/*Hashtable<String,Object> htblColNameValueGharamWantsToChange = new Hashtable<String,Object>( );
 
 		htblColNameValueGharamWantsToChange.put("id", new Integer( 2343432 ));
 		htblColNameValueGharamWantsToChange.put("name", new String("Ahmed Noor" ) );
@@ -59,6 +130,7 @@ public class DbApp {
 		insertIntoTable( strTableName , htblColNameValueGharamWantsToChange );
 		//Thread.sleep(10);
 		htblColNameValueGharamWantsToChange.clear( );
+		*/
 		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
 
 		htblColName1.put("id", new Integer( 453455 ));
@@ -108,77 +180,13 @@ public class DbApp {
 		
 		
 		
-		
-		
-		
-		
-		
-		/*
-		
-		String strTableName = "Person";
-		@SuppressWarnings("rawtypes")
-		Hashtable htblColNameType = new Hashtable( );
-		htblColNameType.put("name", "java.lang.String");
-		htblColNameType.put("Social Security number", "java.lang.Integer");
-		htblColNameType.put("age", "java.lang.double");
-
-		try {
-			
-			createTable( strTableName, "name", htblColNameType );
-		} catch (DBAppException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Hashtable<String,Object> htblColName2 = new Hashtable<String,Object>( );
-		htblColName2.put("Social Security number", new Integer( 23498 ));
-		htblColName2.put("name", new String("Cenq David" ) );
-		htblColName2.put("age", new Integer( 30 ) );
-		//Thread.sleep(1000000);
-		insertIntoTable( strTableName , htblColName2 );
-	
-		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
-		htblColName1.put("Social Security number", new Integer( 453455 ));
-		htblColName1.put("name", new String("Ahmed Mohammed" ) );
-		
-		htblColName1.put("age", new Integer( 20 ) );
-		insertIntoTable( strTableName , htblColName1 );
-		
-		Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
-		htblColName4.put("Social Security number", new Integer( 453455 ));
-		htblColName4.put("name", new String("Bassem Mahmoud" ) );
-	
-		htblColName4.put("age", new Integer( 30 ) );
-		insertIntoTable( strTableName , htblColName4 );
-		//Thread.sleep(100000);
-		Hashtable<String,Object> htblColName5 = new Hashtable<String,Object>( );
-		htblColName5.put("Social Security number", new Integer( 453455 ));
-		htblColName5.put("name", new String("Bassem Ahmed" ) );
-	
-		htblColName5.put("age", new Integer( 30 ) );
-		insertIntoTable( strTableName , htblColName5 );
-		Hashtable<String,Object> htblColName3 = new Hashtable<String,Object>( );
-
-		htblColName3.put("Social Security number", new Integer( 78452 ));
-		htblColName3.put("name", new String("Darine Noor" ) );
-		htblColName3.put("age", new Integer( 50 ) );
-		insertIntoTable( strTableName , htblColName3);
-		
-		Hashtable<String,Object> htblColName6 = new Hashtable<String,Object>( );
-
-		htblColName6.put("Social Security number", new Integer( 78452 ));
-		htblColName6.put("name", new String("Darine Omar" ) );
-		htblColName6.put("age", new Integer( 50 ) );
-		insertIntoTable( strTableName , htblColName6);
-		
-		Hashtable<String,Object> htblColName7 = new Hashtable<String,Object>( );
-
-		htblColName7.put("Social Security number", new Integer( 78452 ));
-		htblColName7.put("name", new String("Darine othman" ) );
-		htblColName7.put("age", new Integer( 50 ) );
-		insertIntoTable( strTableName , htblColName7);
-		
 		*/
 		
+		
+		
+		
+		
+
 		/*String a="ala";
 		String b="bna";
 		try {

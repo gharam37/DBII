@@ -153,6 +153,7 @@ public class Table implements Serializable  {
 			
 		boolean IsString=false;
 		
+		
 		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
 			Object key= htblColNameVale.get(strClusteringKeyColumn);
 			if(key instanceof String){
@@ -277,7 +278,7 @@ public class Table implements Serializable  {
                     if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
 
 					p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
-					Pages.add(i, p);
+					
 					
 					//p.loadPage(i,this.strTableName);
 					 if(p.check()){
@@ -295,7 +296,7 @@ public class Table implements Serializable  {
 				 else{
 					 p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
 					
-					 Pages.add(i, p);
+					 
 					 
 					 
 					
