@@ -78,11 +78,11 @@ public class Page implements Serializable {
 	    				}
 	    				
 	    			}
-	    			  if(HashCurrentValue.compareTo(KeyValue)<0 && i==tuples.size()-1){
+	    			  if(ToIntHashCurrentValue>clusterKeyPrimary && i==tuples.size()-1){
 	                	   tuples.addFirst(htblColNameVale);
 	                	   currentLine++;
 	                	   break;}
-	    	  else  if(HashCurrentValue.compareTo(KeyValue)>0 && i==0){
+	    	  else  if(ToIntHashCurrentValue<clusterKeyPrimary && i==0){
 	    	    	
 	            	   tuples.addLast(htblColNameVale); 
 	            	   currentLine++;

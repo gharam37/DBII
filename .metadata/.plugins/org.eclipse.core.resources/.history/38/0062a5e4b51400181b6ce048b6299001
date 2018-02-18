@@ -197,8 +197,8 @@ public class Table implements Serializable  {
 						long secondParsed=Long.parseLong(SecondKey);*/
 						/// this check is for when the value exists between the first two values of two pages 
 						// indicating that the value must be inserted in the first page of
-						if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
-							System.out.println("Entered");
+						if(Upper>0 && Lower<0 ||(Upper<0 && Lower <0)){ //////Fixed the exception
+							
 							p.insertIntoPage(htblColNameVale,primary, -1,!IsString);
 							
                             

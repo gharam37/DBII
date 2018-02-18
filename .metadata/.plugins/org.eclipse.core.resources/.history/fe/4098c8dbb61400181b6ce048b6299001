@@ -134,9 +134,8 @@ public class DbApp {
 		insertIntoTable( strTableName , htblColName2 );
 	
 		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
-		htblColName1.put("Social Security number", new Integer( 453455 ));
 		htblColName1.put("name", new String("Ahmed Mohammed" ) );
-		
+		htblColName1.put("Social Security number", new Integer( 453455 ));
 		htblColName1.put("age", new Integer( 20 ) );
 		insertIntoTable( strTableName , htblColName1 );
 		
