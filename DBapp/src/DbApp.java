@@ -35,7 +35,7 @@ public class DbApp {
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) throws DBAppException, InterruptedException{
-		String strTableName = "Student";
+		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
 		htblColNameType.put("id", "java.lang.Integer");
@@ -48,7 +48,7 @@ public class DbApp {
 		} catch (DBAppException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		/*htblColNameValue.put("id", new Integer( 2343432 ));
 		htblColNameValue.put("name", new String("Ahmed Noor" ) );
@@ -56,7 +56,7 @@ public class DbApp {
 		insertIntoTable( strTableName , htblColNameValue );
 		//Thread.sleep(10);
 		htblColNameValue.clear( );*/
-		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
+		/*Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
 
 		htblColName1.put("id", new Integer( 453455 ));
 		htblColName1.put("name", new String("Ahmed Mohammed" ) );
@@ -83,7 +83,7 @@ public class DbApp {
 		htblColName3.put("id", new Integer( 78452 ));
 		htblColName3.put("name", new String("Zaky Noor" ) );
 		htblColName3.put("gpa", new Double( 0.88 ) );
-		insertIntoTable( strTableName , htblColName3);
+		insertIntoTable( strTableName , htblColName3);*/
 		
 		/*String a="ala";
 		String b="bna";
@@ -104,7 +104,80 @@ public class DbApp {
 		
 		
 		
+		
+		
+		
+		
+		
+		
+		
+		
+		String strTableName = "Person";
+		@SuppressWarnings("rawtypes")
+		Hashtable htblColNameType = new Hashtable( );
+		htblColNameType.put("name", "java.lang.String");
+		htblColNameType.put("Social Security number", "java.lang.Integer");
+		htblColNameType.put("age", "java.lang.double");
+
+		try {
+			
+			createTable( strTableName, "name", htblColNameType );
+		} catch (DBAppException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		Hashtable<String,Object> htblColName2 = new Hashtable<String,Object>( );
+		htblColName2.put("Social Security number", new Integer( 23498 ));
+		htblColName2.put("name", new String("Cenq David" ) );
+		htblColName2.put("age", new Integer( 30 ) );
+		//Thread.sleep(1000000);
+		insertIntoTable( strTableName , htblColName2 );
+	
+		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
+		htblColName1.put("name", new String("Ahmed Mohammed" ) );
+		htblColName1.put("Social Security number", new Integer( 453455 ));
+		htblColName1.put("age", new Integer( 20 ) );
+		insertIntoTable( strTableName , htblColName1 );
+		
+		Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
+
+		htblColName4.put("name", new String("Bassem Mahmoud" ) );
+		htblColName4.put("Social Security number", new Integer( 453455 ));
+		htblColName4.put("age", new Integer( 30 ) );
+		insertIntoTable( strTableName , htblColName4 );
+		//Thread.sleep(100000);
+		
+		Hashtable<String,Object> htblColName3 = new Hashtable<String,Object>( );
+
+		htblColName3.put("Social Security number", new Integer( 78452 ));
+		htblColName3.put("name", new String("Darine Noor" ) );
+		htblColName3.put("age", new Integer( 50 ) );
+		insertIntoTable( strTableName , htblColName3);
+		
+		
+		
+		
+		
+		
+		/*String a="ala";
+		String b="bna";
+		try {
+			byte[] infoBin = a.getBytes("UTF-8");
+			byte[] infoBin1 = b.getBytes("UTF-8");
+			for(int i=0;i<infoBin.length;i++){
+				System.out.print(infoBin[i]+"  ");
+			}
+			System.out.println("");
+			for(int i=0;i<infoBin1.length;i++){
+				System.out.print(infoBin1[i]+"  ");
+			}
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();*/
+		}
+		
+		
 	}
 
-}
+
 

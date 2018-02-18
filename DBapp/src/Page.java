@@ -37,7 +37,7 @@ public class Page implements Serializable {
        return this.currentLine>=200;
     }
     // insert method for pages 
-    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, int clusterKeyPrimary,Boolean isString) throws DBAppException{
+    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
     	//System.out.println(clusterKeyPrimary);
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -59,29 +59,30 @@ public class Page implements Serializable {
 		}
 		if(isString){ /////////////Remember to add currentLine
 		
-				
+			if(!tuples.isEmpty()){
 				for(int i = 0;i<tuples.size();i++){
 	    			hashtable= tuples.get(i);
 	    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
 	    			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
 	    			
-	    			int ToIntHashCurrentValue=0;
+	    			//int ToIntHashCurrentValue=0;
+	    			String HashCurrentValue="";
 	    			while (Iterator2.hasNext()) {
 	    				Entry<String, Object> en1 = Iterator2.next();
 	    			
 	    				
 	    				if (strClusteringKeyColumn.equals(en1.getKey())) {
-	    					String HashCurrentValue=(String)en1.getValue(); 
-	    				  ToIntHashCurrentValue=Integer.parseInt(HashCurrentValue);
+	    					 HashCurrentValue=(String)en1.getValue(); 
+	    				  //ToIntHashCurrentValue=Integer.parseInt(HashCurrentValue);
 	    				    
 	    				}
 	    				
 	    			}
-	    			if(ToIntHashCurrentValue==clusterKeyPrimary){
+	    			if(HashCurrentValue.compareTo(KeyValue)==0){
 	    				throw new DBAppException(); ///print already exists
 	    				
 	    			}
-	    			else if(ToIntHashCurrentValue>clusterKeyPrimary){
+	    			else if(HashCurrentValue.compareTo(KeyValue)>0){
 	    				
 	    				
 	    				tuples.add(i,htblColNameVale);
@@ -90,6 +91,10 @@ public class Page implements Serializable {
 	    		
 	    			
 	    		}
+			}
+			else{
+				tuples.add(0,htblColNameVale);
+			}
 
 			
 		}
@@ -99,7 +104,7 @@ public class Page implements Serializable {
 		else{
 			///case int 
 		 if(!tuples.isEmpty()){
-			 System.out.println("Here");
+			 //System.out.println("Here");
 			 //System.out.println(htblColNameVale); //What empties tuples ? 
 			
 			for(int i = 0;i<tuples.size();i++){
