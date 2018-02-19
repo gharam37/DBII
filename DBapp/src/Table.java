@@ -342,7 +342,7 @@ public class Table implements Serializable  {
 	
 	
 	
-	public void updateTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
+	public void updateTable(Hashtable<String, Object> htblColNameVale, String strKey) throws DBAppException{
 		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		//System.out.println(dtf.format(now)); //testing if it prints correcting
