@@ -1,40 +1,16 @@
 package Task1;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map.Entry; 
 import java.util.Set;
-
-
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Hashtable;
-import java.util.Iterator;
-import java.util.Map.Entry; 
-import java.util.Set;
-
 
 
 public class Table implements Serializable  {
@@ -136,7 +112,7 @@ public class Table implements Serializable  {
 	// checks if no pages exist or page is full to create new page and insert in it then add it to ArrayList Pages
 	// if page exist and not full it inserts Into the page
 	public void insertIntoTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
 		LocalDateTime now = LocalDateTime.now();
 		//System.out.println(dtf.format(now)); //testing if it prints correcting
 		htblColNameVale.put("Last updated", now);
@@ -357,7 +333,176 @@ public class Table implements Serializable  {
 		
 		
 
-}}
+}
+	
+	
+	
+	/////////////////////////////////////////////////update method/////////////////////////////////////////////////////////////////////////
+	
+	
+	
+	
+	public void updateTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
+		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+		LocalDateTime now = LocalDateTime.now();
+		//System.out.println(dtf.format(now)); //testing if it prints correcting
+		htblColNameVale.put("Last updated", now);
+		
+		
+		boolean IsString=false;
+		
+		
+		if(htblColNameVale.containsKey(strClusteringKeyColumn)){
+			Object key= htblColNameVale.get(strClusteringKeyColumn);
+			if(key instanceof String){
+				
+				//System.out.println("Here"); //So the bug isn't cased by this if
+				String primary=(String)key;
+				//System.out.println(key);
+				/*Long parseInt = (long) 0;
+				try {
+					String clusterKeyPrimary = "0";
+					byte[] infoBin = primary.getBytes("UTF-8");
+					for(int i = infoBin.length-1;i>0;i--){
+						clusterKeyPrimary=infoBin[i]+""+clusterKeyPrimary;
+					}
+					parseInt= Long.parseLong(clusterKeyPrimary);*/
+					
+					
+					for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+						Page p=Pages.get(i);
+						LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					 if(!tuples.isEmpty()){
+						Hashtable<String,Object> first=tuples.getFirst();
+						Hashtable<String,Object> Last=tuples.getLast();
+						String firstValue= (String)first.get(strClusteringKeyColumn);
+						String SecondValue= (String)Last.get(strClusteringKeyColumn);
+						int Upper=primary.compareTo(firstValue);
+						
+						
+						int Lower=primary.compareTo(SecondValue);
+						//System.out.println(Upper);
+						//System.out.println(Lower);
+
+						/*String FirstKey= "0";
+						String SecondKey="0";
+						byte[] ByteFirst = firstValue.getBytes("UTF-8");
+						byte[] ByteSecond = SecondValue.getBytes("UTF-8");
+						for(int j = ByteFirst.length-1;j>0;j--){
+							FirstKey=ByteFirst[i]+""+FirstKey;}
+						
+						for(int j = ByteSecond.length-1;j>0;j--){
+							SecondKey=ByteSecond[j]+""+SecondKey;
+							
+						}
+						long firstParsed=Long.parseLong(FirstKey);
+						long secondParsed=Long.parseLong(SecondKey);*/
+						/// this check is for when the value exists between the first two values of two pages 
+						// indicating that the value must be inserted in the first page of
+						if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
+							
+							p.updateIntoPage(htblColNameVale,primary, -1,!IsString);
+							
+                            
+							//p.loadPage(i,this.strTableName);
+							
+							LoadAll();
+							break;
+					}
+						
+					 
+					}
+					 
+					
+					 else{
+						throw new DBAppException();
+							
+					 }
+						
+					}
+				}
+					//
+			
+			else{
+				//case numerical
+				
+				
+				int key1=(int)htblColNameVale.get(strClusteringKeyColumn);
+				
+				for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
+					Page p=Pages.get(i);
+					LinkedList<Hashtable<String,Object>> tuples=p.tuples;
+					
+				
+				 if(!tuples.isEmpty()){
+					//System.out.println(tuples.size());
+					//System.out.println(tuples.get(0));
+					
+					//System.out.println(key1);
+					Hashtable<String,Object> first=tuples.getFirst();
+					
+					//System.out.println(tuples.getFirst());
+					Hashtable<String,Object> Last=Pages.get(i).tuples.getLast();
+					int firstValue= (int)first.get(strClusteringKeyColumn);
+					//System.out.println(firstValue+"first"); //it prints our value
+					int SecondValue= (int)Last.get(strClusteringKeyColumn);
+					//System.out.println(SecondValue+"last");
+					
+                    
+                    	
+                     /*if(key1>firstValue){
+                    	 //p.insertIntoPage(htblColNameVale, key1,IsString);
+                    	 tuples.addLast(htblColNameVale);
+                    	
+                     }
+                     
+                     else if(key1<SecondValue){
+                    	 
+                    	 tuples.addFirst(htblColNameVale);
+                     }*/
+                    	 
+                    
+                    
+                     
+                  
+                    	
+                    if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
+
+					p.updateIntoPage(htblColNameVale,"" ,key1,IsString);
+					
+					
+					//p.loadPage(i,this.strTableName);
+					
+						LoadAll();
+						break;
+					}
+				
+			
+				
+
+			}
+				 
+				 else{
+					 throw new DBAppException();
+				 }
+		}
+				
+			
+			
+	  }
+			
+		
+		
+		
+		}
+		
+		else{
+			throw new DBAppException();//TO-DO message
+		}
+	}
+		
+		
+}
 
 					 
 					 

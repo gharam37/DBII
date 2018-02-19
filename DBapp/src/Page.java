@@ -7,8 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
-import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -285,7 +283,176 @@ public class Page implements Serializable {
 	 this.No=pageNo;
 	 this.strClusteringKeyColumn=strClusteringKeyColumn;
  }
+ 
+ 
+ 
+ 
+ /////////////////////////////////////////////////update page///////////////////////////////////////////////////////////////////////////////////////////
 
+ 
+ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+ 	Hashtable<String,Object> hashtable =null;
+ 	//System.out.println(clusterKeyPrimary);
+ 	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
+		
+		
+		Iterator <Entry<String, Object>> Iterator= FirstTuple.iterator();
+		Object HashValue=null;
+		
+		while (Iterator.hasNext()) {
+			Entry<String, Object> en = Iterator.next();
+		
+		
+			if (strClusteringKeyColumn.equals((String)en.getKey())) {
+				//System.out.println((String)en.getKey());
+				 HashValue=en.getValue();/// got the value of the primary key of the wanted to insert value
+				 //System.out.println(HashValue);
+				
+			}
+		}
+		if(isString){ /////////////Remember to add currentLine
+		
+			if(!tuples.isEmpty()){
+				for(int i = 0;i<tuples.size();i++){
+	    			hashtable= tuples.get(i);
+	    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
+	    			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
+	    			
+	    			//int ToIntHashCurrentValue=0;
+	    			String HashCurrentValue="";
+	    			while (Iterator2.hasNext()) {
+	    				Entry<String, Object> en1 = Iterator2.next();
+	    			
+	    				
+	    				if (strClusteringKeyColumn.equals(en1.getKey())) {
+	    					 HashCurrentValue=(String)en1.getValue(); 
+	    				  //ToIntHashCurrentValue=Integer.parseInt(HashCurrentValue);
+	    				    
+	    				}
+	    				
+	    			}
+	    			
+	    			
+	    	 
+	    	   
+	    	    
+	    	    if(HashCurrentValue.compareTo(KeyValue)==0 && i==0){
+	    	    	tuples.removeFirst();
+          	   tuples.addFirst(htblColNameVale);
+          	   
+          	   break;}
+	    	      if(HashCurrentValue.compareTo(KeyValue)==0 && i==tuples.size()-1){
+	    	tuples.removeLast();
+       	   tuples.addLast(htblColNameVale); 
+       	   
+       	   break;}
+	    	
+	    	    if(HashCurrentValue.compareTo(KeyValue)==0){
+	    		   tuples.remove(i);
+	   				tuples.add(i,htblColNameVale);
+	   				
+	   		         break;}
+	    	  
+	    		
+	    		
+	    			
+	    	}
+				
+				
+			}
+			else{
+				throw new DBAppException();
+				
+			}
+
+			
+		}
+		
+		
+		
+		else{
+			///case int 
+		 if(!tuples.isEmpty()){
+			 //System.out.println("Here");
+			 //System.out.println(htblColNameVale); //What empties tuples ? 
+			
+			for(int i = 0;i<tuples.size();i++){
+ 			hashtable= tuples.get(i);
+ 			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
+ 			Iterator <Entry<String, Object>> Iterator2= SecondTuple.iterator();
+ 			
+ 			int ToIntHashCurrentValue=0;
+ 			while (Iterator2.hasNext()) {
+ 				Entry<String, Object> en1 = Iterator2.next();
+ 			
+ 				
+ 				if (strClusteringKeyColumn.equals(en1.getKey())) {
+ 				    ToIntHashCurrentValue = (int)en1.getValue();
+ 				}
+ 				
+ 			}
+				
+ 	  if(ToIntHashCurrentValue==clusterKeyPrimary && i==tuples.size()-1){
+ 		  			tuples.removeLast();
+             	   tuples.addLast(htblColNameVale);
+             	   
+             	   break;}
+ 	  else  if(ToIntHashCurrentValue==clusterKeyPrimary && i==0){
+ 	    	tuples.removeFirst();
+         	   tuples.addFirst(htblColNameVale); 
+         	  
+         	   break;}
+ 	      if(ToIntHashCurrentValue==clusterKeyPrimary){
+ 	    	  tuples.remove(i);
+				tuples.add(i,htblColNameVale);
+				
+		         break;
+				
+			}
+            
+ 			
+ 		//Hello
+ 			
+ 		}}
+		 
+		 
+		 else{
+			throw new DBAppException();
+		 }
+		}
+ 		
+     	
+     	   ObjectOutputStream ObjectOutputStream;
+    		try {
+    			ObjectOutputStream = new ObjectOutputStream(
+    					new FileOutputStream(
+    							this.file));
+    			//intially writing the page as a big fat serializable thing .. make this our page XD 
+    			ObjectOutputStream.writeObject(this); // page already made
+    			ObjectOutputStream.close();
+    			
+    		} catch (FileNotFoundException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		} catch (IOException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    		
+     
+     }
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
 }
     
 

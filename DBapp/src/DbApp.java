@@ -1,6 +1,5 @@
 package Task1;
 
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
@@ -33,7 +32,20 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
-			
+	public static void updateTable(String strTableName,Hashtable<String,Object> htblColNameVale) throws DBAppException{
+		boolean Flag = true;
+		for(int i = 0; i<Tables.size();i++){
+			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
+				((Table)Tables.get(i)).updateTable(htblColNameVale);
+				
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag){
+			System.out.println("Table Name not found");
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static void main(String[]args) throws DBAppException, InterruptedException{
@@ -103,9 +115,19 @@ public class DbApp {
 		htblColName70.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName1 , htblColName70);
 		
+		Hashtable<String,Object> htblColName80 = new Hashtable<String,Object>( );
+
+		htblColName80.put("Social Security number", new Integer( 123456789 ));
+		htblColName80.put("name", new String("Darine othman" ) );
+		htblColName80.put("age", new Integer( 123456789 ) );
+		updateTable( strTableName1 , htblColName80);
 		
-		
-		
+		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
+		htblColName90.put("Social Security number", new Integer( 67896789 ));
+		htblColName90.put("name", new String("Cenq David" ) );
+		htblColName90.put("age", new Integer( 2048 ) );
+		//Thread.sleep(1000000);
+		updateTable( strTableName1 , htblColName90 );
 		
 		
 		String strTableName = "Student";
@@ -159,6 +181,22 @@ public class DbApp {
 		htblColName3.put("name", new String("Zaky Noor" ) );
 		htblColName3.put("gpa", new Double( 0.88 ) );
 		insertIntoTable( strTableName , htblColName3);
+		
+		Hashtable<String,Object> htblColName5 = new Hashtable<String,Object>( );
+
+		htblColName5.put("id", new Integer( 78452 ));
+		htblColName5.put("name", new String("Zaky balabizohahhaha" ) );
+		htblColName5.put("gpa", new Double( 123413244.29292929292 ) );
+		updateTable( strTableName , htblColName5);
+		
+		
+		Hashtable<String,Object> htblColName6 = new Hashtable<String,Object>( );
+
+		htblColName6.put("id", new Integer( 453455 ));
+		htblColName6.put("name", new String("Ahmed Mohammed abdullah khaled bassim aly mohamed" ) );
+		htblColName6.put("gpa", new Double( 199799.199799 ) );
+		updateTable( strTableName , htblColName6 );
+		
 		
 		/*String a="ala";
 		String b="bna";
