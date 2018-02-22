@@ -122,7 +122,7 @@ public class Table implements Serializable  {
 		htblColNameVale.put("Last updated", now);
 		
 		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
-			System.out.println("made page");
+			//System.out.println("made page");
 			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".class");
 			Page page = new Page((Pages.size()+1),file, strClusteringKeyColumn);
 			//doesnt work with (htblColNameval.size()*2)-1??
@@ -330,10 +330,10 @@ public class Table implements Serializable  {
 						e.printStackTrace();
 					}	}
 			
-				for(int i = 0;i<Pages.size();i++){
+				/*for(int i = 0;i<Pages.size();i++){
 					System.out.println(Pages.get(i).tuples.size()+"::://*");
 					//System.out.println(Pages.get(i).currentLine);
-				}
+				}*/
 		
 		
 
@@ -565,10 +565,10 @@ public class Table implements Serializable  {
 									
 		                            
 									//p.loadPage(i,this.strTableName);
-									if(!p.check()){
-										 updatePagesD(i,primary, -1, !IsString);
+									
+										 updatePagesD(i, !IsString);
 										 
-									 }
+									 
 									
 									LoadAll();
 									
@@ -581,9 +581,9 @@ public class Table implements Serializable  {
 							 else{
 								 Pages.get(i).DeleteFromPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
 									//p.loadPage(i,this.strTableName);
-								 if(!p.check()){
-									 updatePagesD(i,primary, -1, !IsString);
-									 }
+								
+									 updatePagesD(i,!IsString);
+									 
 									LoadAll();
 									
 							 }
@@ -642,7 +642,7 @@ public class Table implements Serializable  {
 							
 							//p.loadPage(i,this.strTableName);
 							 if(!p.check()){
-								 updatePagesD(i,"", key1, IsString);
+								 updatePagesD(i, IsString);
 							 }
 								LoadAll();
 								
@@ -662,7 +662,7 @@ public class Table implements Serializable  {
 							
 							
 							 if(!p.check()){
-									updatePagesD(i,"", key1, IsString);
+									updatePagesD(i, IsString);
 								 }
 							 LoadAll();
 							 
@@ -683,7 +683,7 @@ public class Table implements Serializable  {
 				}
 				
 	}
-	public void updatePagesD(int startingPage,String key,int strClusterKey,boolean flag){ //Update On delete
+	public void updatePagesD(int startingPage,boolean flag){ //Update On delete
 		
 		if(Pages.get(Pages.size()-1).IsEmpty()){
 			
@@ -692,13 +692,48 @@ public class Table implements Serializable  {
 		   Pages.get(Pages.size()-1).file.delete();
 			
 			Pages.remove(Pages.get(Pages.size()-1));
+			
 		}
+		System.out.println(Pages.get(startingPage).tuples.size()+"Current tuple size"+startingPage);
+
 		for(int i = startingPage;i<Pages.size()-1;i++){
-			if(!(Pages.get(i).check()))
+			System.out.println(Pages.get(i).tuples.size()+"Current tuple size");
+			if(!(Pages.get(i).tuples.size()==3))
 				try {
-											
-					Pages.get(i).insertIntoPage((Pages.get(i+1).tuples.getFirst()),key,strClusterKey,flag);
-					Pages.get(i+1).tuples.removeFirst();
+					Set<Entry<String, Object>> FirstTuple =Pages.get(i+1).tuples.getFirst().entrySet();
+					
+					
+					Iterator <Entry<String, Object>> Iterator= FirstTuple.iterator();
+					Object HashValue=null;
+					
+					while (Iterator.hasNext()) {
+						Entry<String, Object> en = Iterator.next();
+					
+					
+						if (strClusteringKeyColumn.equals((String)en.getKey())) {
+							//System.out.println((String)en.getKey());
+							 HashValue=en.getValue();/// got the value of the primary key of the wanted to insert value
+							 //System.out.println(HashValue);
+							
+						}
+					}
+				  if(flag){
+					  System.out.println("Here to update");
+						Hashtable<String,Object> hash=Pages.get(i+1).tuples.getFirst();
+						  Pages.get(i+1).tuples.removeFirst();
+
+						Pages.get(i).insertIntoPage(hash,(String)HashValue,-1,flag);
+
+					  
+				  }	
+				  else{
+					  System.out.println("Here to update");
+					  Hashtable<String,Object> hash=Pages.get(i+1).tuples.getFirst();
+					  Pages.get(i+1).tuples.removeFirst();
+					Pages.get(i).insertIntoPage(hash,"",(int)HashValue,flag);
+					
+				  }
+					
 					
 					//Pages.get(i).currentLine--;
 					//Pages.get(i+1).currentLine++;
@@ -708,10 +743,10 @@ public class Table implements Serializable  {
 					e.printStackTrace();
 				}	}
 		
-			for(int i = 0;i<Pages.size();i++){
+			/*for(int i = 0;i<Pages.size();i++){
 				System.out.println(Pages.get(i).tuples.size()+"::://*");
 				//System.out.println(Pages.get(i).currentLine);
-			}
+			}*/
 	
 	
 
