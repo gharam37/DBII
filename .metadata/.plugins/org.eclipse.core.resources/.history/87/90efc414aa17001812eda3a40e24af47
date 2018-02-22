@@ -444,7 +444,7 @@ public class Page implements Serializable {
  
  ////////////////////////////////////////////////////////////////DeleteFromPage/////////////////////////////////////////////////////////////////////////
  
- public void DeleteFromPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+ public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
  	Hashtable<String,Object> hashtable =null;
  	//System.out.println(clusterKeyPrimary);
  	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();

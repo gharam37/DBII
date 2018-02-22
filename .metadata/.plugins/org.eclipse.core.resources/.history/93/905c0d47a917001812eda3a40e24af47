@@ -500,13 +500,22 @@ public class Table implements Serializable  {
 			throw new DBAppException();//TO-DO message
 		}
 	}
-	/////////////////////////////////////////////////////////////////// Delete ////////////////
 	
-	public void DeleteFromTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
+	public void insertIntoTable(Hashtable<String, Object> htblColNameVale) throws DBAppException{
 		//DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
-
+		LocalDateTime now = LocalDateTime.now();
+		//System.out.println(dtf.format(now)); //testing if it prints correcting
+		htblColNameVale.put("Last updated", now);
 		
-		
+		if(Pages.isEmpty()|| Pages.get(Pages.size()-1).check()){
+			System.out.println("made page");
+			File file = new File(this.strTableName+" Table Page "+(Pages.size()+1)+ ".class");
+			Page page = new Page((Pages.size()+1),file, strClusteringKeyColumn);
+			//doesnt work with (htblColNameval.size()*2)-1??
+		   //Not here
+			//System.out.println("Bla");
+			Pages.add(page);		
+		}
 			
 		boolean IsString=false;
 		
@@ -560,7 +569,7 @@ public class Table implements Serializable  {
 						// indicating that the value must be inserted in the first page of
 						if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
 							
-							p.DeleteFromPage(htblColNameVale,primary, -1,!IsString);
+							p.insertIntoPage(htblColNameVale,primary, -1,!IsString);
 							
                             
 							//p.loadPage(i,this.strTableName);
@@ -576,7 +585,7 @@ public class Table implements Serializable  {
 					 
 					
 					 else{
-						 p.DeleteFromPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
+						 p.insertIntoPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
 							//p.loadPage(i,this.strTableName);
 						 if(p.check()){
 							 updatePages(i,primary, -1, !IsString);
@@ -634,12 +643,14 @@ public class Table implements Serializable  {
                     	
                     if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
 
-					p.DeleteFromPage(htblColNameVale,"" ,key1,IsString);
+					p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
 					
 					
 					//p.loadPage(i,this.strTableName);
-					
-						
+					 if(p.check()){
+						 updatePages(i,"", key1, IsString);
+					 }
+						LoadAll();
 						break;
 					}
 				
@@ -649,14 +660,16 @@ public class Table implements Serializable  {
 			}
 				 
 				 else{
-					 p.DeleteFromPage(htblColNameVale,"" ,key1,IsString);
+					 p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
 					
 					 
 					 
 					 
 					
 					
-					/// Here goes a check
+					 if(p.check()){
+							updatePages(i,"", key1, IsString);
+						 }
 					 LoadAll();
 					 break;
 				 }

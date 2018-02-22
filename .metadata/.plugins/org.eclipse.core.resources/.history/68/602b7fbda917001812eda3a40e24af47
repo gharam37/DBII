@@ -638,7 +638,9 @@ public class Table implements Serializable  {
 					
 					
 					//p.loadPage(i,this.strTableName);
-					
+					 if(p.check()){
+						 updatePages(i,"", key1, IsString);
+					 }
 						
 						break;
 					}

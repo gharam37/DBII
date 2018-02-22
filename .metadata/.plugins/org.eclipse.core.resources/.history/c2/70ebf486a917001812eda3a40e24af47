@@ -576,7 +576,8 @@ public class Table implements Serializable  {
 					 
 					
 					 else{
-						 p.DeleteFromPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
+						 p.(htblColNameVale,primary, -1,!IsString);
+							(htblColNameVale, primary,-1,!IsString); //Increased attributes
 							//p.loadPage(i,this.strTableName);
 						 if(p.check()){
 							 updatePages(i,primary, -1, !IsString);
@@ -634,12 +635,14 @@ public class Table implements Serializable  {
                     	
                     if((key1>firstValue&& key1<SecondValue)||(key1<SecondValue)||(key1>firstValue)){ //missing case
 
-					p.DeleteFromPage(htblColNameVale,"" ,key1,IsString);
+					p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
 					
 					
 					//p.loadPage(i,this.strTableName);
-					
-						
+					 if(p.check()){
+						 updatePages(i,"", key1, IsString);
+					 }
+						LoadAll();
 						break;
 					}
 				
@@ -649,14 +652,16 @@ public class Table implements Serializable  {
 			}
 				 
 				 else{
-					 p.DeleteFromPage(htblColNameVale,"" ,key1,IsString);
+					 p.insertIntoPage(htblColNameVale,"" ,key1,IsString);
 					
 					 
 					 
 					 
 					
 					
-					/// Here goes a check
+					 if(p.check()){
+							updatePages(i,"", key1, IsString);
+						 }
 					 LoadAll();
 					 break;
 				 }
