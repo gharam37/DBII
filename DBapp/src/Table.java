@@ -530,6 +530,7 @@ public class Table implements Serializable  {
 							
 							for(int i=0;i<Pages.size();i++){  ///this is disgusting .. im ashamed of u romy
 								Page p=Pages.get(i);
+								System.out.println(i+this.strTableName);
 								LinkedList<Hashtable<String,Object>> tuples=p.tuples;
 							 if(!tuples.isEmpty()){
 								Hashtable<String,Object> first=tuples.getFirst();
@@ -559,17 +560,18 @@ public class Table implements Serializable  {
 								/// this check is for when the value exists between the first two values of two pages 
 								// indicating that the value must be inserted in the first page of
 								if((Upper>0 && Lower<0) ||(Upper>0)||(Lower<0)){ //////Fixed the exception
-									
-									p.DeleteFromPage(htblColNameVale,primary, -1,!IsString);
+									System.out.println("Entered to delete from string");
+									Pages.get(i).DeleteFromPage(htblColNameVale,primary, -1,!IsString);
 									
 		                            
 									//p.loadPage(i,this.strTableName);
 									if(!p.check()){
 										 updatePagesD(i,primary, -1, !IsString);
+										 
 									 }
 									
 									LoadAll();
-									break;
+									
 							}
 								
 							 
@@ -577,13 +579,13 @@ public class Table implements Serializable  {
 							 
 							
 							 else{
-								 p.DeleteFromPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
+								 Pages.get(i).DeleteFromPage(htblColNameVale, primary,-1,!IsString); //Increased attributes
 									//p.loadPage(i,this.strTableName);
 								 if(!p.check()){
 									 updatePagesD(i,primary, -1, !IsString);
 									 }
 									LoadAll();
-									break;
+									
 							 }
 								
 							}
@@ -643,7 +645,7 @@ public class Table implements Serializable  {
 								 updatePagesD(i,"", key1, IsString);
 							 }
 								LoadAll();
-								break;
+								
 							}
 						
 					
@@ -663,7 +665,7 @@ public class Table implements Serializable  {
 									updatePagesD(i,"", key1, IsString);
 								 }
 							 LoadAll();
-							 break;
+							 
 						 }
 				}
 						

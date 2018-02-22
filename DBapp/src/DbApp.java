@@ -134,18 +134,19 @@ public class DbApp {
 		htblColName80.put("Social Security number", new Integer( 123456789 ));
 		htblColName80.put("name", new String("Darine othman" ) );
 		htblColName80.put("age", new Integer( 123456789 ) );
-		updateTable( strTableName1,"", htblColName80);
+		//updateTable( strTableName1,"", htblColName80);
 		
 		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
 		htblColName90.put("Social Security number", new Integer( 67896789 ));
 		htblColName90.put("name", new String("Cenq David" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
 		//Thread.sleep(1000000);
-		updateTable( strTableName1 ,"", htblColName90 );
-		deleteFromTable( strTableName1,htblColName90);
+		deleteFromTable( strTableName1,htblColName70);
+		//updateTable( strTableName1 ,"", htblColName90 );
+		deleteFromTable( strTableName1,htblColName10);
 		
 		
-		String strTableName = "Student";
+		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
 		htblColNameType.put("id", "java.lang.Integer");
@@ -167,7 +168,7 @@ public class DbApp {
 		insertIntoTable( strTableName , htblColNameValueGharamWantsToChange );
 		//Thread.sleep(10);
 		htblColNameValueGharamWantsToChange.clear( );
-		*/
+		
 		Hashtable<String,Object> htblColName1 = new Hashtable<String,Object>( );
 
 		htblColName1.put("id", new Integer( 453455 ));
@@ -211,7 +212,9 @@ public class DbApp {
 		htblColName6.put("name", new String("Ahmed Mohammed abdullah khaled bassim aly mohamed" ) );
 		htblColName6.put("gpa", new Double( 199799.199799 ) );
 		updateTable( strTableName ,"", htblColName6 );
-		//deleteFromTable( strTableName,htblColName6);
+		deleteFromTable( strTableName,htblColName4);
+		deleteFromTable( strTableName,htblColName3); */
+		
 		
 		/*String a="ala";
 		String b="bna";

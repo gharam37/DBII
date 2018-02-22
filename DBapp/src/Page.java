@@ -34,7 +34,7 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>1;
+       return this.currentLine>3;
     }
 	public boolean IsEmpty(){
 		return(this.tuples.isEmpty());
@@ -472,6 +472,7 @@ public class Page implements Serializable {
  			if(isString){ /////////////Remember to add currentLine
  			
  				if(!tuples.isEmpty()){
+ 					System.out.println("Delete from page ");
  					for(int i = 0;i<tuples.size();i++){
  		    			hashtable= tuples.get(i);
  		    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
@@ -493,13 +494,14 @@ public class Page implements Serializable {
  		    			}
  		    			
  		    			
- 		    	 
- 		    	   
+ 		    	  
+ 		    		
+ 		    		
  		    	    
  		    	    if(HashCurrentValue.compareTo(KeyValue)==0 && i==0){
  		    	    	
  		    	    	tuples.removeFirst();
- 		    	    	System.out.println("BLAAAAAAAAAA");
+ 		    	    	
  		    	    	currentLine--;
  	          	   //tuples.addFirst(htblColNameVale);
  	          	   
@@ -507,7 +509,7 @@ public class Page implements Serializable {
  		    	      if(HashCurrentValue.compareTo(KeyValue)==0 && i==tuples.size()-1){
  		    	    		
  		    	tuples.removeLast();
- 		    	System.out.println("BLAAAAAAAAAA");
+ 		    	
  		    	currentLine--;
  	       	   //tuples.addLast(htblColNameVale); 
  	       	   
@@ -515,7 +517,7 @@ public class Page implements Serializable {
  		    	
  		    	    if(HashCurrentValue.compareTo(KeyValue)==0){
  		    		   tuples.remove(i);
- 		    		  System.out.println("BLAAAAAAAAAAAAA");
+ 		    		  //System.out.println("DELETED mIDDLE");
  		    		  currentLine--;
  		   				//tuples.add(i,htblColNameVale);
  		   				
