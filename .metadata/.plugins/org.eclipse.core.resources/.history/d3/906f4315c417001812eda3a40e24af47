@@ -694,6 +694,7 @@ public class Table implements Serializable  {
 			Pages.remove(Pages.get(Pages.size()-1));
 			
 		}
+		System.out.println(Pages.get(startingPage).tuples.size()+"Current tuple size"+startingPage);
 
 		for(int i = startingPage;i<Pages.size()-1;i++){
 			System.out.println(Pages.get(i).tuples.size()+"Current tuple size");
