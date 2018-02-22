@@ -142,7 +142,6 @@ public class DbApp {
 		htblColName90.put("age", new Integer( 2048 ) );
 		//Thread.sleep(1000000);
 		updateTable( strTableName1 ,"", htblColName90 );
-		deleteFromTable( strTableName1,htblColName70);
 		
 		
 		String strTableName = "Student";

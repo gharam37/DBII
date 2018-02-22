@@ -552,19 +552,17 @@ public class Page implements Serializable {
  					
  	 	  if(ToIntHashCurrentValue==clusterKeyPrimary && i==tuples.size()-1){
  	 		  			tuples.removeLast();
- 	 		  		    currentLine--;
+ 	 		  		currentLine--;
  	             	   //tuples.addLast(htblColNameVale);
  	             	   
  	             	   break;}
  	 	  else  if(ToIntHashCurrentValue==clusterKeyPrimary && i==0){
  	 	    	tuples.removeFirst();
- 	 	    	currentLine--;
  	         	//tuples.addFirst(htblColNameVale); 
  	         	  
  	         	   break;}
  	 	      if(ToIntHashCurrentValue==clusterKeyPrimary){
  	 	    	  tuples.remove(i);
- 	 	    	  currentLine--;
  					//tuples.add(i,htblColNameVale);
  					
  			         break;

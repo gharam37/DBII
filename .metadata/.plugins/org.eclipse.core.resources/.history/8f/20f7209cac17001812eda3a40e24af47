@@ -503,7 +503,8 @@ public class Table implements Serializable  {
 	
 	public void DeleteFromTable(Hashtable<String,Object> htblColNameVale) throws DBAppException{
 		
-				
+				LocalDateTime now = LocalDateTime.now();
+				htblColNameVale.put("Last updated", now);
 				boolean IsString=false;
 				
 				
@@ -676,7 +677,7 @@ public class Table implements Serializable  {
 				}
 				
 	}
-	public void updatePagesD(int startingPage,String key,int strClusterKey,boolean flag){ //Update On delete
+	public void updatePagesD(int startingPage,String key,int strClusterKey,boolean flag){ 
 		
 		
 		for(int i = startingPage;i<Pages.size()-1;i++){

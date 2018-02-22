@@ -564,7 +564,6 @@ public class Page implements Serializable {
  	         	   break;}
  	 	      if(ToIntHashCurrentValue==clusterKeyPrimary){
  	 	    	  tuples.remove(i);
- 	 	    	  currentLine--;
  					//tuples.add(i,htblColNameVale);
  					
  			         break;
