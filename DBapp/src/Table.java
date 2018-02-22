@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.file.DirectoryNotEmptyException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -563,6 +567,7 @@ public class Table implements Serializable  {
 									if(!p.check()){
 										 updatePagesD(i,primary, -1, !IsString);
 									 }
+									
 									LoadAll();
 									break;
 							}
@@ -678,7 +683,14 @@ public class Table implements Serializable  {
 	}
 	public void updatePagesD(int startingPage,String key,int strClusterKey,boolean flag){ //Update On delete
 		
-		
+		if(Pages.get(Pages.size()-1).IsEmpty()){
+			
+			
+			
+		   Pages.get(Pages.size()-1).file.delete();
+			
+			Pages.remove(Pages.get(Pages.size()-1));
+		}
 		for(int i = startingPage;i<Pages.size()-1;i++){
 			if(!(Pages.get(i).check()))
 				try {

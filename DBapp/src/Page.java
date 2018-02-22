@@ -34,8 +34,12 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>199;
+       return this.currentLine>1;
     }
+	public boolean IsEmpty(){
+		return(this.tuples.isEmpty());
+		
+	}
     // insert method for pages 
     public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
@@ -171,6 +175,7 @@ public class Page implements Serializable {
 		 
 		 else{
 			tuples.add(0,htblColNameVale);
+			currentLine++;
 			//htblColNameVale.clear();
 			//Only enters with the first insertion
 		 }
@@ -199,8 +204,8 @@ public class Page implements Serializable {
     
     
     public void loadPage(int Index,String tablename){
-    	File pagefile = new File(tablename+Index+".csv");
-    	boolean exists = pagefile.exists();
+    	this.file = new File(tablename+Index+".csv");
+    	boolean exists = file.exists();
       
 		try {
 			FileWriter writer = new FileWriter(tablename+Index+".csv");
@@ -481,6 +486,7 @@ public class Page implements Serializable {
  		    				if (strClusteringKeyColumn.equals(en1.getKey())) {
  		    					 HashCurrentValue=(String)en1.getValue(); 
  		    				  //ToIntHashCurrentValue=Integer.parseInt(HashCurrentValue);
+ 		    					
  		    				    
  		    				}
  		    				
@@ -493,12 +499,15 @@ public class Page implements Serializable {
  		    	    if(HashCurrentValue.compareTo(KeyValue)==0 && i==0){
  		    	    	
  		    	    	tuples.removeFirst();
+ 		    	    	System.out.println("BLAAAAAAAAAA");
  		    	    	currentLine--;
  	          	   //tuples.addFirst(htblColNameVale);
  	          	   
  	          	   break;}
  		    	      if(HashCurrentValue.compareTo(KeyValue)==0 && i==tuples.size()-1){
+ 		    	    		
  		    	tuples.removeLast();
+ 		    	System.out.println("BLAAAAAAAAAA");
  		    	currentLine--;
  	       	   //tuples.addLast(htblColNameVale); 
  	       	   
@@ -506,6 +515,7 @@ public class Page implements Serializable {
  		    	
  		    	    if(HashCurrentValue.compareTo(KeyValue)==0){
  		    		   tuples.remove(i);
+ 		    		  System.out.println("BLAAAAAAAAAAAAA");
  		    		  currentLine--;
  		   				//tuples.add(i,htblColNameVale);
  		   				
@@ -551,18 +561,21 @@ public class Page implements Serializable {
  	 			}
  					
  	 	  if(ToIntHashCurrentValue==clusterKeyPrimary && i==tuples.size()-1){
+ 	 		            System.out.println("Yeaaa");
  	 		  			tuples.removeLast();
  	 		  		    currentLine--;
  	             	   //tuples.addLast(htblColNameVale);
  	             	   
  	             	   break;}
  	 	  else  if(ToIntHashCurrentValue==clusterKeyPrimary && i==0){
+ 	 		   System.out.println("Yeaaa");
  	 	    	tuples.removeFirst();
  	 	    	currentLine--;
  	         	//tuples.addFirst(htblColNameVale); 
  	         	  
  	         	   break;}
  	 	      if(ToIntHashCurrentValue==clusterKeyPrimary){
+ 	 	    	System.out.println("Yeaaa");
  	 	    	  tuples.remove(i);
  	 	    	  currentLine--;
  					//tuples.add(i,htblColNameVale);

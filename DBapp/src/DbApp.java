@@ -142,7 +142,7 @@ public class DbApp {
 		htblColName90.put("age", new Integer( 2048 ) );
 		//Thread.sleep(1000000);
 		updateTable( strTableName1 ,"", htblColName90 );
-		deleteFromTable( strTableName1,htblColName70);
+		deleteFromTable( strTableName1,htblColName90);
 		
 		
 		String strTableName = "Student";
@@ -211,7 +211,7 @@ public class DbApp {
 		htblColName6.put("name", new String("Ahmed Mohammed abdullah khaled bassim aly mohamed" ) );
 		htblColName6.put("gpa", new Double( 199799.199799 ) );
 		updateTable( strTableName ,"", htblColName6 );
-		deleteFromTable( strTableName,htblColName6);
+		//deleteFromTable( strTableName,htblColName6);
 		
 		/*String a="ala";
 		String b="bna";
