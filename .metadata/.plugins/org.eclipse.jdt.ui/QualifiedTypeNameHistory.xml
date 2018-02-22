@@ -11,4 +11,7 @@
 <fullyQualifiedTypeName name="javax.swing.text.html.HTMLDocument.Iterator"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.lang.Thread"/>
+<fullyQualifiedTypeName name="java.nio.file.Files"/>
+<fullyQualifiedTypeName name="java.nio.file.NoSuchFileException"/>
+<fullyQualifiedTypeName name="java.nio.file.DirectoryNotEmptyException"/>
 </qualifiedTypeNameHistroy>
