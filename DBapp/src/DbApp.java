@@ -1,3 +1,4 @@
+//package Task1;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -36,6 +37,20 @@ public class DbApp {
 		for(int i = 0; i<Tables.size();i++){
 			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
 				((Table)Tables.get(i)).updateTable(htblColNameVale,strKey);
+				
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag){
+			System.out.println("Table Name not found");
+		}
+	}
+	public void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
+		boolean Flag = true;
+		for(int i = 0; i<Tables.size();i++){
+			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
+				((Table)Tables.get(i)).DeleteFromTable(htblColNameValue);
 				
 				Flag = false;
 				break;
