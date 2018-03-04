@@ -50,6 +50,22 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
+	public static void CreateDenseIndex(String strTableName,String ColumnName) throws DBAppException{
+		//table.CreateDenseTable(ColumnName);
+		boolean Flag = true;
+		for(int i = 0; i<Tables.size();i++){
+			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
+				((Table)Tables.get(i)).CreateDenseTable(ColumnName);
+				
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag){
+			System.out.println("Table Name not found");
+		}
+		
+	}
 	public static void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
@@ -96,7 +112,7 @@ public class DbApp {
 		htblColName10.put("Social Security number", new Integer( 453455 ));
 		htblColName10.put("name", new String("Ahmed Mohammed" ) );
 		
-		htblColName10.put("age", new Integer( 20 ) );
+		htblColName10.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName1 , htblColName10 );
 		
 		Hashtable<String,Object> htblColName40 = new Hashtable<String,Object>( );
@@ -143,7 +159,7 @@ public class DbApp {
 
 		htblColName100.put("Social Security number", new Integer( 2937 ));
 		htblColName100.put("name", new String("Darine ozhman" ) );
-		htblColName100.put("age", new Integer( 123456789 ) );
+		htblColName100.put("age", new Integer( 1234 ) );
 		insertIntoTable( strTableName1, htblColName100);
 		
 		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
@@ -153,8 +169,10 @@ public class DbApp {
 		//Thread.sleep(1000000);
 		//deleteFromTable( strTableName1,htblColName70);
 		//updateTable( strTableName1 ,"", htblColName90 );
-		deleteFromTable( strTableName1,htblColName20);
-		deleteFromTable( strTableName1,htblColName70);
+		//deleteFromTable( strTableName1,htblColName20);
+		//deleteFromTable( strTableName1,htblColName70);
+		
+		CreateDenseIndex(strTableName1,"age");
 		
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")

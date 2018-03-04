@@ -9,6 +9,7 @@ public class Entity {
 		this.Value=Value;
 		
 	}
+	public Entity(){}
 	
 	
 

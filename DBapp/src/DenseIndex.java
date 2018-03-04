@@ -1,16 +1,14 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Iterator;
+
 import java.util.LinkedList;
-import java.util.Set;
-import java.util.Map.Entry;
+
 
 public class DenseIndex {
 	String ColumnName;
 
-	LinkedList<Entity> Densetuples; // Gonna be create in page 200 elements also
+	LinkedList<Entity> Densetuples=new LinkedList<Entity>(); // Gonna be create in page 200 elements also
 									// of entities
 	File file;
 
@@ -18,14 +16,14 @@ public class DenseIndex {
 
 		this.ColumnName = ColumnName;
 
-		this.Densetuples = new LinkedList<Entity>();
+		//this.Densetuples = new LinkedList<Entity>();
 
 		// Tuples will contain entities
 
 	}
 
 	public void InsertIntoDense(Entity New, boolean isString) {
-		Entity Entity = null;
+		Entity Entity=null;
 
 		if (isString) { // ///////////Remember to add currentLine
 			String Value = (String) New.Value;
@@ -48,7 +46,7 @@ public class DenseIndex {
 
 						break;
 					}
-					if (Current.compareTo(Value) < 0
+					if ((Current.compareTo(Value) < 0)
 							&& i == Densetuples.size() - 1) {
 
 						Densetuples.addLast(New);
@@ -66,7 +64,7 @@ public class DenseIndex {
 				}
 
 			} else {
-				Densetuples.add(0, Entity);
+				Densetuples.add(0, New);
 
 			}
 
@@ -83,17 +81,17 @@ public class DenseIndex {
 				for (int i = 0; i < Densetuples.size(); i++) {
 					Entity = Densetuples.get(i);
 					int currentValue = (int) Entity.Value;
-					if (currentValue > Value && i == Densetuples.size() - 1) {
-						Densetuples.addFirst(Entity);
+					if ((currentValue > Value) && i == Densetuples.size() - 1) {
+						Densetuples.addFirst(New);
 
 						break;
 					} else if (currentValue < Value && i == 0) {
 
-						Densetuples.addLast(Entity);
+						Densetuples.addLast(New);
 						break;
 					}
 					if (currentValue <= Value) {
-						Densetuples.add(i, Entity);
+						Densetuples.add(i, New);
 						break;
 
 					}
@@ -102,24 +100,25 @@ public class DenseIndex {
 			}
 
 			else {
-				Densetuples.add(0, Entity);
+				Densetuples.add(0, New);
 			}
 		}
 
 	}
 
 	public void loadDense(int Index, String columnName) {
-		this.file = new File(columnName + "Dense" + Index + ".csv");
-		boolean exists = file.exists();
+	
 
 		try {
 			FileWriter writer = new FileWriter(columnName + Index + ".csv");
 
 			for (int i = 0; i < Densetuples.size(); i++) {
 
+				writer.append(Densetuples.get(i).Value+" ");
 				writer.append("\n");
-				System.out.println(Densetuples.get(i));
-				// generate whatever data you want
+
+				//System.out.println(Densetuples.get(i).Value);
+				//generate whatever data you want
 
 			}
 			writer.flush();
