@@ -30,14 +30,17 @@ public class Table implements Serializable  {
 	String strClusteringKeyColumn; //table primary key
 	String strTableName; //table name
 	private static final long serialVersionUID = 1L;
+	ArrayList<DenseIndex> denses;
 	
 	ArrayList<Page> Pages;
-	Hashtable<String,String> htblColNameType; // hashtable of the attributes and their types.. to put inserted in a metadata file
+	Hashtable<String,String> htblColNameType;//hashtable of the attributes and their types.. to put inserted in a metadata file
+	                                           
+	
 	
 	public Table(String strTableName,
 			String strClusteringKeyColumn, 
 			Hashtable<String,String> htblColNameType){ //to do the exception 
-		this.strTableName=strTableName;
+		this.strTableName=strTableName;	
 		this.strClusteringKeyColumn=strClusteringKeyColumn;
 		this.htblColNameType=htblColNameType;
 		this.Pages=new ArrayList<Page>();
@@ -53,6 +56,40 @@ public class Table implements Serializable  {
 		
 	}
 	
+	/*public void CreatDense(String ColumnName) throws DBAppException{
+		boolean foundname=false;
+	
+			
+		
+				
+
+				Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
+				
+				
+				Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
+			
+				
+				while (Iterator.hasNext()) {
+					Entry<String, String> en = Iterator.next();
+					
+					String Key=en.getKey();
+					if(Key.equals(ColumnName)){
+						foundname=true;
+					}
+				
+		     if(!foundname){
+		    	 throw new DBAppException(); //
+		     }
+		     else {
+		    	 for(int i=0;i<this.Pages.size();i++){
+		    		this.Pages.get(i).CreateDense(ColumnName);
+		    	 }
+		     }
+			
+		}
+		
+		
+	}*/
 	public void MakeMeta ( Hashtable<String,String> htblColNameTypehtblColNameType)throws DBAppException{
 		
 	 

@@ -1,0 +1,15 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+
+public class DenseTable {
+	String strClusteringKeyColumn; //table primary key
+	String strTableName; //table name
+	private static final long serialVersionUID = 1L;
+	ArrayList<DenseIndex> denses;
+	
+	
+	Hashtable<String,String> htblColNameType;
+	
+
+}

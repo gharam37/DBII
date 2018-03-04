@@ -1,0 +1,20 @@
+import java.util.ArrayList;
+import java.util.Hashtable;
+
+
+public class DenseTable {
+	String ColumnName;; //The Column we   cluster with 
+	String strTableName; //table name
+	ArrayList<DenseIndex> denses;
+	Table table;
+	
+	
+	Hashtable<String,String> htblColNameType;
+	public DenseTable(Table table,String ColumnName){
+		this.table=table;
+		this.ColumnName=ColumnName;
+		this.denses=new
+	}
+	
+
+}

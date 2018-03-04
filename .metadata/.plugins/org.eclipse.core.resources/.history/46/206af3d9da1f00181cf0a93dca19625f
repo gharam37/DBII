@@ -1,0 +1,17 @@
+import java.util.LinkedList;
+
+
+public class DenseIndex {
+    String ColumnName;
+   
+     LinkedList Densetuples;  // Gonna be create in page 200 elements also of entities
+     public DenseIndex(String ColumnName){
+    	
+    	this.ColumnName=ColumnName;
+    	
+    	//Tuples will contain entites 
+    	
+    	
+    	
+    }
+}

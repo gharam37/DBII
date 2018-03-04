@@ -1,0 +1,14 @@
+import java.util.LinkedList;
+
+
+public class DenseIndex {
+    String ColumnName;
+   
+     LinkedList Densetuples; 
+    public DenseIndex(){
+    	this.tuples = new LinkedList<>();
+    	
+    	
+    	
+    }
+}

@@ -32,6 +32,10 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
+	/*public static void CreateDense(Table table,String ColumnName) throws DBAppException {
+		table.CreatDense(ColumnName);
+		
+	}*/
 	public static void updateTable(String strTableName,String strKey, Hashtable<String,Object> htblColNameVale) throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){

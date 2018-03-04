@@ -7,6 +7,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -22,6 +23,9 @@ public class Page implements Serializable {
     File file;
     int currentLine = 0;//the line to add data too
      String strClusteringKeyColumn = "";
+     
+     BrinIndex Brin;
+    //int ColumnNumber;
 
     //constructor 
     public Page(int pageNo,File file, String strClusteringKeyColumn) {
@@ -29,6 +33,8 @@ public class Page implements Serializable {
         this.tuples = new LinkedList<>();// 200 max no of tuples
         this.file = file;
         this.strClusteringKeyColumn = strClusteringKeyColumn;
+        
+        //this.ColumnNumber=ColumnNumber;
 }
     //check for page if full or not 
     //if full it calls WritePage 
@@ -616,11 +622,22 @@ public class Page implements Serializable {
  
  
  
+
  
  
- 
- 
- 
+  public void InsertIntoDense(){
+	  
+	  
+  }
+  public void DeleteFromDense(){
+	  
+	  
+  }
+  
+ public void UpdateFromDense(){
+	  
+	  
+  }
 }
     
 

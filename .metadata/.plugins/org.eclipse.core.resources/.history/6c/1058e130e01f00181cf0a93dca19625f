@@ -1,0 +1,60 @@
+import java.io.File;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Hashtable;
+import java.util.LinkedList;
+
+
+public class DenseTable {
+	String ColumnName; //The Column we   cluster with 
+	
+	String strTableName; //table name
+	ArrayList<DenseIndex> denses;
+	Table table;
+	
+	
+	Hashtable<String,String> htblColNameType;
+	public DenseTable(Table table,String ColumnName){
+		this.table=table;
+		this.ColumnName=ColumnName;
+		this.denses=new ArrayList<DenseIndex>();
+		Initialize();
+		
+
+	}
+	
+		
+	
+	public void Initialize(){
+		ArrayList<Page> Pages=this.table.Pages;
+		
+		for(int i=0;i<Pages.size();i++){
+			Page p=Pages.get(i);
+			LinkedList<Hashtable<String,Object>> Pagetuples=p.tuples;
+			DenseIndex Dense=new DenseIndex(ColumnName);
+			denses.add(Dense);
+			for(int j=0;j<Pagetuples.size();j++){
+				if(Pagetuples.get(i).containsKey(ColumnName)){
+					Object key= Pagetuples.get(i).get(ColumnName); //Get Value we want to Cluster On
+					InsertIntoDenseTable(key);
+					
+				}
+				   
+					
+				//Dense.InsertIntoDense(t.get(i));
+				
+				
+				
+			
+			
+			
+		}}
+	}
+	public void InsertIntoDenseTable(Object keyValue){
+		for(int i=0;i<denses.size();i++){ 
+		
+		
+		
+	}
+
+}

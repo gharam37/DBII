@@ -1,0 +1,8 @@
+
+public class BrinIndex {
+	DenseIndex Dense;
+	public BrinIndex(DenseIndex Dense){
+		this.Dense=Dense;
+	}
+
+}

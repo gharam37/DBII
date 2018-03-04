@@ -1,0 +1,9 @@
+
+public class Entity {
+	int number;
+	Page page;
+	Object Value;
+	
+	
+
+}
