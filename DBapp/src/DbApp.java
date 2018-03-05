@@ -66,6 +66,7 @@ public class DbApp {
 		}
 		
 	}
+
 	public static void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){

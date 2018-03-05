@@ -196,6 +196,281 @@ public class DenseTable {
 	
 	}
 	
+	public void UpdateDenseTable(Object keyValue,int PageNum,int EntityNum) throws DBAppException{
+		boolean IsString=false;
+		if(keyValue instanceof String){
+			String primary=(String)keyValue;
+		
+				
+				for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+					DenseIndex d=denses.get(i);
+					LinkedList<Entity> Densetuples=d.Densetuples;
+				 if(!Densetuples.isEmpty()){
+					Entity first=Densetuples.getFirst();
+					Entity Last=Densetuples.getLast();
+					String firstValue= (String)first.Value;
+					String SecondValue= (String)Last.Value;
+					int Upper=primary.compareTo(firstValue);
+					
+					
+					int Lower=primary.compareTo(SecondValue);
+			
+					
+					if ((Upper >= 0 && Lower <= 0) || (Upper >= 0)
+							|| (Lower < 0)){
+						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+						d.UpdateDense(Entity,!IsString);
+						
+                        
+						//p.loadPage(i,this.strTableName);
+						
+						LoadAll();
+						break;
+					}
+				}
+					
+				 
+				
+				 
+				
+				 else{
+						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+
+					 d.UpdateDense(Entity, !IsString); 
+					
+						LoadAll();
+						break;
+				 }
+					
+				}
+			}
+				
+		
+		else{
+			//case numerical
+			
+			
+			int key1=(int)keyValue;
+			
+			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+				DenseIndex d=denses.get(i);
+				LinkedList<Entity> tuples=d.Densetuples;
+				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+				//System.out.println(key1+"Wanna insert");
+				
+			
+			 if(!tuples.isEmpty()){
+			  //System.out.println(tuples.size());
+			   //System.out.println(tuples);
+				Entity first=tuples.getFirst();
+				
+			   
+				Entity Last=tuples.getLast();
+				int firstValue= (int)first.Value;
+				//System.out.println(firstValue+"first"); //it prints our value
+				//System.out.println(firstValue+"First");
+				int SecondValue= (int)Last.Value;
+				//System.out.println(SecondValue+"last");
+				//System.out.println(SecondValue+"last");
+				
+                
+                	
+                 /*if(key1>firstValue){
+                	 //p.insertIntoPage(htblColNameVale, key1,IsString);
+                	 tuples.addLast(htblColNameVale);
+                	
+                 }
+                 
+                 else if(key1<SecondValue){
+                	 
+                	 tuples.addFirst(htblColNameVale);
+                 }*/
+                	 
+                
+                
+                 
+              
+                	
+                if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
+				 Entity=new Entity(keyValue, PageNum,EntityNum);
+				//System.out.println(Entity);
+
+
+				 d.UpdateDense(Entity,IsString);
+				
+				
+				
+					LoadAll();
+					break;
+				}
+			
+		
+			
+
+		}
+			 
+			 else{
+			   Entity=new Entity(keyValue, PageNum,EntityNum);
+
+				 d.UpdateDense(Entity,IsString);
+				
+				 
+				 
+				 
+				
+				
+				
+				 LoadAll();
+				 break;
+			 }
+	}
+			
+		
+		
+  }
+		
+	
+	
+	
+	}
+	
+	public void DeleteFromDenseTable(Object keyValue,int PageNum,int EntityNum) throws DBAppException{
+		boolean IsString=false;
+		if(keyValue instanceof String){
+			String primary=(String)keyValue;
+		
+				
+				for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+					DenseIndex d=denses.get(i);
+					LinkedList<Entity> Densetuples=d.Densetuples;
+				 if(!Densetuples.isEmpty()){
+					Entity first=Densetuples.getFirst();
+					Entity Last=Densetuples.getLast();
+					String firstValue= (String)first.Value;
+					String SecondValue= (String)Last.Value;
+					int Upper=primary.compareTo(firstValue);
+					
+					
+					int Lower=primary.compareTo(SecondValue);
+			
+					
+					if ((Upper >= 0 && Lower <= 0) || (Upper >= 0)
+							|| (Lower < 0)){
+						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+						d.DeleteFromDense(Entity,!IsString);
+						
+                        
+						//p.loadPage(i,this.strTableName);
+						
+						LoadAll();
+						break;
+					}
+				}
+					
+				 
+				
+				 
+				
+				 else{
+						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+
+					 d.DeleteFromDense(Entity, !IsString); 
+					
+						LoadAll();
+						break;
+				 }
+					
+				}
+			}
+				
+		
+		else{
+			//case numerical
+			
+			
+			int key1=(int)keyValue;
+			
+			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+				DenseIndex d=denses.get(i);
+				LinkedList<Entity> tuples=d.Densetuples;
+				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+				//System.out.println(key1+"Wanna insert");
+				
+			
+			 if(!tuples.isEmpty()){
+			  //System.out.println(tuples.size());
+			   //System.out.println(tuples);
+				Entity first=tuples.getFirst();
+				
+			   
+				Entity Last=tuples.getLast();
+				int firstValue= (int)first.Value;
+				//System.out.println(firstValue+"first"); //it prints our value
+				//System.out.println(firstValue+"First");
+				int SecondValue= (int)Last.Value;
+				//System.out.println(SecondValue+"last");
+				//System.out.println(SecondValue+"last");
+				
+                
+                	
+                 /*if(key1>firstValue){
+                	 //p.insertIntoPage(htblColNameVale, key1,IsString);
+                	 tuples.addLast(htblColNameVale);
+                	
+                 }
+                 
+                 else if(key1<SecondValue){
+                	 
+                	 tuples.addFirst(htblColNameVale);
+                 }*/
+                	 
+                
+                
+                 
+              
+                	
+                if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
+				 Entity=new Entity(keyValue, PageNum,EntityNum);
+				//System.out.println(Entity);
+
+
+				 d.DeleteFromDense(Entity,IsString);
+				
+				
+				
+					LoadAll();
+					break;
+				}
+			
+		
+			
+
+		}
+			 
+			 else{
+			   Entity=new Entity(keyValue, PageNum,EntityNum);
+
+				 d.DeleteFromDense(Entity,IsString);
+				
+				 
+				 
+				 
+				
+				
+				
+				 LoadAll();
+				 break;
+			 }
+	}
+			
+		
+		
+  }
+		
+	
+	
+	
+	}
 	
 
 }
