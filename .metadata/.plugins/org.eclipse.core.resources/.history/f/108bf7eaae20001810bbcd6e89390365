@@ -22,10 +22,9 @@ public class BrinFirst {
 		
 	}
 	public void CreateFirstBrin(){
-		for(int i=0;i<1;i++){ //remember to return it to size
+		for(int i=0;i<this.Dense.denses.size();i++){
 		  InsertIntoArray();
 			DenseIndex current=this.Dense.denses.get(i);
-			System.out.println(current);
 			Entity First=(Entity)current.Densetuples.getFirst();
 			Entity Last=(Entity)current.Densetuples.getLast();
 			Pair<Entity,Entity> Entities=new Pair<Entity,Entity> (First,Last);

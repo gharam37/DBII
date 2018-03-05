@@ -30,7 +30,6 @@ public class DenseTable {
 		for(int i=0;i<Pages.size();i++){
 			Page p=Pages.get(i);
 			LinkedList<Hashtable<String,Object>> Pagetuples=p.tuples;
-		  
 			DenseIndex Dense=new DenseIndex(ColumnName);
 			denses.add(Dense);
 			for(int j=0;j<Pagetuples.size();j++){
@@ -68,8 +67,7 @@ public class DenseTable {
 		
 				
 				for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
-					DenseIndex d=denses.get(i);
-					System.out.println(i);
+					
 					LinkedList<Entity> Densetuples=d.Densetuples;
 				 if(!Densetuples.isEmpty()){
 					Entity first=Densetuples.getFirst();
