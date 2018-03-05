@@ -30,9 +30,8 @@ public class DenseTable {
 		for(int i=0;i<Pages.size();i++){
 			Page p=Pages.get(i);
 			LinkedList<Hashtable<String,Object>> Pagetuples=p.tuples;
-		  
-			DenseIndex Dense=new DenseIndex(ColumnName);
-			denses.add(Dense);
+		   
+			//System.out.println(Dense);
 			for(int j=0;j<Pagetuples.size();j++){
 				if(Pagetuples.get(j).containsKey(ColumnName)){
 					Object key= Pagetuples.get(j).get(ColumnName); //Get Value we want to Cluster On
@@ -45,8 +44,7 @@ public class DenseTable {
 				}
 				   
 					
-				//Dense.InsertIntoDense(t.get(i));
-				
+			
 				
 				
 			
@@ -67,9 +65,10 @@ public class DenseTable {
 			String primary=(String)keyValue;
 		
 				
-				for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+				for(int i=0;i<denses.size();i++){  
 					DenseIndex d=denses.get(i);
-					System.out.println(i);
+					
+			
 					LinkedList<Entity> Densetuples=d.Densetuples;
 				 if(!Densetuples.isEmpty()){
 					Entity first=Densetuples.getFirst();
@@ -83,12 +82,13 @@ public class DenseTable {
 			
 					
 					if ((Upper >= 0 && Lower <= 0) || (Upper >= 0)
-							|| (Lower < 0)){
+							|| (Lower <= 0)){
 						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
 						d.InsertIntoDense(Entity,!IsString);
 						
-                        
-						//p.loadPage(i,this.strTableName);
+						if(d.check()){
+							 updateDenseIndex(i,!IsString);
+						 }						
 						
 						LoadAll();
 						break;
@@ -103,7 +103,9 @@ public class DenseTable {
 						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
 
 					 d.InsertIntoDense(Entity, !IsString); 
-					
+					 if(d.check()){
+						 updateDenseIndex(i,!IsString);
+					 }
 						LoadAll();
 						break;
 				 }
@@ -120,50 +122,36 @@ public class DenseTable {
 			
 			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
 				DenseIndex d=denses.get(i);
+				
 				LinkedList<Entity> tuples=d.Densetuples;
 				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
 				//.out.println(key1+"Wanna insert");
 				
 			
 			 if(!tuples.isEmpty()){
-			  //.out.println(tuples.size());
-			   //.out.println(tuples);
+			 
 				Entity first=tuples.getFirst();
 				
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//.out.println(firstValue+"first"); //it prints our value
-				//.out.println(firstValue+"First");
+			
 				int SecondValue= (int)Last.Value;
-				//.out.println(SecondValue+"last");
-				//.out.println(SecondValue+"last");
-				
-                
-                	
-                 /*if(key1>firstValue){
-                	 //p.insertIntoPage(htblColNameVale, key1,IsString);
-                	 tuples.addLast(htblColNameVale);
-                	
-                 }
-                 
-                 else if(key1<SecondValue){
-                	 
-                	 tuples.addFirst(htblColNameVale);
-                 }*/
-                	 
-                
+	
                 
                  
               
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
 				 Entity=new Entity(keyValue, PageNum,EntityNum);
-				//.out.println(Entity);
+			
 
 
 				 d.InsertIntoDense(Entity,IsString);
-				
+				 
+				 if(d.check()){
+					 updateDenseIndex(i,IsString);
+				 }
 				
 				
 					LoadAll();
@@ -179,7 +167,10 @@ public class DenseTable {
 			   Entity=new Entity(keyValue, PageNum,EntityNum);
 
 				 d.InsertIntoDense(Entity,IsString);
-				
+				 
+				 if(d.check()){
+					 updateDenseIndex(i,IsString);
+				 }
 				 
 				 
 				 
@@ -221,7 +212,7 @@ public class DenseTable {
 			
 					
 					if ((Upper >= 0 && Lower <= 0) || (Upper >= 0)
-							|| (Lower < 0)){
+							|| (Lower <= 0)){
 						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
 						d.UpdateDense(Entity,!IsString);
 						
@@ -256,40 +247,27 @@ public class DenseTable {
 			
 			int key1=(int)keyValue;
 			
-			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
+			for(int i=0;i<denses.size();i++){  
 				DenseIndex d=denses.get(i);
 				LinkedList<Entity> tuples=d.Densetuples;
 				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
-				//.out.println(key1+"Wanna insert");
+				
 				
 			
 			 if(!tuples.isEmpty()){
-			  //.out.println(tuples.size());
-			   //.out.println(tuples);
+			
 				Entity first=tuples.getFirst();
 				
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//.out.println(firstValue+"first"); //it prints our value
-				//.out.println(firstValue+"First");
+				
 				int SecondValue= (int)Last.Value;
-				//.out.println(SecondValue+"last");
-				//.out.println(SecondValue+"last");
+	
 				
                 
                 	
-                 /*if(key1>firstValue){
-                	 //p.insertIntoPage(htblColNameVale, key1,IsString);
-                	 tuples.addLast(htblColNameVale);
-                	
-                 }
-                 
-                 else if(key1<SecondValue){
-                	 
-                	 tuples.addFirst(htblColNameVale);
-                 }*/
-                	 
+              
                 
                 
                  
@@ -297,7 +275,7 @@ public class DenseTable {
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
 				 Entity=new Entity(keyValue, PageNum,EntityNum);
-				//.out.println(Entity);
+			
 
 
 				 d.UpdateDense(Entity,IsString);
@@ -397,8 +375,7 @@ public class DenseTable {
 			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
 				DenseIndex d=denses.get(i);
 				LinkedList<Entity> tuples=d.Densetuples;
-				//.out.println(key1+"Wanna insert");
-				
+		
 			
 			 if(!tuples.isEmpty()){
 			  //.out.println(tuples.size());
@@ -408,32 +385,20 @@ public class DenseTable {
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//.out.println(firstValue+"first"); //it prints our value
-				//.out.println(firstValue+"First");
+		
 				int SecondValue= (int)Last.Value;
-				//.out.println(SecondValue+"last");
-				//.out.println(SecondValue+"last");
+				
 				
                 
                 	
-                 /*if(key1>firstValue){
-                	 //p.insertIntoPage(htblColNameVale, key1,IsString);
-                	 tuples.addLast(htblColNameVale);
-                	
-                 }
-                 
-                 else if(key1<SecondValue){
-                	 
-                	 tuples.addFirst(htblColNameVale);
-                 }*/
-                	 
+               
                 
                 
                  
               
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
-				//.out.println(Entity);
+			
 
 
 				 d.DeleteFromDense(Entity,IsString);
@@ -472,6 +437,19 @@ public class DenseTable {
 	
 	
 	}
-	
+	public void updateDenseIndex(int startingPage, boolean flag) {
 
+		for (int i = startingPage; i < denses.size() - 1; i++) {
+			if ((denses.get(i).check())){
+				
+
+					denses.get(i + 1).InsertIntoDense(denses.get(i).Densetuples.getLast(), flag);
+					denses.get(i).Densetuples.removeLast();
+
+					
+			}
+				
+		}
+		}
+	
 }

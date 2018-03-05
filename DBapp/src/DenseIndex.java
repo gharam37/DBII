@@ -13,7 +13,6 @@ public class DenseIndex {
 																// elements also
 	// of entities
 	File file;
-
 	public DenseIndex(String ColumnName) {
 
 		this.ColumnName = ColumnName;
@@ -39,6 +38,7 @@ public class DenseIndex {
 					if (Current.compareTo(Value) > 0 && i == 0) {
 
 						Densetuples.addFirst(New);
+						
 
 						break;
 					}
@@ -105,9 +105,12 @@ public class DenseIndex {
 				Densetuples.add(0, New);
 			}
 		}
-       //System.out.println(this.Densetuples.size());
+       //System.out.println(this);
 	}
-
+    public boolean check(){
+    	return this.Densetuples.size()>=10;
+    	
+    }
 	public void UpdateDense(Entity New, boolean isString) throws DBAppException {
 		Entity Entity = null;
 

@@ -22,7 +22,7 @@ public class BrinFirst {
 		
 	}
 	public void CreateFirstBrin(){
-		for(int i=0;i<1;i++){ //remember to return it to size
+		for(int i=0;i<Dense.denses.size()-1;i++){ //remember to return it to size
 		  InsertIntoArray();
 			DenseIndex current=this.Dense.denses.get(i);
 			System.out.println(current);
