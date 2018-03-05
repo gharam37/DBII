@@ -33,11 +33,11 @@ public class DenseTable {
 			DenseIndex Dense=new DenseIndex(ColumnName);
 			denses.add(Dense);
 			for(int j=0;j<Pagetuples.size();j++){
-				if(Pagetuples.get(i).containsKey(ColumnName)){
+				if(Pagetuples.get(j).containsKey(ColumnName)){
 					Object key= Pagetuples.get(j).get(ColumnName); //Get Value we want to Cluster On
 					
 					InsertIntoDenseTable(key,i,j);
-					System.out.println(key);
+					
 					
 				}
 				   
@@ -54,7 +54,7 @@ public class DenseTable {
 	
 	public void LoadAll(){
 		for(int i=0;i<denses.size();i++){
-			//System.out.println("Entered to load");
+			
 			denses.get(i).loadDense(i, ColumnName);
 		}
 	}
@@ -118,22 +118,22 @@ public class DenseTable {
 				DenseIndex d=denses.get(i);
 				LinkedList<Entity> tuples=d.Densetuples;
 				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(key1+"Wanna insert");
+				//.out.println(key1+"Wanna insert");
 				
 			
 			 if(!tuples.isEmpty()){
-			  //System.out.println(tuples.size());
-			   //System.out.println(tuples);
+			  //.out.println(tuples.size());
+			   //.out.println(tuples);
 				Entity first=tuples.getFirst();
 				
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//System.out.println(firstValue+"first"); //it prints our value
-				//System.out.println(firstValue+"First");
+				//.out.println(firstValue+"first"); //it prints our value
+				//.out.println(firstValue+"First");
 				int SecondValue= (int)Last.Value;
-				//System.out.println(SecondValue+"last");
-				//System.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
 				
                 
                 	
@@ -155,7 +155,7 @@ public class DenseTable {
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
 				 Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(Entity);
+				//.out.println(Entity);
 
 
 				 d.InsertIntoDense(Entity,IsString);
@@ -256,22 +256,22 @@ public class DenseTable {
 				DenseIndex d=denses.get(i);
 				LinkedList<Entity> tuples=d.Densetuples;
 				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(key1+"Wanna insert");
+				//.out.println(key1+"Wanna insert");
 				
 			
 			 if(!tuples.isEmpty()){
-			  //System.out.println(tuples.size());
-			   //System.out.println(tuples);
+			  //.out.println(tuples.size());
+			   //.out.println(tuples);
 				Entity first=tuples.getFirst();
 				
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//System.out.println(firstValue+"first"); //it prints our value
-				//System.out.println(firstValue+"First");
+				//.out.println(firstValue+"first"); //it prints our value
+				//.out.println(firstValue+"First");
 				int SecondValue= (int)Last.Value;
-				//System.out.println(SecondValue+"last");
-				//System.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
 				
                 
                 	
@@ -293,7 +293,7 @@ public class DenseTable {
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
 				 Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(Entity);
+				//.out.println(Entity);
 
 
 				 d.UpdateDense(Entity,IsString);
@@ -334,10 +334,10 @@ public class DenseTable {
 	
 	}
 	
-	public void DeleteFromDenseTable(Object keyValue,int PageNum,int EntityNum) throws DBAppException{
+	public void DeleteFromDenseTable(Entity Entity) throws DBAppException{
 		boolean IsString=false;
-		if(keyValue instanceof String){
-			String primary=(String)keyValue;
+		if(Entity.Value instanceof String){
+			String primary=(String)Entity.Value;
 		
 				
 				for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
@@ -356,7 +356,7 @@ public class DenseTable {
 					
 					if ((Upper >= 0 && Lower <= 0) || (Upper >= 0)
 							|| (Lower < 0)){
-						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+						
 						d.DeleteFromDense(Entity,!IsString);
 						
                         
@@ -372,7 +372,7 @@ public class DenseTable {
 				 
 				
 				 else{
-						Entity Entity=new Entity(keyValue, PageNum,EntityNum);
+						//Entity Entity=new Entity(keyValue, PageNum,EntityNum);
 
 					 d.DeleteFromDense(Entity, !IsString); 
 					
@@ -388,28 +388,27 @@ public class DenseTable {
 			//case numerical
 			
 			
-			int key1=(int)keyValue;
+			int key1=(int)Entity.Value;
 			
 			for(int i=0;i<denses.size();i++){  ///this is disgusting .. im ashamed of u romy
 				DenseIndex d=denses.get(i);
 				LinkedList<Entity> tuples=d.Densetuples;
-				Entity Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(key1+"Wanna insert");
+				//.out.println(key1+"Wanna insert");
 				
 			
 			 if(!tuples.isEmpty()){
-			  //System.out.println(tuples.size());
-			   //System.out.println(tuples);
+			  //.out.println(tuples.size());
+			   //.out.println(tuples);
 				Entity first=tuples.getFirst();
 				
 			   
 				Entity Last=tuples.getLast();
 				int firstValue= (int)first.Value;
-				//System.out.println(firstValue+"first"); //it prints our value
-				//System.out.println(firstValue+"First");
+				//.out.println(firstValue+"first"); //it prints our value
+				//.out.println(firstValue+"First");
 				int SecondValue= (int)Last.Value;
-				//System.out.println(SecondValue+"last");
-				//System.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
+				//.out.println(SecondValue+"last");
 				
                 
                 	
@@ -430,8 +429,7 @@ public class DenseTable {
               
                 	
                 if(((key1>=firstValue) && (key1<=SecondValue) ||(key1<=SecondValue)||(key1>=firstValue))){ //missing case
-				 Entity=new Entity(keyValue, PageNum,EntityNum);
-				//System.out.println(Entity);
+				//.out.println(Entity);
 
 
 				 d.DeleteFromDense(Entity,IsString);
@@ -448,7 +446,6 @@ public class DenseTable {
 		}
 			 
 			 else{
-			   Entity=new Entity(keyValue, PageNum,EntityNum);
 
 				 d.DeleteFromDense(Entity,IsString);
 				

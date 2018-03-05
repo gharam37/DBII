@@ -1,0 +1,14 @@
+import java.util.LinkedList;
+
+import javafx.util.Pair;
+
+public class BrinFirst {
+	String ColumnName;
+
+	LinkedList<Entity> FirstBrintuples = new LinkedList<Entity>(); // entity of Pair object , Dense page number
+	DenseTable Dense;
+	public BrinFirst(DenseTable Dense){
+		
+	}
+
+}

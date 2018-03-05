@@ -1,0 +1,10 @@
+import java.util.LinkedList;
+
+import javafx.util.Pair;
+
+public class BrinFirst {
+	String ColumnName;
+
+	LinkedList<Entity> Densetuples = new LinkedList<Entity>();
+
+}

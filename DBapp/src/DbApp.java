@@ -50,12 +50,12 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
-	public static void CreateDenseIndex(String strTableName,String ColumnName) throws DBAppException{
+	public static void CreateFirstIndex(String strTableName,String ColumnName) throws DBAppException{
 		//table.CreateDenseTable(ColumnName);
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
 			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
-				((Table)Tables.get(i)).CreateDenseTable(ColumnName);
+				((Table)Tables.get(i)).CreateFirstBrin(ColumnName);
 				
 				Flag = false;
 				break;
@@ -66,7 +66,22 @@ public class DbApp {
 		}
 		
 	}
-
+	public static void DeleteDenseIndex(String strTableName,String ColumnName,Entity Entity) throws DBAppException{
+		//table.CreateDenseTable(ColumnName);
+		boolean Flag = true;
+		for(int i = 0; i<Tables.size();i++){
+			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
+				((Table)Tables.get(i)).DeleteDenseTable(ColumnName, Entity);
+				
+				Flag = false;
+				break;
+			}
+		}
+		if(Flag){
+			System.out.println("Table Name not found");
+		}
+		
+	}
 	public static void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
@@ -167,13 +182,25 @@ public class DbApp {
 		htblColName90.put("Social Security number", new Integer( 67896789 ));
 		htblColName90.put("name", new String("Cenq David" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
+		
+		for(int i =0;i<303;i++){
+	        Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
+	        htblColName4.put("Social Security number", new Integer( i ));
+			htblColName4.put("name", new String("name" +i) );
+			htblColName4.put("age", new Integer( i%100 ) );
+	        insertIntoTable( strTableName1 , htblColName4 );
+	        //System.out.println(i);
+	        }
 		//Thread.sleep(1000000);
 		//deleteFromTable( strTableName1,htblColName70);
 		//updateTable( strTableName1 ,"", htblColName90 );
 		//deleteFromTable( strTableName1,htblColName20);
 		//deleteFromTable( strTableName1,htblColName70);
+		//Entity Entity=new Entity(1234,0,7);
+		CreateFirstIndex(strTableName1,"age");
+		//DeleteDenseIndex(strTableName1,"age",Entity);
 		
-		CreateDenseIndex(strTableName1,"age");
+		
 		
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")

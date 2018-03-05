@@ -11,6 +11,10 @@ public class Entity {
 	}
 	public Entity(){}
 	
+	public String toString(){
+		
+		return this.Value+", "+this.PageNumber+" "+this.Elementnumber;
+	}
 	
 
 }

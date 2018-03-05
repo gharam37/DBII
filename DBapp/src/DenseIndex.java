@@ -77,8 +77,8 @@ public class DenseIndex {
 			int Value = (int) New.Value;
 
 			if (!Densetuples.isEmpty()) {
-				// System.out.println("Here");
-				// System.out.println(htblColNameVale); //What empties tuples ?
+				// .out.println("Here");
+				// .out.println(htblColNameVale); //What empties tuples ?
 
 				for (int i = 0; i < Densetuples.size(); i++) {
 					Entity = Densetuples.get(i);
@@ -172,8 +172,7 @@ public class DenseIndex {
 			int Value = (int) New.Value;
 
 			if (!Densetuples.isEmpty()) {
-				// System.out.println("Here");
-				// System.out.println(htblColNameVale); //What empties tuples ?
+				
 
 				for (int i = 0; i < Densetuples.size(); i++) {
 					Entity = Densetuples.get(i);
@@ -276,8 +275,8 @@ public class DenseIndex {
 			int Value = (int) New.Value;
 
 			if (!Densetuples.isEmpty()) {
-				// System.out.println("Here");
-				// System.out.println(htblColNameVale); //What empties tuples ?
+				// .out.println("Here");
+				// .out.println(htblColNameVale); //What empties tuples ?
 
 				for (int i = 0; i < Densetuples.size(); i++) {
 					Entity = Densetuples.get(i);
@@ -323,7 +322,7 @@ public class DenseIndex {
 				writer.append(Densetuples.get(i).Value + " ");
 				writer.append("\n");
 
-				// System.out.println(Densetuples.get(i).Value);
+				// .out.println(Densetuples.get(i).Value);
 				// generate whatever data you want
 
 			}

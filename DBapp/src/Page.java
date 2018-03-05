@@ -24,7 +24,7 @@ public class Page implements Serializable {
     int currentLine = 0;//the line to add data too
      String strClusteringKeyColumn = "";
      
-     BrinIndex Brin;
+     //BrinIndex Brin;
     //int ColumnNumber;
 
     //constructor 
@@ -40,7 +40,7 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>199;
+       return this.currentLine>9;
     }
 	public boolean IsEmpty(){
 		return(this.tuples.isEmpty());
@@ -232,7 +232,7 @@ public class Page implements Serializable {
 				
 			}
 			writer.append("\n");
-            System.out.println(tuples.get(i));
+            //System.out.println(tuples.get(i));
 			// generate whatever data you want 
 			
            }
