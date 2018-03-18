@@ -27,8 +27,8 @@ public class Table implements Serializable {
 	String strClusteringKeyColumn; // table primary key
 	String strTableName; // table name
 	private static final long serialVersionUID = 1L;
-	ArrayList<DenseTable> denseTables;
-	BrinFirst FirstBrins;
+	ArrayList<DenseIndex> denseIndecies;
+	//BrinFirst FirstBrins;
 	ArrayList<Page> Pages;
 	Hashtable<String, String> htblColNameType;// hashtable of the attributes and
 												// their types.. to put inserted
@@ -40,7 +40,7 @@ public class Table implements Serializable {
 		this.strClusteringKeyColumn = strClusteringKeyColumn;
 		this.htblColNameType = htblColNameType;
 		this.Pages = new ArrayList<Page>();
-		this.denseTables=new ArrayList<DenseTable> ();
+		this.denseIndecies=new ArrayList<DenseIndex> ();
 		
 		try {
 			MakeMeta(htblColNameType);
@@ -514,7 +514,7 @@ public class Table implements Serializable {
 			throw new DBAppException();// TO-DO message
 		}
 	}
-	public void CreateFirstBrin(String ColumnName) throws DBAppException{
+	public void CreateDenseTest(String ColumnName) throws DBAppException{
 		 boolean foundname=false;
 		  Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 		  
@@ -537,16 +537,18 @@ public class Table implements Serializable {
          else{
         	 
         	 //here
-        	 DenseTable dense=new DenseTable(this,ColumnName);
-        	 this.FirstBrins=new BrinFirst(dense);
-        	 denseTables.add(dense);
+        	 DenseIndex dense=new DenseIndex(this,ColumnName);
+        	 //this.FirstBrins=new BrinFirst(dense);
+        	 denseIndecies.add(dense);
          }
 		  
 		  
 		  
 		
 	}
-	public void  DeleteDenseTable(String ColumnName,Entity Entity) throws DBAppException{
+	
+	
+	/*public void  DeleteDenseTable(String ColumnName,Entity Entity) throws DBAppException{
 		 boolean foundname=false;
 		  Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 		  
@@ -579,7 +581,7 @@ public class Table implements Serializable {
 		  
 		  
 		
-	}
+	}*/
 	public void DeleteFromTable(Hashtable<String, Object> htblColNameVale)
 			throws DBAppException {
 

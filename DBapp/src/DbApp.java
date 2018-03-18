@@ -50,12 +50,12 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
-	public static void CreateFirstIndex(String strTableName,String ColumnName) throws DBAppException{
+	public static void CreateDenseTest(String strTableName,String ColumnName) throws DBAppException{
 		//table.CreateDenseTable(ColumnName);
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
 			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
-				((Table)Tables.get(i)).CreateFirstBrin(ColumnName);
+				((Table)Tables.get(i)).CreateDenseTest(ColumnName);
 				
 				Flag = false;
 				break;
@@ -66,7 +66,7 @@ public class DbApp {
 		}
 		
 	}
-	public static void DeleteDenseIndex(String strTableName,String ColumnName,Entity Entity) throws DBAppException{
+	/*public static void DeleteDenseIndex(String strTableName,String ColumnName,Entity Entity) throws DBAppException{
 		//table.CreateDenseTable(ColumnName);
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
@@ -81,7 +81,7 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 		
-	}
+	}*/
 	public static void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
@@ -191,13 +191,9 @@ public class DbApp {
 	        insertIntoTable( strTableName1 , htblColName4 );
 	        //System.out.println(i);
 	        }
-		//Thread.sleep(1000000);
-		//deleteFromTable( strTableName1,htblColName70);
-		//updateTable( strTableName1 ,"", htblColName90 );
-		//deleteFromTable( strTableName1,htblColName20);
-		//deleteFromTable( strTableName1,htblColName70);
-		//Entity Entity=new Entity(1234,0,7);
-		CreateFirstIndex(strTableName1,"age");
+	
+
+		CreateDenseTest(strTableName1,"age");
 		//DeleteDenseIndex(strTableName1,"age",Entity);
 		
 		
