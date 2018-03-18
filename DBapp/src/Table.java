@@ -28,7 +28,8 @@ public class Table implements Serializable {
 	String strTableName; // table name
 	private static final long serialVersionUID = 1L;
 	ArrayList<DenseIndex> denseIndecies;
-	//BrinFirst FirstBrins;
+	BrinFirst FirstBrins;
+	BrinIndex BrinIndex;
 	ArrayList<Page> Pages;
 	Hashtable<String, String> htblColNameType;// hashtable of the attributes and
 												// their types.. to put inserted
@@ -41,6 +42,7 @@ public class Table implements Serializable {
 		this.htblColNameType = htblColNameType;
 		this.Pages = new ArrayList<Page>();
 		this.denseIndecies=new ArrayList<DenseIndex> ();
+		
 		
 		try {
 			MakeMeta(htblColNameType);
@@ -514,7 +516,7 @@ public class Table implements Serializable {
 			throw new DBAppException();// TO-DO message
 		}
 	}
-	public void CreateDenseTest(String ColumnName) throws DBAppException{
+	public void CreateBrinIndex(String ColumnName) throws DBAppException{
 		 boolean foundname=false;
 		  Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 		  
@@ -540,6 +542,8 @@ public class Table implements Serializable {
         	 DenseIndex dense=new DenseIndex(this,ColumnName);
         	 //this.FirstBrins=new BrinFirst(dense);
         	 denseIndecies.add(dense);
+        	 this.FirstBrins=new BrinFirst(dense);
+        	 this.BrinIndex=new BrinIndex(FirstBrins);
          }
 		  
 		  

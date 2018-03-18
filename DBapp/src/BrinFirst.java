@@ -1,4 +1,4 @@
-/*import java.io.FileWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -11,9 +11,9 @@ public class BrinFirst {
 	//LinkedList<Entity> FirstBrintuples ; // entity of Pair object , Dense page number
 	ArrayList<LinkedList<Entity>> BrinPages;
 	
-	DenseTable Dense;
+	DenseIndex Dense;
 	int currentLine;
-	public BrinFirst(DenseTable Dense){
+	public BrinFirst(DenseIndex Dense){
 		this.Dense=Dense;
 		this.ColumnName=Dense.ColumnName;
 		//this.FirstBrintuples = new LinkedList<Entity>();
@@ -22,38 +22,52 @@ public class BrinFirst {
 		
 	}
 	public void CreateFirstBrin(){
-		for(int i=0;i<Dense.denses.size()-1;i++){ //remember to return it to size
-		  InsertIntoArray();
-			DenseIndex current=this.Dense.denses.get(i);
-			System.out.println(current);
-			Entity First=(Entity)current.Densetuples.getFirst();
-			Entity Last=(Entity)current.Densetuples.getLast();
-			Pair<Entity,Entity> Entities=new Pair<Entity,Entity> (First,Last);
-			Entity toInsert=new Entity(Entities,i,-1);
-			this.BrinPages.get(this.BrinPages.size()-1).add(toInsert);
-			 
-			 currentLine++;
+		LinkedList<Entity> Densetuples =this.Dense.Densetuples;
+		int i=0;
+		for( i=0;i<Densetuples.size()-9;i+=10){
+			Entity First=Densetuples.get(i);
+			Entity Last=Densetuples.get(i+9);
+			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(First,Last);
+			Entity Value = new Entity(EntityPair,i,-1);
+			InsertIntoBrinPage(Value);
 			
 			
-			 
+			
 		}
-		LoadAll();
+	    if(i<Densetuples.size()){
+	    	Entity First=Densetuples.get(i);
+			Entity Last=null;
+			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(First,Last);
+			Entity Value = new Entity(EntityPair,i,-1);
+			InsertIntoBrinPage(Value);
+			
+	    }
+	
+			 
+		
+	
 	}
-	public void InsertIntoArray(){
+	public void InsertIntoBrinPage(Entity value) {
 		if(this.BrinPages.isEmpty() || this.check()){
 			 LinkedList<Entity> FirstBrintuples = new LinkedList<Entity>();
 			 this.BrinPages.add( FirstBrintuples);
 			this.currentLine=0;
 			
+			
 		}
+		this.BrinPages.get(this.BrinPages.size()-1).addLast(value);
+		currentLine++;
+		LoadAll();
+		//System.out.println(BrinPages.size());
 	}
+	
 	public boolean check(){
-	       return this.currentLine>10;
+	       return this.currentLine>3;
 	    }
 	public void loadFirst(int Index, String columnName) {
 
 		try {
-			FileWriter writer = new FileWriter(columnName + Index +"FirstBrin"+ ".csv");
+			FileWriter writer = new FileWriter(columnName + Index +"First Brin"+ ".csv");
         
 			for (int i = 0; i < this.BrinPages.get(Index).size(); i++) {
 
@@ -73,10 +87,9 @@ public class BrinFirst {
 	}
 	public void LoadAll(){
 		for(int i=0;i<this.BrinPages.size();i++){
-			//System.out.println("Entered to load");
+			
 			loadFirst(i, ColumnName);
 		}
 	}
 
 }
-*/

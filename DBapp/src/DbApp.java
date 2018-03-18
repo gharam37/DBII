@@ -50,12 +50,12 @@ public class DbApp {
 			System.out.println("Table Name not found");
 		}
 	}
-	public static void CreateDenseTest(String strTableName,String ColumnName) throws DBAppException{
+	public static void CreateBrinIndex(String strTableName,String ColumnName) throws DBAppException{
 		//table.CreateDenseTable(ColumnName);
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
 			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
-				((Table)Tables.get(i)).CreateDenseTest(ColumnName);
+				((Table)Tables.get(i)).CreateBrinIndex(ColumnName);
 				
 				Flag = false;
 				break;
@@ -107,6 +107,7 @@ public class DbApp {
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType1 = new Hashtable( );
 		htblColNameType1.put("name", "java.lang.String");
+		htblColNameType1.put("address", "java.lang.String");
 		htblColNameType1.put("Social Security number", "java.lang.Integer");
 		htblColNameType1.put("age", "java.lang.double");
 
@@ -120,12 +121,14 @@ public class DbApp {
 		Hashtable<String,Object> htblColName20 = new Hashtable<String,Object>( );
 		htblColName20.put("Social Security number", new Integer( 23498 ));
 		htblColName20.put("name", new String("Cenq David" ) );
+		htblColName20.put("address", new String("hamdy st" ) );
 		htblColName20.put("age", new Integer( 30 ) );
 		//Thread.sleep(1000000);
 		insertIntoTable( strTableName1 , htblColName20 );
 	
 		Hashtable<String,Object> htblColName10 = new Hashtable<String,Object>( );
 		htblColName10.put("Social Security number", new Integer( 453455 ));
+		htblColName10.put("address", new String("hamdy st2" ) );
 		htblColName10.put("name", new String("Ahmed Mohammed" ) );
 		
 		htblColName10.put("age", new Integer( 50 ) );
@@ -134,20 +137,21 @@ public class DbApp {
 		Hashtable<String,Object> htblColName40 = new Hashtable<String,Object>( );
 		htblColName40.put("Social Security number", new Integer( 453455 ));
 		htblColName40.put("name", new String("Bassem Mahmoud" ) );
-	
+		htblColName40.put("address", new String("nasr st" ) );
 		htblColName40.put("age", new Integer( 30 ) );
 		insertIntoTable( strTableName1 , htblColName40 );
 		//Thread.sleep(100000);
 		Hashtable<String,Object> htblColName50 = new Hashtable<String,Object>( );
 		htblColName50.put("Social Security number", new Integer( 453455 ));
 		htblColName50.put("name", new String("Bassem Ahmed" ) );
-	
+		htblColName50.put("address", new String("m7md st" ) );
 		htblColName50.put("age", new Integer( 30 ) );
 		insertIntoTable( strTableName1 , htblColName50 );
 		Hashtable<String,Object> htblColName30 = new Hashtable<String,Object>( );
 
 		htblColName30.put("Social Security number", new Integer( 78452 ));
 		htblColName30.put("name", new String("Darine Noor" ) );
+		htblColName30.put("address", new String("bakr st" ) );
 		htblColName30.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName1 , htblColName30);
 		
@@ -155,6 +159,7 @@ public class DbApp {
 
 		htblColName60.put("Social Security number", new Integer( 78452 ));
 		htblColName60.put("name", new String("Darine Omar" ) );
+		htblColName60.put("address", new String("zaky st" ) );
 		htblColName60.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName1 , htblColName60);
 		
@@ -162,6 +167,7 @@ public class DbApp {
 
 		htblColName70.put("Social Security number", new Integer( 78452 ));
 		htblColName70.put("name", new String("Darine othman" ) );
+		htblColName70.put("address", new String("zaky st1" ) );
 		htblColName70.put("age", new Integer( 50 ) );
 		insertIntoTable( strTableName1 , htblColName70);
 		
@@ -169,34 +175,36 @@ public class DbApp {
 
 		htblColName80.put("Social Security number", new Integer( 123456789 ));
 		htblColName80.put("name", new String("Darine othman" ) );
+		htblColName80.put("address", new String("zaky st2" ) );
 		htblColName80.put("age", new Integer( 123456789 ) );
 		
 		Hashtable<String,Object> htblColName100 = new Hashtable<String,Object>( );
 
 		htblColName100.put("Social Security number", new Integer( 2937 ));
 		htblColName100.put("name", new String("Darine ozhman" ) );
+		htblColName100.put("address", new String("zaky st5" ) );
 		htblColName100.put("age", new Integer( 1234 ) );
 		insertIntoTable( strTableName1, htblColName100);
 		
 		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
 		htblColName90.put("Social Security number", new Integer( 67896789 ));
+		htblColName90.put("address", new String("Bakry st" ) );
 		htblColName90.put("name", new String("Cenq David" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
 		
-		for(int i =0;i<33;i++){
+		for(int i =0;i<109;i++){
 	        Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
 	        htblColName4.put("Social Security number", new Integer( i ));
+	        htblColName4.put("address", new String("Adham st" )+i );
 			htblColName4.put("name", new String("name" +i) );
 			htblColName4.put("age", new Integer( i%100 ) );
 	        insertIntoTable( strTableName1 , htblColName4 );
 	        //System.out.println(i);
 	        }
 	
-
-		CreateDenseTest(strTableName1,"age");
-		//DeleteDenseIndex(strTableName1,"age",Entity);
+		CreateBrinIndex(strTableName1,"age");
 		
-		
+		CreateBrinIndex(strTableName1,"address");
 		
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
@@ -212,7 +220,7 @@ public class DbApp {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*Hashtable<String,Object> htblColNameValueGharamWantsToChange = new Hashtable<String,Object>( );
+		Hashtable<String,Object> htblColNameValueGharamWantsToChange = new Hashtable<String,Object>( );
 
 		htblColNameValueGharamWantsToChange.put("id", new Integer( 2343432 ));
 		htblColNameValueGharamWantsToChange.put("name", new String("Ahmed Noor" ) );
@@ -262,54 +270,19 @@ public class DbApp {
 
 		htblColName6.put("id", new Integer( 453455 ));
 		htblColName6.put("name", new String("Ahmed Mohammed abdullah khaled bassim aly mohamed" ) );
-		htblColName6.put("gpa", new Double( 199799.199799 ) );
+		htblColName6.put("gpa", new Double( 199799.199799 ) )
 		updateTable( strTableName ,"", htblColName6 );
 		deleteFromTable( strTableName,htblColName4);
 		deleteFromTable( strTableName,htblColName3); */
 		
 		
-		/*String a="ala";
-		String b="bna";
-		try {
-			byte[] infoBin = a.getBytes("UTF-8");
-			byte[] infoBin1 = b.getBytes("UTF-8");
-			for(int i=0;i<infoBin.length;i++){
-				System.out.print(infoBin[i]+"  ");
-			}
-			System.out.println("");
-			for(int i=0;i<infoBin1.length;i++){
-				System.out.print(infoBin1[i]+"  ");
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		
-		
-		*/
-		
+	
 		
 		
 		
 		
 
-		/*String a="ala";
-		String b="bna";
-		try {
-			byte[] infoBin = a.getBytes("UTF-8");
-			byte[] infoBin1 = b.getBytes("UTF-8");
-			for(int i=0;i<infoBin.length;i++){
-				System.out.print(infoBin[i]+"  ");
-			}
-			System.out.println("");
-			for(int i=0;i<infoBin1.length;i++){
-				System.out.print(infoBin1[i]+"  ");
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();*/
+		
 		}
 		
 		

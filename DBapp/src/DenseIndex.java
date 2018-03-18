@@ -32,10 +32,11 @@ public class DenseIndex {
 	
 	public void Initialize(){
 		ArrayList<Page> Pages=this.table.Pages;
-		
+		LinkedList<Hashtable<String,Object>> Pagetuples;
+		Page p;
 		for(int i=0;i<Pages.size();i++){
-			Page p=Pages.get(i);
-			LinkedList<Hashtable<String,Object>> Pagetuples=p.tuples;
+			p=Pages.get(i);
+			Pagetuples =p.tuples;
 		   
 			//System.out.println(Dense);
 			for(int j=0;j<Pagetuples.size();j++){
@@ -47,6 +48,7 @@ public class DenseIndex {
 					   
 				   }
 				   else{
+					   
 					   InsertIntoDense(Entity,false);
 				   }
 				 
@@ -126,16 +128,16 @@ public class DenseIndex {
 				for (int i = 0; i < Densetuples.size(); i++) {
 					Entity = Densetuples.get(i);
 					int currentValue = (int) Entity.Value;
-					if ((currentValue > Value) && i == Densetuples.size() - 1) {
+					if ((currentValue >= Value) && i == 0) {
 						Densetuples.addFirst(New);
 
 						break;
-					} else if (currentValue < Value && i == 0) {
+					} else if (currentValue <= Value && i == Densetuples.size() - 1) {
 
 						Densetuples.addLast(New);
 						break;
 					}
-					if (currentValue <= Value) {
+					else if (currentValue >= Value) {
 						Densetuples.add(i, New);
 						break;
 
@@ -148,7 +150,7 @@ public class DenseIndex {
 				Densetuples.add(0, New);
 			}
 		}
-		loadDense();
+		//loadDense();
 	}
   
 	public void UpdateDense(Entity New, boolean isString) throws DBAppException {

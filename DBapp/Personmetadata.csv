@@ -1,4 +1,5 @@
 Table name,Column Name,Column Type,Key?,Indexed?,
+Person,address,java.lang.String,False,False,
 Person,age,java.lang.double,False,False,
 Person,Social Security number,java.lang.Integer,False,False,
 Person,name,java.lang.String,True,False,

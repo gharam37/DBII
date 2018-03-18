@@ -1,0 +1,76 @@
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+import javafx.util.Pair;
+
+public class BrinFirst {
+	String ColumnName;
+
+	//LinkedList<Entity> FirstBrintuples ; // entity of Pair object , Dense page number
+	ArrayList<LinkedList<Entity>> BrinPages;
+	
+	DenseIndex Dense;
+	int currentLine;
+	public BrinFirst(DenseIndex Dense){
+		this.Dense=Dense;
+		this.ColumnName=Dense.ColumnName;
+		//this.FirstBrintuples = new LinkedList<Entity>();
+		this.BrinPages=new ArrayList<LinkedList<Entity>>();
+		CreateFirstBrin();
+		
+	}
+	public void CreateFirstBrin(){
+		LinkedList<Entity> Densetuples =this.Dense.Densetuples;
+		for(int i=0;i+10<Densetuples.size();i+=10){
+			
+		}
+			 
+			
+			
+			
+			 
+		
+	
+	}
+	public void InsertIntoArray(){
+		if(this.BrinPages.isEmpty() || this.check()){
+			 LinkedList<Entity> FirstBrintuples = new LinkedList<Entity>();
+			 this.BrinPages.add( FirstBrintuples);
+			this.currentLine=0;
+			
+		}
+	}
+	public boolean check(){
+	       return this.currentLine>10;
+	    }
+	public void loadFirst(int Index, String columnName) {
+
+		try {
+			FileWriter writer = new FileWriter(columnName + Index +"FirstBrin"+ ".csv");
+        
+			for (int i = 0; i < this.BrinPages.get(Index).size(); i++) {
+
+				writer.append(this.BrinPages.get(Index).get(i).Value+ " ");
+				writer.append("\n");
+
+				// System.out.println(Densetuples.get(i).Value);
+				// generate whatever data you want
+
+			}
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+	public void LoadAll(){
+		for(int i=0;i<this.BrinPages.size();i++){
+			
+			loadFirst(i, ColumnName);
+		}
+	}
+
+}
