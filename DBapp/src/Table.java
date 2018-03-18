@@ -655,7 +655,7 @@ public class Table implements Serializable {
 
 											DenseIndex DenseIndex = BrinFirst.Dense;
 											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-											for (int s = First1.PageNumber * 4; s < Second1.PageNumber * 4 + 4; s++) {
+											for (int s = Entity1.PageNumber * 4; s < Densetuples.size(); s++) {
 												
 												Entity Entity2 = Densetuples.get(s);
 												
