@@ -567,11 +567,8 @@ public class Table implements Serializable {
 		}
 
 		if (found) {
-			String op1 = strarrOperators[0];
-			String op2 = strarrOperators[1];
-			Object Val1 = objarrValues[0];
-			Object Val2 = objarrValues[1];
-			if (Val1 instanceof String) {
+
+			if (objarrValues[0] instanceof String) {
 				Iterator = SearchInString(objarrValues, strarrOperators,
 						ColumnName);
 			} else {
@@ -583,91 +580,112 @@ public class Table implements Serializable {
 		return Iterator;
 	}
 
+	@SuppressWarnings({ "unchecked", "null" })
 	public ArrayList<Hashtable<String, Object>> SearchInInt(
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
-		ArrayList<Hashtable<String, Object>> Iterator = null;
+		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
 		String op1 = strarrOperators[0];
-		String op2 = strarrOperators[1];
+		
 		Object Val1 = objarrValues[0];
-		Object Val2 = objarrValues[1];
-		if (objarrValues.length == 2) {
-			for (int i = 0; i < this.BrinIndecies.size(); i++) {
-				BrinIndex BrinIndex = this.BrinIndecies.get(i);
-				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
-				for (int j = 0; j < BrinPages.size(); j++) {
-					LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-					for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-						Entity Entity = SecondBrinIndexTuples.get(k); 
-						Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-						Entity First = FirstPair.getKey();
-						Entity Second = FirstPair.getValue();
-						if (op1.equals(">=") && op2.equals("<")) {
-							if(((int)First.Value)>=((int)Val1)&&((int)Second.Value)<((int)Val2))
-							
+		int Brin = -1;
+		for(int i = 0; i<BrinIndecies.size();i++){
+			if(BrinIndecies.get(i).ColumnName.equals(ColumnName))
+				Brin = i;
+		}
+//		if(Brin==-1){
+//			return Iterator;
+//		}
+		if (strarrOperators.length == 2) {
+			String op2 = strarrOperators[1];
+			Object Val2 = objarrValues[1];
+			if (op1.equals(">=") && op2.equals("<")) {
 
-						} else if (op1.equals(">=") && op2.equals("<=")) {
-
-						}
-
-						else if (op1.equals(">") && op2.equals("<")) {
-
-						} else if (op1.equals(">") && op2.equals("<=")) {
-
-						} else if (op2.equals(">=") && op1.equals("<")) {
-						} else if (op2.equals(">=") && op1.equals("<=")) {
-
-						}
-
-						else if (op2.equals(">") && op1.equals("<")) {
-
-						} else if (op2.equals(">") && op1.equals("<=")) {
-
-						}
-					}
-				}
+			} else if (op1.equals(">=") && op2.equals("<=")) {
 
 			}
+
+			else if (op1.equals(">") && op2.equals("<")) {
+
+			} else if (op1.equals(">") && op2.equals("<=")) {
+
+			} else if (op2.equals(">=") && op1.equals("<")) {
+			} else if (op2.equals(">=") && op1.equals("<=")) {
+
+			}
+
+			else if (op2.equals(">") && op1.equals("<")) {
+
+			} else if (op2.equals(">") && op1.equals("<=")) {
+
+			}
+
 		} else {
-			for (int i = 0; i < this.BrinIndecies.size(); i++) {
-				BrinIndex BrinIndex = this.BrinIndecies.get(i);
-				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
-				for (int j = 0; j < BrinPages.size(); j++) {
-					LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-					for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-						Entity Entity = SecondBrinIndexTuples.get(k); 
-						Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-						Entity First = FirstPair.getKey();
-						Entity Second = FirstPair.getValue();
-						
-			if (op1.equals(">=") ) {
-				if(((int)Val1)>=((int)First.Value)){
-					for (int l = 0; l < this.BrinIndecies.size(); l++) {
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> FirstBrinPages= BrinFirst.BrinPages;
-						for (int m = 0; m < FirstBrinPages.size(); m++) {
-							LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-							for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-								Entity Entity = SecondBrinIndexTuples.get(k); 
-								Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-								Entity First = FirstPair.getKey();
-								Entity Second = FirstPair.getValue();
-					
-					if(((int)Val1)<((int)Second.Value)){
-						
-						
-					}
-				}
-			} else if (op1.equals(">") ) {
 
-			} else if (op1.equals("<") ) {
+			if (op1.equals(">=")) {
+					System.out.println("break");
+					BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
+					ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
+					for (int j = 0; j < BrinPages.size(); j++) {
+						
+						LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
+						for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
+							Entity Entity = SecondBrinIndexTuples.get(k);
+							Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
+							Entity First = FirstPair.getKey();
+							Entity Second = FirstPair.getValue();
+							System.out.println(((int)Val1)+"   "+((int)First.Value));
+							if (((int) Val1) >= ((int) First.Value)) {
+								System.out.println("break2");
+
+								BrinFirst BrinFirst = BrinIndex.FirstBrin;
+								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+								for (int p = First.PageNumber; p <= Second.PageNumber; p++) {
+									System.out.println("break3");
+									LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(p);
+									for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
+										System.out.println("break4");
+										Entity Entity1 = FirstBrinIndexTuples.get(r);
+										Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+										Entity First1 = FirstPair1.getKey();
+										Entity Second1 = FirstPair1.getValue();
+										System.out.println(((int)Val1)+"   "+((int)First1.Value));
+										if (((int) Val1) >= ((int) First1.Value)) {
+											System.out.println("break5");
+
+											DenseIndex DenseIndex = BrinFirst.Dense;
+											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+											for (int s = First1.PageNumber * 4; s < Second1.PageNumber * 4 + 4; s++) {
+												
+												Entity Entity2 = Densetuples.get(s);
+												
+												if((int)Entity2.Value <= (int)Val1){
+												Iterator.add(Pages.get(Entity2.PageNumber).tuples.get(Entity2.Elementnumber));
+											}
+												else
+													break;
+											}
+
+										}
+										else
+											break;
+
+									}
+
+								}
+
+							}
+							else
+								break;
+
+						}
+					}
+			} else if (op1.equals(">")) {
+
+			} else if (op1.equals("<")) {
 
 			}
-			if (op1.equals("<=") ) {
-				
+			if (op1.equals("<=")) {
 
-			}
-					}
-				}
 			}
 
 		}

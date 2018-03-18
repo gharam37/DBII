@@ -14,9 +14,6 @@ public class DenseIndex {
 	// of entities
 	File file;
 	String ColumnName; //The Column we   cluster with 
-	
-	
-	ArrayList<DenseIndex> denses;
 	Table table;
 	
 	
