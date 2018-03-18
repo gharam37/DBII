@@ -52,7 +52,7 @@ public class BrinIndex {
 	    	Entity First=BrinPages.get(BrinPages.size()-1).get(i);
 			Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) First.Value;	
 			Entity FirstOfFirst=(Entity)FirstPair.getKey();
-			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(First,null);
+			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(FirstOfFirst,null);
 			Entity Value = new Entity(EntityPair,i,-1);
 			InsertIntoBrinPage(Value);
 			

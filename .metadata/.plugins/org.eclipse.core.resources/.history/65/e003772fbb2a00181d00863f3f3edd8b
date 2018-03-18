@@ -643,8 +643,8 @@ public class Table implements Serializable {
 				if(((int)Val1)>=((int)First.Value)){
 					for (int l = 0; l < this.BrinIndecies.size(); l++) {
 						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> FirstBrinPages= BrinFirst.BrinPages;
-						for (int m = 0; m < FirstBrinPages.size(); m++) {
+						ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
+						for (int m = 0; m < BrinPages.size(); m++) {
 							LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
 							for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
 								Entity Entity = SecondBrinIndexTuples.get(k); 

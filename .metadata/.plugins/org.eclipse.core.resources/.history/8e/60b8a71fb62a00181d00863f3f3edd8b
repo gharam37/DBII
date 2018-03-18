@@ -598,11 +598,8 @@ public class Table implements Serializable {
 					LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
 					for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
 						Entity Entity = SecondBrinIndexTuples.get(k); 
-						Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-						Entity First = FirstPair.getKey();
-						Entity Second = FirstPair.getValue();
+						
 						if (op1.equals(">=") && op2.equals("<")) {
-							if(((int)First.Value)>=((int)Val1)&&((int)Second.Value)<((int)Val2))
 							
 
 						} else if (op1.equals(">=") && op2.equals("<=")) {
@@ -628,46 +625,15 @@ public class Table implements Serializable {
 
 			}
 		} else {
-			for (int i = 0; i < this.BrinIndecies.size(); i++) {
-				BrinIndex BrinIndex = this.BrinIndecies.get(i);
-				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
-				for (int j = 0; j < BrinPages.size(); j++) {
-					LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-					for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-						Entity Entity = SecondBrinIndexTuples.get(k); 
-						Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-						Entity First = FirstPair.getKey();
-						Entity Second = FirstPair.getValue();
-						
-			if (op1.equals(">=") ) {
-				if(((int)Val1)>=((int)First.Value)){
-					for (int l = 0; l < this.BrinIndecies.size(); l++) {
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> FirstBrinPages= BrinFirst.BrinPages;
-						for (int m = 0; m < FirstBrinPages.size(); m++) {
-							LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-							for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-								Entity Entity = SecondBrinIndexTuples.get(k); 
-								Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) Entity.Value;
-								Entity First = FirstPair.getKey();
-								Entity Second = FirstPair.getValue();
-					
-					if(((int)Val1)<((int)Second.Value)){
-						
-						
-					}
-				}
-			} else if (op1.equals(">") ) {
+			if (op1.equals(">=") && op2.equals("")) {
 
-			} else if (op1.equals("<") ) {
+			} else if (op1.equals("") && op2.equals("<=")) {
+
+			} else if (op1.equals("") && op2.equals("<")) {
 
 			}
-			if (op1.equals("<=") ) {
-				
+			if (op1.equals(">") && op2.equals("")) {
 
-			}
-					}
-				}
 			}
 
 		}
