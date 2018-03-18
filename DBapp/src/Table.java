@@ -630,6 +630,7 @@ public class Table implements Serializable {
 						LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
 						for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
 							Entity Entity = SecondBrinIndexTuples.get(k);
+							System.out.println(Entity.Value+"/"+Entity.PageNumber+Entity.Elementnumber);
 							Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 							Entity First = FirstPair.getKey();
 							Entity Second = FirstPair.getValue();
@@ -639,7 +640,7 @@ public class Table implements Serializable {
 
 								BrinFirst BrinFirst = BrinIndex.FirstBrin;
 								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-								for (int p = First.PageNumber; p <= Second.PageNumber; p++) {
+								for (int p = Entity.PageNumber; p <=Entity.PageNumber; p++) {
 									System.out.println("break3");
 									LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(p);
 									for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {

@@ -147,7 +147,7 @@ public class DenseIndex {
 				Densetuples.add(0, New);
 			}
 		}
-		//loadDense();
+		loadDense();
 	}
   
 	public void UpdateDense(Entity New, boolean isString) throws DBAppException {
