@@ -28,8 +28,10 @@ public class Table implements Serializable {
 	String strTableName; // table name
 	private static final long serialVersionUID = 1L;
 	ArrayList<DenseIndex> denseIndecies;
-	BrinFirst FirstBrins;
-	BrinIndex BrinIndex;
+	ArrayList<BrinIndex> BrinIndecies;
+
+	// BrinFirst FirstBrins;
+	// BrinIndex BrinIndex;
 	ArrayList<Page> Pages;
 	Hashtable<String, String> htblColNameType;// hashtable of the attributes and
 												// their types.. to put inserted
@@ -41,9 +43,8 @@ public class Table implements Serializable {
 		this.strClusteringKeyColumn = strClusteringKeyColumn;
 		this.htblColNameType = htblColNameType;
 		this.Pages = new ArrayList<Page>();
-		this.denseIndecies=new ArrayList<DenseIndex> ();
-		
-		
+		this.BrinIndecies = new ArrayList<BrinIndex>();
+
 		try {
 			MakeMeta(htblColNameType);
 
@@ -516,76 +517,233 @@ public class Table implements Serializable {
 			throw new DBAppException();// TO-DO message
 		}
 	}
-	public void CreateBrinIndex(String ColumnName) throws DBAppException{
-		 boolean foundname=false;
-		  Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
-		  
-		  
-		  Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
-		  
-		 
-		  while (Iterator.hasNext()) { Entry<String, String> en = Iterator.next();
-		  
-		  String Key=en.getKey(); if(Key.equals(ColumnName)){ foundname=true; }
-		  
-		 
-		 
-		  } 
-		  
-         if(!foundname){ 
-			  
-			  throw new DBAppException(); // } else { for(int
-		  }
-         else{
-        	 
-        	 //here
-        	 DenseIndex dense=new DenseIndex(this,ColumnName);
-        	 //this.FirstBrins=new BrinFirst(dense);
-        	 denseIndecies.add(dense);
-        	 this.FirstBrins=new BrinFirst(dense);
-        	 this.BrinIndex=new BrinIndex(FirstBrins);
-         }
-		  
-		  
-		  
-		
+
+	public void CreateBrinIndex(String ColumnName) throws DBAppException {
+		boolean foundname = false;
+		Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
+
+		Iterator<Entry<String, String>> Iterator = FirstTuple.iterator();
+
+		while (Iterator.hasNext()) {
+			Entry<String, String> en = Iterator.next();
+
+			String Key = en.getKey();
+			if (Key.equals(ColumnName)) {
+				foundname = true;
+			}
+
+		}
+
+		if (!foundname) {
+
+			throw new DBAppException(); // } else { for(int
+		} else {
+
+			// here
+			DenseIndex dense = new DenseIndex(this, ColumnName);
+			// this.FirstBrins=new BrinFirst(dense);
+			// denseIndecies.add(dense);
+			BrinFirst FirstBrin = new BrinFirst(dense);
+			BrinIndex BrinIndex = new BrinIndex(FirstBrin);
+			this.BrinIndecies.add(BrinIndex);
+		}
+
 	}
-	
-	
-	/*public void  DeleteDenseTable(String ColumnName,Entity Entity) throws DBAppException{
-		 boolean foundname=false;
-		  Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
-		  
-		  
-		  Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
-		  
-		 
-		  while (Iterator.hasNext()) { Entry<String, String> en = Iterator.next();
-		  
-		  String Key=en.getKey(); if(Key.equals(ColumnName)){ foundname=true; }
-		  
-		 
-		 
-		  } 
-		  
-        if(!foundname){ 
-			  
-			  throw new DBAppException(); // NO INDEX ON THIS COLUMN
-		  }
-        else{
-       	 
-       	 //here
-       	 //DenseTable dense=new DenseTable(this,ColumnName);
-       	 //denseTables.add(dense);
-        	for(int i = 0;i<denseTables.size();i++){
-        		if(denseTables.get(i).ColumnName.equals(ColumnName))
-        	denseTables.get(i).DeleteFromDenseTable(Entity);
-        }}
-		  
-		  
-		  
-		
-	}*/
+
+	public ArrayList<Hashtable<String, Object>> SearchingFromTable(
+			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
+		ArrayList<Hashtable<String, Object>> Iterator = null;
+		boolean found = false;
+		BrinIndex Index = null;
+		for (int i = 0; i < this.BrinIndecies.size(); i++) {
+			if (ColumnName.equals(BrinIndecies.get(i).ColumnName)) {
+				Index = BrinIndecies.get(i);
+				found = true;
+
+			}
+
+		}
+
+		if (found) {
+			String op1 = strarrOperators[0];
+			String op2 = strarrOperators[1];
+			Object Val1 = objarrValues[0];
+			Object Val2 = objarrValues[1];
+			if (Val1 instanceof String) {
+				Iterator = SearchInString(objarrValues, strarrOperators,
+						ColumnName);
+			} else {
+				Iterator = SearchInInt(objarrValues, strarrOperators,
+						ColumnName);
+			}
+
+		}
+		return Iterator;
+	}
+
+	public ArrayList<Hashtable<String, Object>> SearchInInt(
+			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
+		ArrayList<Hashtable<String, Object>> Iterator = null;
+		String op1 = strarrOperators[0];
+		String op2 = strarrOperators[1];
+		Object Val1 = objarrValues[0];
+		Object Val2 = objarrValues[1];
+		if (objarrValues.length == 2) {
+			for (int i = 0; i < this.BrinIndecies.size(); i++) {
+				BrinIndex BrinIndex = this.BrinIndecies.get(i);
+				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
+				for (int j = 0; j < BrinPages.size(); j++) {
+					LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
+					for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
+						Entity Entity = SecondBrinIndexTuples.get(k); 
+						
+						if (op1.equals(">=") && op2.equals("<")) {
+							
+
+						} else if (op1.equals(">=") && op2.equals("<=")) {
+
+						}
+
+						else if (op1.equals(">") && op2.equals("<")) {
+
+						} else if (op1.equals(">") && op2.equals("<=")) {
+
+						} else if (op2.equals(">=") && op1.equals("<")) {
+
+						} else if (op2.equals(">=") && op1.equals("<=")) {
+
+						}
+
+						else if (op2.equals(">") && op1.equals("<")) {
+
+						} else if (op2.equals(">") && op1.equals("<=")) {
+
+						}
+					}
+				}
+
+			}
+		} else {
+			if (op1.equals(">=") && op2.equals("")) {
+
+			} else if (op1.equals("") && op2.equals("<=")) {
+
+			} else if (op1.equals("") && op2.equals("<")) {
+
+			}
+			if (op1.equals(">") && op2.equals("")) {
+
+			}
+
+		}
+
+		return Iterator;
+	}
+
+	public ArrayList<Hashtable<String, Object>> SearchInString(
+			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
+		ArrayList<Hashtable<String, Object>> Iterator = null;
+		String op1 = strarrOperators[0];
+		String op2 = strarrOperators[1];
+		Object Val1 = objarrValues[0];
+		Object Val2 = objarrValues[1];
+		if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		} else if (op1.equals("") && op2.equals("")) {
+
+		}
+
+		return Iterator;
+
+	}
+
+	/*
+	 * public void DeleteDenseTable(String ColumnName,Entity Entity) throws
+	 * DBAppException{ boolean foundname=false; Set<Entry<String, String>>
+	 * FirstTuple = htblColNameType.entrySet();
+	 * 
+	 * 
+	 * Iterator <Entry<String, String>> Iterator= FirstTuple.iterator();
+	 * 
+	 * 
+	 * while (Iterator.hasNext()) { Entry<String, String> en = Iterator.next();
+	 * 
+	 * String Key=en.getKey(); if(Key.equals(ColumnName)){ foundname=true; }
+	 * 
+	 * 
+	 * 
+	 * }
+	 * 
+	 * if(!foundname){
+	 * 
+	 * throw new DBAppException(); // NO INDEX ON THIS COLUMN } else{
+	 * 
+	 * //here //DenseTable dense=new DenseTable(this,ColumnName);
+	 * //denseTables.add(dense); for(int i = 0;i<denseTables.size();i++){
+	 * if(denseTables.get(i).ColumnName.equals(ColumnName))
+	 * denseTables.get(i).DeleteFromDenseTable(Entity); }}
+	 * 
+	 * 
+	 * 
+	 * 
+	 * }
+	 */
 	public void DeleteFromTable(Hashtable<String, Object> htblColNameVale)
 			throws DBAppException {
 
@@ -611,7 +769,7 @@ public class Table implements Serializable {
 															// .. im ashamed of
 															// u romy
 					Page p = Pages.get(i);
-					//System.out.println(i + this.strTableName);
+					// System.out.println(i + this.strTableName);
 					LinkedList<Hashtable<String, Object>> tuples = p.tuples;
 					if (!tuples.isEmpty()) {
 						Hashtable<String, Object> first = tuples.getFirst();
@@ -765,7 +923,8 @@ public class Table implements Serializable {
 		}
 
 		for (int i = startingPage; i < Pages.size() - 1; i++) {
-			//System.out.println(Pages.get(i).tuples.size()+ "Current tuple size");
+			// System.out.println(Pages.get(i).tuples.size()+
+			// "Current tuple size");
 			if (!(Pages.get(i).tuples.size() == 3))
 				try {
 					Set<Entry<String, Object>> FirstTuple = Pages.get(i + 1).tuples
@@ -789,7 +948,7 @@ public class Table implements Serializable {
 						}
 					}
 					if (flag) {
-						//System.out.println("Here to update");
+						// System.out.println("Here to update");
 						Hashtable<String, Object> hash = Pages.get(i + 1).tuples
 								.getFirst();
 						Pages.get(i + 1).tuples.removeFirst();
@@ -798,7 +957,7 @@ public class Table implements Serializable {
 								-1, flag);
 
 					} else {
-						//System.out.println("Here to update");
+						// System.out.println("Here to update");
 						Hashtable<String, Object> hash = Pages.get(i + 1).tuples
 								.getFirst();
 						Pages.get(i + 1).tuples.removeFirst();
