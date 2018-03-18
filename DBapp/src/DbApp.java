@@ -223,10 +223,10 @@ public class DbApp {
 		CreateBrinIndex(strTableName1,"address");
 		
 		Object[]objarrValues = new Object[2];
-		objarrValues[0] = new Integer( 5 );
+		objarrValues[0] = new Integer(19);
 		//objarrValues[1] = new Integer( 5 );
 		String[] strarrOperators = new String[1];
-		strarrOperators[0] = ">=";
+		strarrOperators[0] = "<";
 		//strarrOperators[1] = "";
 		// following call to search for 0.75 >= gpa < 1.0
 		// always assume operators are Anded, i.e. 0.75 >= gpa && gpa < 1.0
