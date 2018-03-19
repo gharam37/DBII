@@ -481,7 +481,7 @@ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String Key
  			if(isString){ /////////////Remember to add currentLine
  			
  				if(!tuples.isEmpty()){
- 					System.out.println("Delete from page ");
+ 					//System.out.println("Delete from page ");
  					for(int i = 0;i<tuples.size();i++){
  		    			hashtable= tuples.get(i);
  		    			Set<Entry<String,Object>> SecondTuple = hashtable.entrySet();
@@ -569,7 +569,6 @@ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String Key
  	 			}
  					
  	 	  if(ToIntHashCurrentValue==clusterKeyPrimary && i==tuples.size()-1){
- 	 		            System.out.println("Yeaaa");
  	 		  			tuples.removeLast();
  	 		  		    currentLine--;
  	             	   //tuples.addLast(htblColNameVale);

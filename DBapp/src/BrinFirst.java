@@ -67,7 +67,7 @@ public class BrinFirst {
 	public void loadFirst(int Index, String columnName) {
 
 		try {
-			FileWriter writer = new FileWriter(columnName + Index +"First Brin"+ ".csv");
+			FileWriter writer = new FileWriter(columnName +"First Brin"+ Index + ".csv");
         
 			for (int i = 0; i < this.BrinPages.get(Index).size(); i++) {
 

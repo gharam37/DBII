@@ -221,7 +221,49 @@ public class DbApp {
 		
 		CreateBrinIndex(strTableName1,"address");
 		
-		Object[]objarrValues = new Object[2];
+		try        
+		{
+		    Thread.sleep(10000);
+		    deleteFromTable( strTableName1,htblColName20);
+		} 
+		catch(InterruptedException ex) 
+		{
+		    Thread.currentThread().interrupt();
+		}
+		
+		
+		Hashtable<String,Object> htblColName900 = new Hashtable<String,Object>( );
+		htblColName900.put("Social Security number", new Integer(19000));
+		htblColName900.put("address", new String("Nasr St" ) );
+		htblColName900.put("name", new String("Gharam Zakaria" ) );
+		htblColName900.put("age", new Integer( 20 ) );
+		
+		Hashtable<String,Object> htblColName901 = new Hashtable<String,Object>( );
+		htblColName901.put("Social Security number", new Integer(19000));
+		htblColName901.put("address", new String("zah nasr St" ) );
+		htblColName901.put("name", new String("Gharam Zakaria" ) );
+		htblColName901.put("age", new Integer( 20 ) );
+		try        
+		{
+		    Thread.sleep(10000);
+		    insertIntoTable( strTableName1,htblColName900);
+		} 
+		catch(InterruptedException ex) 
+		{
+		    Thread.currentThread().interrupt();
+		}
+		
+		try        
+		{
+		    Thread.sleep(10000);
+		    updateTable( strTableName1,"Gharam Zakaria",htblColName901);
+		} 
+		catch(InterruptedException ex) 
+		{
+		    Thread.currentThread().interrupt();
+		}
+		
+		/*Object[]objarrValues = new Object[2];
 		objarrValues[0] = new Integer(99);
 		//objarrValues[1] = new Integer( 5 );
 		String[] strarrOperators = new String[1];
@@ -233,7 +275,7 @@ public class DbApp {
 		objarrValues, strarrOperators );
 		for(int i = 0; i<resultSet.size();i++){
 			System.out.println(resultSet.get(i));
-		}
+		}*/
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
