@@ -735,7 +735,8 @@ public class Table implements Serializable {
 				}
 
 			} else if (op1.equals("<")) {
-				
+				boolean secondNull = false;
+				boolean secondNull1=false;
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -745,10 +746,11 @@ public class Table implements Serializable {
 						Entity Entity = SecondBrinIndexTuples.get(k);
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity Second = FirstPair.getValue();
-						if (Second != null)
-							if (((int) Val1) < ((int) Second.Value)) {
+						if (Second == null)
+							secondNull=true;
+							if (secondNull||((int) Val1) < ((int) Second.Value)) {
+								secondNull=false;
 								
-
 								BrinFirst BrinFirst = BrinIndex.FirstBrin;
 								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
@@ -759,9 +761,10 @@ public class Table implements Serializable {
 											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity Second1 = FirstPair1.getValue();
-									if (Second1 != null)
-										if (((int) Val1) < ((int) Second1.Value)) {
-											
+									if (Second1 == null)
+										secondNull1=true;
+										if (secondNull1||((int) Val1) < ((int) Second1.Value)) {
+											secondNull1=false;
 
 											DenseIndex DenseIndex = BrinFirst.Dense;
 											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
@@ -794,6 +797,8 @@ public class Table implements Serializable {
 
 			} else if (op1.equals("<=")) {
 				
+				boolean secondNull = false;
+				boolean secondNull1=false;
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -803,30 +808,33 @@ public class Table implements Serializable {
 						Entity Entity = SecondBrinIndexTuples.get(k);
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity Second = FirstPair.getValue();
-						if (Second != null)
-							if (((int) Val1) <= ((int) Second.Value)) {
+						if (Second == null)
+							secondNull=true;
+							if (secondNull||((int) Val1) <= ((int) Second.Value)) {
+								secondNull=false;
 								
-
 								BrinFirst BrinFirst = BrinIndex.FirstBrin;
-								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
 										.get(Entity.PageNumber);
 								for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-
+									
 									Entity Entity1 = FirstBrinIndexTuples
 											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity Second1 = FirstPair1.getValue();
-									if (Second1 != null)
-										if (((int) Val1) <= ((int) Second1.Value)) {
-
+									if (Second1 == null)
+										secondNull1=true;
+										if (secondNull1||((int) Val1) <= ((int) Second1.Value)) {
+											secondNull1=false;
 
 											DenseIndex DenseIndex = BrinFirst.Dense;
 											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
 											boolean finish = false;
+											
 											for (int s = Entity1.PageNumber; s < Densetuples
 													.size(); s++) {
-
+												
 
 												Entity Entity2 = Densetuples
 														.get(s);
@@ -848,6 +856,8 @@ public class Table implements Serializable {
 
 					}
 				}
+
+				
 
 			}
 
