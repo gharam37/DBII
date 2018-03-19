@@ -221,7 +221,7 @@ public class DbApp {
 		
 		CreateBrinIndex(strTableName1,"address");
 		
-		try        
+		/*try        
 		{
 		    Thread.sleep(10000);
 		    deleteFromTable( strTableName1,htblColName20);
@@ -231,7 +231,7 @@ public class DbApp {
 		    Thread.currentThread().interrupt();
 		}
 		
-		
+		*/
 		Hashtable<String,Object> htblColName900 = new Hashtable<String,Object>( );
 		htblColName900.put("Social Security number", new Integer(19000));
 		htblColName900.put("address", new String("Nasr St" ) );
@@ -243,7 +243,7 @@ public class DbApp {
 		htblColName901.put("address", new String("zah nasr St" ) );
 		htblColName901.put("name", new String("Gharam Zakaria" ) );
 		htblColName901.put("age", new Integer( 20 ) );
-		try        
+		/*try        
 		{
 		    Thread.sleep(10000);
 		    insertIntoTable( strTableName1,htblColName900);
@@ -262,20 +262,18 @@ public class DbApp {
 		{
 		    Thread.currentThread().interrupt();
 		}
-		
-		/*Object[]objarrValues = new Object[2];
-		objarrValues[0] = new Integer(99);
-		//objarrValues[1] = new Integer( 5 );
-		String[] strarrOperators = new String[1];
-		strarrOperators[0] = "<=";
-		//strarrOperators[1] = "";
-		// following call to search for 0.75 >= gpa < 1.0
-		// always assume operators are Anded, i.e. 0.75 >= gpa && gpa < 1.0
-		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "age",
+		*/
+		Object[]objarrValues = new Object[2];
+		objarrValues[0] = new String("a");
+		objarrValues[1] = new String( "n" );
+		String[] strarrOperators = new String[2];
+		strarrOperators[0] = "<="; 
+		strarrOperators[1] = "<";
+		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "address",
 		objarrValues, strarrOperators );
 		for(int i = 0; i<resultSet.size();i++){
 			System.out.println(resultSet.get(i));
-		}*/
+		}
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
