@@ -202,11 +202,11 @@ public class DbApp {
 		insertIntoTable( strTableName1, htblColName100);
 		
 		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
-		htblColName90.put("Social Security number", new Integer( 67896789 ));
+		htblColName90.put("Social Security number", new Integer( 67891189 ));
 		htblColName90.put("address", new String("Bakry st" ) );
-		htblColName90.put("name", new String("Cenq David" ) );
+		htblColName90.put("name", new String("Cenq David1" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
-		
+		 insertIntoTable( strTableName1 , htblColName90);
 		for(int i =0;i<109;i++){
 	        Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
 	        htblColName4.put("Social Security number", new Integer( i ));
@@ -264,16 +264,17 @@ public class DbApp {
 		}
 		*/
 		Object[]objarrValues = new Object[2];
-		objarrValues[0] = new String("a");
-		objarrValues[1] = new String( "n" );
+		objarrValues[0] = new String("n");
+		objarrValues[1] = new String( "B" );
 		String[] strarrOperators = new String[2];
-		strarrOperators[0] = "<="; 
-		strarrOperators[1] = "<";
+		strarrOperators[0] = ">="; 
+		strarrOperators[1] = ">";
 		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "address",
 		objarrValues, strarrOperators );
 		for(int i = 0; i<resultSet.size();i++){
 			System.out.println(resultSet.get(i));
 		}
+		//System.out.println("a".compareTo("ab"));
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
