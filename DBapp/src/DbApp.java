@@ -2,7 +2,6 @@
 
 import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.Iterator;
 
 
 public class DbApp {
@@ -223,7 +222,7 @@ public class DbApp {
 		CreateBrinIndex(strTableName1,"address");
 		
 		Object[]objarrValues = new Object[2];
-		objarrValues[0] = new Integer(19);
+		objarrValues[0] = new Integer(64);
 		//objarrValues[1] = new Integer( 5 );
 		String[] strarrOperators = new String[1];
 		strarrOperators[0] = "<";
@@ -232,7 +231,6 @@ public class DbApp {
 		// always assume operators are Anded, i.e. 0.75 >= gpa && gpa < 1.0
 		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "age",
 		objarrValues, strarrOperators );
-		System.out.println(resultSet.size());
 		for(int i = 0; i<resultSet.size();i++){
 			System.out.println(resultSet.get(i));
 		}

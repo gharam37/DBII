@@ -556,10 +556,10 @@ public class Table implements Serializable {
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
 		ArrayList<Hashtable<String, Object>> Iterator = null;
 		boolean found = false;
-		
+
 		for (int i = 0; i < this.BrinIndecies.size(); i++) {
 			if (ColumnName.equals(BrinIndecies.get(i).ColumnName)) {
-				
+
 				found = true;
 
 			}
@@ -580,7 +580,7 @@ public class Table implements Serializable {
 		return Iterator;
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "unused" })
 	public ArrayList<Hashtable<String, Object>> SearchInInt(
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
@@ -622,7 +622,7 @@ public class Table implements Serializable {
 		} else {
 
 			if (op1.equals(">=")) {
-				System.out.println("break1");
+				
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -633,22 +633,22 @@ public class Table implements Serializable {
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity First = FirstPair.getKey();
 						if (((int) Val1) >= ((int) First.Value)) {
-							System.out.println("break2");
+							
 
 							BrinFirst BrinFirst = BrinIndex.FirstBrin;
 							ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
 							for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-								System.out.println("break3");
+								
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
 										.get(p);
 								for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-									System.out.println("break4");
+									
 									Entity Entity1 = FirstBrinIndexTuples
 											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity First1 = FirstPair1.getKey();
 									if (((int) Val1) >= ((int) First1.Value)) {
-										System.out.println("break5");
+										
 
 										DenseIndex DenseIndex = BrinFirst.Dense;
 										LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
@@ -678,7 +678,7 @@ public class Table implements Serializable {
 					}
 				}
 			} else if (op1.equals(">")) {
-				System.out.println("break1");
+				
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -689,22 +689,22 @@ public class Table implements Serializable {
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity First = FirstPair.getKey();
 						if (((int) Val1) > ((int) First.Value)) {
-							System.out.println("break2");
+							
 
 							BrinFirst BrinFirst = BrinIndex.FirstBrin;
 							ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
 							for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-								System.out.println("break3");
+								
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
 										.get(p);
 								for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-									System.out.println("break4");
+									
 									Entity Entity1 = FirstBrinIndexTuples
 											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity First1 = FirstPair1.getKey();
 									if (((int) Val1) > ((int) First1.Value)) {
-										System.out.println("break5");
+										
 
 										DenseIndex DenseIndex = BrinFirst.Dense;
 										LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
@@ -735,7 +735,7 @@ public class Table implements Serializable {
 				}
 
 			} else if (op1.equals("<")) {
-				System.out.println("break1");
+				
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -745,53 +745,55 @@ public class Table implements Serializable {
 						Entity Entity = SecondBrinIndexTuples.get(k);
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity Second = FirstPair.getValue();
-						if(Second !=null)
-						if (((int) Val1) < ((int) Second.Value)) {
-							System.out.println("break2");
+						if (Second != null)
+							if (((int) Val1) < ((int) Second.Value)) {
+								
 
-							BrinFirst BrinFirst = BrinIndex.FirstBrin;
-							ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-							System.out.println(Entity.PageNumber);
-							for (int p = Entity.PageNumber; p < BrinPages1.size()-1; p++) {
-								System.out.println("break3");
+								BrinFirst BrinFirst = BrinIndex.FirstBrin;
+								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-										.get(p);
+										.get(Entity.PageNumber);
 								for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-									System.out.println("break4");
-									Entity Entity1 = FirstBrinIndexTuples.get(r);
+									
+									Entity Entity1 = FirstBrinIndexTuples
+											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity Second1 = FirstPair1.getValue();
-									if(Second1!=null)
-									if (((int) Val1) < ((int) Second1.Value)) {
-										System.out.println("break5");
+									if (Second1 != null)
+										if (((int) Val1) < ((int) Second1.Value)) {
+											
 
-										DenseIndex DenseIndex = BrinFirst.Dense;
-										LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-										for (int s = Entity1.PageNumber * 4; s < Densetuples
-												.size(); s++) {
+											DenseIndex DenseIndex = BrinFirst.Dense;
+											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+											boolean finish = false;
+											
+											for (int s = Entity1.PageNumber; s < Densetuples
+													.size(); s++) {
+												
 
-											Entity Entity2 = Densetuples.get(s);
+												Entity Entity2 = Densetuples
+														.get(s);
+												if ((int) Val1 < (int) Entity2.Value) {
 
-											if ((int) Val1 < (int) Entity2.Value) {
-												Iterator.add(Pages
-														.get(Entity2.PageNumber).tuples
-														.get(Entity2.Elementnumber));
-											} 
+													Iterator.add(Pages
+															.get(Entity2.PageNumber).tuples
+															.get(Entity2.Elementnumber));
+													finish = true;
+												}
+											}
+											if (finish)
+												return Iterator;
 										}
-
-									}
 
 								}
 
 							}
-
-						} 
 
 					}
 				}
 
 			} else if (op1.equals("<=")) {
-				System.out.println("break1");
+				
 				BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 				ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 				for (int j = 0; j < BrinPages.size(); j++) {
@@ -801,50 +803,51 @@ public class Table implements Serializable {
 						Entity Entity = SecondBrinIndexTuples.get(k);
 						Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 						Entity Second = FirstPair.getValue();
-						if(Second !=null)
-						if (((int) Val1) <= ((int) Second.Value)) {
-							System.out.println("break2");
+						if (Second != null)
+							if (((int) Val1) <= ((int) Second.Value)) {
+								
 
-							BrinFirst BrinFirst = BrinIndex.FirstBrin;
-							ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-							for (int p = Entity.PageNumber; p < BrinPages1.size()-1; p++) {
-								System.out.println("break3");
+								BrinFirst BrinFirst = BrinIndex.FirstBrin;
+								ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
 								LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-										.get(p);
+										.get(Entity.PageNumber);
 								for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-									System.out.println("break4");
-									Entity Entity1 = FirstBrinIndexTuples.get(r);
+
+									Entity Entity1 = FirstBrinIndexTuples
+											.get(r);
 									Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
 									Entity Second1 = FirstPair1.getValue();
-									if(Second1!=null)
-									if (((int) Val1) <= ((int) Second1.Value)) {
-										System.out.println("break5");
+									if (Second1 != null)
+										if (((int) Val1) <= ((int) Second1.Value)) {
 
-										DenseIndex DenseIndex = BrinFirst.Dense;
-										LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-										for (int s = Entity1.PageNumber * 4; s < Densetuples
-												.size(); s++) {
 
-											Entity Entity2 = Densetuples.get(s);
+											DenseIndex DenseIndex = BrinFirst.Dense;
+											LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+											boolean finish = false;
+											for (int s = Entity1.PageNumber; s < Densetuples
+													.size(); s++) {
 
-											if ((int) Val1 <= (int) Entity2.Value) {
-												Iterator.add(Pages
-														.get(Entity2.PageNumber).tuples
-														.get(Entity2.Elementnumber));
-											} 
+
+												Entity Entity2 = Densetuples
+														.get(s);
+												if ((int) Val1 <= (int) Entity2.Value) {
+
+													Iterator.add(Pages
+															.get(Entity2.PageNumber).tuples
+															.get(Entity2.Elementnumber));
+													finish = true;
+												}
+											}
+											if (finish)
+												return Iterator;
 										}
-
-									}
 
 								}
 
 							}
 
-						} 
-
 					}
 				}
-
 
 			}
 
@@ -853,6 +856,7 @@ public class Table implements Serializable {
 		return Iterator;
 	}
 
+	@SuppressWarnings("unused")
 	public ArrayList<Hashtable<String, Object>> SearchInString(
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
 		ArrayList<Hashtable<String, Object>> Iterator = null;

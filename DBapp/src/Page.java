@@ -7,7 +7,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -47,7 +46,8 @@ public class Page implements Serializable {
 		
 	}
     // insert method for pages 
-    public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+    @SuppressWarnings("unused")
+	public void insertIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
     	Hashtable<String,Object> hashtable =null;
     	//System.out.println(clusterKeyPrimary);
     	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -209,7 +209,8 @@ public class Page implements Serializable {
         }
     
     
-    public void loadPage(int Index,String tablename){
+    @SuppressWarnings("unused")
+	public void loadPage(int Index,String tablename){
     	this.file = new File(tablename+Index+".csv");
     	boolean exists = file.exists();
       
@@ -301,7 +302,8 @@ public class Page implements Serializable {
  /////////////////////////////////////////////////update page///////////////////////////////////////////////////////////////////////////////////////////
 
  
- public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+ @SuppressWarnings("unused")
+public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
  	Hashtable<String,Object> hashtable =null;
  	//System.out.println(clusterKeyPrimary);
  	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();
@@ -455,7 +457,8 @@ public class Page implements Serializable {
  
  ////////////////////////////////////////////////////////////////DeleteFromPage/////////////////////////////////////////////////////////////////////////
  
- 	public void DeleteFromPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
+ 	@SuppressWarnings("unused")
+	public void DeleteFromPage(Hashtable<String, Object> htblColNameVale, String KeyValue,int clusterKeyPrimary,Boolean isString) throws DBAppException{
  		Hashtable<String,Object> hashtable =null;
  	 	//System.out.println(clusterKeyPrimary);
  	 	Set<Entry<String, Object>> FirstTuple =htblColNameVale.entrySet();

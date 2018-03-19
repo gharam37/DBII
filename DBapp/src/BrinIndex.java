@@ -22,11 +22,12 @@ public class BrinIndex {
 		CreateBrinIndex();
 		
 	}
+	@SuppressWarnings({ "unchecked", "unused" })
 	public void CreateBrinIndex(){
 		ArrayList<LinkedList<Entity>> BrinPages=this.FirstBrin.BrinPages;
 		int i=0;
-		
-	   for(int j=0;j<BrinPages.size();j++)
+		int j= 0;
+	   for( j=0;j<BrinPages.size();j++)
 	   {
 		   LinkedList<Entity> FirstBrintuples=BrinPages.get(j);
 		for( i=0;i<FirstBrintuples.size()-1;i+=2){
@@ -41,7 +42,7 @@ public class BrinIndex {
 			Entity FirstOfFirst=(Entity)FirstPair.getKey();
 			Entity LastOfLast=(Entity)LastPair.getValue();
 			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(FirstOfFirst, LastOfLast);
-			Entity Value = new Entity(EntityPair,i,-1);
+			Entity Value = new Entity(EntityPair,j,-1);
 			InsertIntoBrinPage(Value);
 			
 			
@@ -53,7 +54,7 @@ public class BrinIndex {
 			Pair<Entity,Entity>  FirstPair=(Pair<Entity, Entity>) First.Value;	
 			Entity FirstOfFirst=(Entity)FirstPair.getKey();
 			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(First,null);
-			Entity Value = new Entity(EntityPair,i,-1);
+			Entity Value = new Entity(EntityPair,j,-1); 
 			InsertIntoBrinPage(Value);
 			
 	    }
