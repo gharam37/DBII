@@ -207,7 +207,7 @@ public class DbApp {
 		htblColName90.put("name", new String("Cenq David1" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
 		 insertIntoTable( strTableName1 , htblColName90);
-		for(int i =0;i<109;i++){
+		for(int i =0;i<701;i++){
 	        Hashtable<String,Object> htblColName4 = new Hashtable<String,Object>( );
 	        htblColName4.put("Social Security number", new Integer( i ));
 	        htblColName4.put("address", new String("Adham st" )+i );
@@ -264,10 +264,10 @@ public class DbApp {
 		}
 		*/
 		Object[]objarrValues = new Object[2];
-		objarrValues[0] = new String("n");
-		objarrValues[1] = new String( "B" );
+		objarrValues[0] = new String("z");
+		objarrValues[1] = new String("l");
 		String[] strarrOperators = new String[2];
-		strarrOperators[0] = ">="; 
+		strarrOperators[0] = "<="; 
 		strarrOperators[1] = ">";
 		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "address",
 		objarrValues, strarrOperators );

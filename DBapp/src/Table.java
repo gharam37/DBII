@@ -30,7 +30,7 @@ public class Table implements Serializable {
 	String strTableName; // table name
 	private static final long serialVersionUID = 1L;
 	ArrayList<DenseIndex> denseIndecies;
-	ArrayList<BrinIndex> BrinIndecies= new ArrayList<BrinIndex>();
+	ArrayList<BrinIndex> BrinIndecies = new ArrayList<BrinIndex>();
 
 	// BrinFirst FirstBrins;
 	// BrinIndex BrinIndex;
@@ -45,7 +45,6 @@ public class Table implements Serializable {
 		this.strClusteringKeyColumn = strClusteringKeyColumn;
 		this.htblColNameType = htblColNameType;
 		this.Pages = new ArrayList<Page>();
-		
 
 		try {
 			MakeMeta(htblColNameType);
@@ -146,9 +145,9 @@ public class Table implements Serializable {
 	// if page exist and not full it inserts Into the page
 	public void insertIntoTable(Hashtable<String, Object> htblColNameVale)
 			throws DBAppException {
-		
+
 		LocalDateTime now = LocalDateTime.now();
-	
+
 		htblColNameVale.put("Last updated", now);
 
 		if (Pages.isEmpty() || Pages.get(Pages.size() - 1).check()) {
@@ -157,7 +156,7 @@ public class Table implements Serializable {
 					+ (Pages.size() + 1) + ".class");
 			Page page = new Page((Pages.size() + 1), file,
 					strClusteringKeyColumn);
-		
+
 			Pages.add(page);
 		}
 
@@ -319,11 +318,12 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException("please add the clustering key");// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO
+																		// message
 		}
-		
+
 		UpdateBrins();
-		
+
 	}
 
 	public void LoadAll() {
@@ -441,7 +441,8 @@ public class Table implements Serializable {
 					}
 
 					else {
-						throw new DBAppException("Sorry this table is empty insert first");
+						throw new DBAppException(
+								"Sorry this table is empty insert first");
 
 					}
 
@@ -506,7 +507,8 @@ public class Table implements Serializable {
 					}
 
 					else {
-						throw new DBAppException("Sorry this table is empty insert first");
+						throw new DBAppException(
+								"Sorry this table is empty insert first");
 					}
 				}
 
@@ -515,9 +517,10 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException("please add the clustering key");// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO
+																		// message
 		}
-		
+
 		UpdateBrins();
 	}
 
@@ -539,7 +542,10 @@ public class Table implements Serializable {
 
 		if (!foundname) {
 
-			throw new DBAppException("sorry this column is not found"); // } else { for(int
+			throw new DBAppException("sorry this column is not found"); // }
+																		// else
+																		// {
+																		// for(int
 		} else {
 			// here
 			DenseIndex dense = new DenseIndex(this, ColumnName);
@@ -549,7 +555,7 @@ public class Table implements Serializable {
 			BrinIndex BrinIndex = new BrinIndex(FirstBrin);
 			this.BrinIndecies.add(BrinIndex);
 			UpdateMeta();
-			
+
 		}
 
 	}
@@ -574,9 +580,9 @@ public class Table implements Serializable {
 				Iterator = SearchInInt(objarrValues, strarrOperators,
 						ColumnName);
 			} else {
-				objarrValues[0]+="";
-				if(objarrValues.length==2)
-					objarrValues[1]+="";
+				objarrValues[0] += "";
+				if (objarrValues.length == 2)
+					objarrValues[1] += "";
 				Iterator = SearchInString(objarrValues, strarrOperators,
 						ColumnName);
 			}
@@ -585,8 +591,6 @@ public class Table implements Serializable {
 		return Iterator;
 	}
 
-	
-	
 	public ArrayList<Hashtable<String, Object>> SearchInInt(
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
@@ -606,228 +610,234 @@ public class Table implements Serializable {
 			Object Val2 = objarrValues[1];
 			ArrayList<Hashtable<String, Object>> Iterator1 = new ArrayList<Hashtable<String, Object>>();
 			ArrayList<Hashtable<String, Object>> Iterator2 = new ArrayList<Hashtable<String, Object>>();
-			
+
 			if (op1.equals(">=") && op2.equals("<")) {
-			
-				Val1=((int)Val1)+1;
-				return GreaterThanInt(Math.min((int)Val1,(int)Val2),Brin);
-				
+
+				Val1 = ((int) Val1) + 1;
+				return GreaterThanInt(Math.min((int) Val1, (int) Val2), Brin);
+
 			} else if (op1.equals(">=") && op2.equals("<=")) {
-				return GreaterThanOrEqualInt(Math.min((int)Val1,(int)Val2),Brin);
+				return GreaterThanOrEqualInt(Math.min((int) Val1, (int) Val2),
+						Brin);
 			}
-			
+
 			else if (op1.equals(">") && op2.equals("<")) {
-				
-				return GreaterThanInt(Math.min((int)Val1,(int)Val2),Brin);
+
+				return GreaterThanInt(Math.min((int) Val1, (int) Val2), Brin);
 			} else if (op1.equals(">") && op2.equals("<=")) {
-				Val2=((int)Val2)+1;
-				return GreaterThanInt(Math.min((int)Val1,(int)Val2),Brin);
-			} else if (op1.equals("<")&& op2.equals(">=")) {
-				Val1=((int)Val1)+1; 
-				
-				return LessThanOrEqualInt(Math.max((int)Val1,(int)Val2),Brin);
-				
+				Val2 = ((int) Val2) + 1;
+				return GreaterThanInt(Math.min((int) Val1, (int) Val2), Brin);
+			} else if (op1.equals("<") && op2.equals(">=")) {
+				Val1 = ((int) Val1) + 1;
+
+				return LessThanOrEqualInt(Math.max((int) Val1, (int) Val2),
+						Brin);
+
 			} else if (op1.equals("<=") && op2.equals(">=")) {
-				return LessThanOrEqualInt(Math.max((int)Val1,(int)Val2),Brin);
+				return LessThanOrEqualInt(Math.max((int) Val1, (int) Val2),
+						Brin);
+
+			}
+			else if (op1.equals("<=") && op2.equals(">")) {
+				Val2 = ((int)Val2)-1;
+				return LessThanOrEqualInt(Math.max((int) Val1, (int) Val2),
+						Brin);
 
 			}
 
 			else if (op1.equals("<") && op2.equals(">")) {
-				return LessThanInt(Math.max((int)Val1,(int)Val2),Brin);
-
+				return LessThanInt(Math.max((int) Val1, (int) Val2), Brin);
 
 			} else if (op1.equals("<") && op2.equals(">=")) {
-				Val2=((int)Val2)+1; 
-				
-				return LessThanOrEqualInt(Math.max((int)Val1,(int)Val2),Brin);
+				Val2 = ((int) Val2) + 1;
+
+				return LessThanOrEqualInt(Math.max((int) Val1, (int) Val2),
+						Brin);
 			}
-//
+			//
 			else if (op1.equals("<") && op2.equals("<")) {
-				if(((int)Val1)<((int)Val2)){
-					Iterator1 = LessThanInt(Val1,Brin);
-					Iterator2 = GreaterThanInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((int) Val1) < ((int) Val2)) {
+					Iterator1 = LessThanInt(Val1, Brin);
+					Iterator2 = GreaterThanInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-				
-			} else if (op1.equals("<") && op2.equals("<=")) { 
-				if(((int)Val1)<=((int)Val2)){
-					Iterator1 = LessThanInt(Val1,Brin);
-					Iterator2 = GreaterThanOrEqualInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+
+				return Iterator;
+
+			} else if (op1.equals("<") && op2.equals("<=")) {
+				if (((int) Val1) <= ((int) Val2)) {
+					Iterator1 = LessThanInt(Val1, Brin);
+					Iterator2 = GreaterThanOrEqualInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-				
+
+				return Iterator;
+
 			}
-			
-			else if (op1.equals("<=") && op2.equals("<")) { 
-				
-				if(((int)Val1)<=((int)Val2)){
-					Iterator1 = LessThanOrEqualInt(Val1,Brin);
-					Iterator2 = GreaterThanInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+
+			else if (op1.equals("<=") && op2.equals("<")) {
+
+				if (((int) Val1) <= ((int) Val2)) {
+					Iterator1 = LessThanOrEqualInt(Val1, Brin);
+					Iterator2 = GreaterThanInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			} else if (op1.equals("<=") && op2.equals("<=")) {
-				if(((int)Val1)<=((int)Val2)){
-					Iterator1 = LessThanOrEqualInt(Val1,Brin);
-					Iterator2 = GreaterThanOrEqualInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((int) Val1) <= ((int) Val2)) {
+					Iterator1 = LessThanOrEqualInt(Val1, Brin);
+					Iterator2 = GreaterThanOrEqualInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			}
-//
-			else if (op1.equals(">")&& op2.equals(">")) {
-				if(((int)Val1)>((int)Val2)){
-					Iterator1 = GreaterThanInt(Val1,Brin);
-					Iterator2 = LessThanInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+			//
+			else if (op1.equals(">") && op2.equals(">")) {
+				if (((int) Val1) > ((int) Val2)) {
+					Iterator1 = GreaterThanInt(Val1, Brin);
+					Iterator2 = LessThanInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-					
+
+				return Iterator;
+
 			} else if (op1.equals(">") && op2.equals(">=")) {
-				if(((int)Val1)>=((int)Val2)){
-					Iterator1 = GreaterThanInt(Val1,Brin);
-					Iterator2 = LessThanOrEqualInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((int) Val1) >= ((int) Val2)) {
+					Iterator1 = GreaterThanInt(Val1, Brin);
+					Iterator2 = LessThanOrEqualInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 
 			}
 
 			else if (op1.equals(">=") && op2.equals(">")) {
-				if(((int)Val1)>=((int)Val2)){
-					Iterator1 = GreaterThanOrEqualInt(Val1,Brin);
-					Iterator2 = LessThanOrEqualInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((int) Val1) >= ((int) Val2)) {
+					Iterator1 = GreaterThanOrEqualInt(Val1, Brin);
+					Iterator2 = LessThanOrEqualInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
 
+				return Iterator;
 
 			} else if (op1.equals(">=") && op2.equals(">=")) {
-				if(((int)Val1)>=((int)Val2)){
-					Iterator1 = GreaterThanOrEqualInt(Val1,Brin);
-					Iterator2 = LessThanOrEqualInt(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((int) Val1) >= ((int) Val2)) {
+					Iterator1 = GreaterThanOrEqualInt(Val1, Brin);
+					Iterator2 = LessThanOrEqualInt(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			}
 
 		} else {
 
 			if (op1.equals(">=")) {
-				
 
-				return GreaterThanOrEqualInt(Val1,Brin);
-				
+				return GreaterThanOrEqualInt(Val1, Brin);
+
 			} else if (op1.equals(">")) {
-				
-				return GreaterThanInt(Val1,Brin);
-				
+
+				return GreaterThanInt(Val1, Brin);
+
 			} else if (op1.equals("<")) {
-				
-				return LessThanInt(Val1,Brin);
-				
+
+				return LessThanInt(Val1, Brin);
+
 			} else if (op1.equals("<=")) {
-				
-				return LessThanOrEqualInt(Val1,Brin);
-				
+
+				return LessThanOrEqualInt(Val1, Brin);
 
 			}
 
@@ -835,8 +845,6 @@ public class Table implements Serializable {
 
 		return Iterator;
 	}
-	
-
 
 	public ArrayList<Hashtable<String, Object>> SearchInString(
 			Object[] objarrValues, String[] strarrOperators, String ColumnName) {
@@ -857,235 +865,237 @@ public class Table implements Serializable {
 			Object Val2 = objarrValues[1];
 			ArrayList<Hashtable<String, Object>> Iterator1 = new ArrayList<Hashtable<String, Object>>();
 			ArrayList<Hashtable<String, Object>> Iterator2 = new ArrayList<Hashtable<String, Object>>();
-			String min="";
-			String max="";
+			String min = "";
+			String max = "";
 			if (op1.equals(">=") && op2.equals("<")) {
-				min = minString(""+Val1,""+Val2);
-				
-				return GreaterThanOrEqualString(min,Brin);
-				
+				min = minString("" + Val1, "" + Val2);
+
+				return GreaterThanOrEqualString(min, Brin);
+
 			} else if (op1.equals(">=") && op2.equals("<=")) {
-				min = minString(""+Val1,""+Val2);
-				
-				return GreaterThanOrEqualString(min,Brin);
-				
-			}else if (op1.equals(">") && op2.equals("<")) {
-				
-				min = minString(""+Val1,""+Val2);
-				
-				return GreaterThanString(min,Brin);
-				
+				min = minString("" + Val1, "" + Val2);
+
+				return GreaterThanOrEqualString(min, Brin);
+
+			} else if (op1.equals(">") && op2.equals("<")) {
+
+				min = minString("" + Val1, "" + Val2);
+
+				return GreaterThanString(min, Brin);
+
 			} else if (op1.equals(">") && op2.equals("<=")) {
-				min = minString(""+Val1,""+Val2);
-				
-				return GreaterThanOrEqualString(min,Brin);
-				
-			} else if (op1.equals("<")&& op2.equals(">=")) {
-				max = maxString(""+Val1,""+Val2);
-								
-				return LessThanOrEqualString(max,Brin);
-				
-			} else if (op1.equals("<=") && op2.equals(">=")) {
-				max = maxString(""+Val1,""+Val2);
-				
-				return LessThanOrEqualString(max,Brin);
-				
-			}else if (op1.equals("<") && op2.equals(">")) {
-				max = maxString(""+Val1,""+Val2);
-				
-				return LessThanString(max,Brin);
-				
+				min = minString("" + Val1, "" + Val2);
+
+				return GreaterThanOrEqualString(min, Brin);
+
 			} else if (op1.equals("<") && op2.equals(">=")) {
-				max = maxString(""+Val1,""+Val2);
-				
+				max = maxString("" + Val1, "" + Val2);
+
+				return LessThanOrEqualString(max, Brin);
+
+			} else if (op1.equals("<=") && op2.equals(">=")) {
+				max = maxString("" + Val1, "" + Val2);
+
+				return LessThanOrEqualString(max, Brin);
+
+			}
+			else if (op1.equals("<=") && op2.equals(">")) {
+				max = maxString("" + Val1, "" + Val2);
 				return LessThanOrEqualString(max,Brin);
-				
-			}else if (op1.equals("<") && op2.equals("<")) {
-				if(((String)Val1).compareTo(((String)Val2))<0){
-					Iterator1 = LessThanString(((String)Val1),Brin);
-					Iterator2 = GreaterThanString(((String)Val2),Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+
+			}else if (op1.equals("<") && op2.equals(">")) {
+				max = maxString("" + Val1, "" + Val2);
+
+				return LessThanString(max, Brin);
+
+			} else if (op1.equals("<") && op2.equals(">=")) {
+				max = maxString("" + Val1, "" + Val2);
+
+				return LessThanOrEqualString(max, Brin);
+
+			} else if (op1.equals("<") && op2.equals("<")) {
+				if (((String) Val1).compareTo(((String) Val2)) < 0) {
+					Iterator1 = LessThanString(((String) Val1), Brin);
+					Iterator2 = GreaterThanString(((String) Val2), Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-				
-			} else if (op1.equals("<") && op2.equals("<=")) { 
-				if(((String)Val1).compareTo(((String)Val2))<=0){
-					Iterator1 = LessThanString(Val1,Brin);
-					Iterator2 = GreaterThanOrEqualString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+
+				return Iterator;
+
+			} else if (op1.equals("<") && op2.equals("<=")) {
+				if (((String) Val1).compareTo(((String) Val2)) <= 0) {
+					Iterator1 = LessThanString(Val1, Brin);
+					Iterator2 = GreaterThanOrEqualString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-				
+
+				return Iterator;
+
 			}
-			
-			else if (op1.equals("<=") && op2.equals("<")) { 
-				
-				if(((String)Val1).compareTo(((String)Val2))<=0){
-					Iterator1 = LessThanOrEqualString(Val1,Brin);
-					Iterator2 = GreaterThanString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+
+			else if (op1.equals("<=") && op2.equals("<")) {
+
+				if (((String) Val1).compareTo(((String) Val2)) <= 0) {
+					Iterator1 = LessThanOrEqualString(Val1, Brin);
+					Iterator2 = GreaterThanString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			} else if (op1.equals("<=") && op2.equals("<=")) {
-				if(((String)Val1).compareTo(((String)Val2))<=0){
-					Iterator1 = LessThanOrEqualString(Val1,Brin);
-					Iterator2 = GreaterThanOrEqualString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((String) Val1).compareTo(((String) Val2)) <= 0) {
+					Iterator1 = LessThanOrEqualString(Val1, Brin);
+					Iterator2 = GreaterThanOrEqualString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			}
-//
-			else if (op1.equals(">")&& op2.equals(">")) {
-				if(((String)Val1).compareTo(((String)Val2))>0){
-					Iterator1 = GreaterThanString(Val1,Brin);
-					Iterator2 = LessThanString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+			//
+			else if (op1.equals(">") && op2.equals(">")) {
+				if (((String) Val1).compareTo(((String) Val2)) > 0) {
+					Iterator1 = GreaterThanString(Val1, Brin);
+					Iterator2 = LessThanString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
-					
+
+				return Iterator;
+
 			} else if (op1.equals(">") && op2.equals(">=")) {
-				if(((String)Val1).compareTo(((String)Val2))>=0){
-					Iterator1 = GreaterThanString(Val1,Brin);
-					Iterator2 = LessThanOrEqualString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((String) Val1).compareTo(((String) Val2)) >= 0) {
+					Iterator1 = GreaterThanString(Val1, Brin);
+					Iterator2 = LessThanOrEqualString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 
 			}
 
 			else if (op1.equals(">=") && op2.equals(">")) {
-				if(((String)Val1).compareTo(((String)Val2))>=0){
-					Iterator1 = GreaterThanOrEqualString(Val1,Brin);
-					Iterator2 = LessThanOrEqualString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((String) Val1).compareTo(((String) Val2)) >= 0) {
+					Iterator1 = GreaterThanOrEqualString(Val1, Brin);
+					Iterator2 = LessThanOrEqualString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
 
+				return Iterator;
 
 			} else if (op1.equals(">=") && op2.equals(">=")) {
-				if(((String)Val1).compareTo(((String)Val2))>=0){
-					Iterator1 = GreaterThanOrEqualString(Val1,Brin);
-					Iterator2 = LessThanOrEqualString(Val2,Brin);
-					for(int i = 0;i<Iterator1.size();i++){
-						Hashtable<String, Object> hash1=Iterator1.get(i);
-	                    Object key1 = hash1.get(strClusteringKeyColumn);
-						for(int j = 0; j<Iterator2.size();j++){
-							Hashtable<String, Object> hash2=Iterator2.get(j);
-		                    Object key2 = hash2.get(strClusteringKeyColumn);
-							if(key2.equals(key1)){
+				if (((String) Val1).compareTo(((String) Val2)) >= 0) {
+					Iterator1 = GreaterThanOrEqualString(Val1, Brin);
+					Iterator2 = LessThanOrEqualString(Val2, Brin);
+					for (int i = 0; i < Iterator1.size(); i++) {
+						Hashtable<String, Object> hash1 = Iterator1.get(i);
+						Object key1 = hash1.get(strClusteringKeyColumn);
+						for (int j = 0; j < Iterator2.size(); j++) {
+							Hashtable<String, Object> hash2 = Iterator2.get(j);
+							Object key2 = hash2.get(strClusteringKeyColumn);
+							if (key2.equals(key1)) {
 								Iterator.add(hash1);
-								break;	
+								break;
 							}
 						}
 					}
 				}
-				
-					return Iterator;
+
+				return Iterator;
 			}
 
 		} else {
 
 			if (op1.equals(">=")) {
-				
 
-				return GreaterThanOrEqualString(Val1,Brin);
-				
+				return GreaterThanOrEqualString(Val1, Brin);
+
 			} else if (op1.equals(">")) {
-				
-				return GreaterThanString(Val1,Brin);
-				
+
+				return GreaterThanString(Val1, Brin);
+
 			} else if (op1.equals("<")) {
-				
-				return LessThanString(Val1,Brin);
-				
+
+				return LessThanString(Val1, Brin);
+
 			} else if (op1.equals("<=")) {
-				
-				return LessThanOrEqualString(Val1,Brin);
-				
+
+				return LessThanOrEqualString(Val1, Brin);
 
 			}
 
@@ -1094,26 +1104,29 @@ public class Table implements Serializable {
 		return Iterator;
 	}
 
+	public static String minString(String Val1, String Val2) {
+		if (Val1.compareTo(Val2) <= 0)
+			return Val1;
+		else
+			return Val2;
 
-	public static String minString(String Val1,String Val2){
-		if(Val1.compareTo(Val2)<=0)
+	}
+
+	public static String maxString(String Val1, String Val2) {
+		if (Val1.compareTo(Val2) > 0)
 			return Val1;
 		else
 			return Val2;
-		
+
 	}
-	public static String maxString(String Val1,String Val2){
-		if(Val1.compareTo(Val2)>0)
-			return Val1;
-		else
-			return Val2;
-		
-	}
-//////////////////////////////////////////////////////////////Int Singleton search operations//////////////////////////////////////////////////
+
+	// ////////////////////////////////////////////////////////////Int Singleton
+	// search operations//////////////////////////////////////////////////
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>> GreaterThanOrEqualInt(Object Val1,int Brin){
-		ArrayList<Hashtable<String, Object>> Iterator=new ArrayList<Hashtable<String, Object>>();
+	public ArrayList<Hashtable<String, Object>> GreaterThanOrEqualInt(
+			Object Val1, int Brin) {
+		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 		for (int j = 0; j < BrinPages.size(); j++) {
@@ -1123,43 +1136,38 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity First = FirstPair.getKey();
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					First = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
 				if (((int) Val1) >= ((int) First.Value)) {
-					
 
 					BrinFirst BrinFirst = BrinIndex.FirstBrin;
 					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-					for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-						
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(p);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity First1 = FirstPair1.getKey();
-							if (((int) Val1) >= ((int) First1.Value)) {
-								
 
-								DenseIndex DenseIndex = BrinFirst.Dense;
-								LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-								for (int s = Entity1.PageNumber ; s < Densetuples
-										.size(); s++) {
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-									Entity Entity2 = Densetuples.get(s);
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity First1 = FirstPair1.getKey();
+						if (((int) Val1) >= ((int) First1.Value)) {
 
-									if ((int) Val1 >= (int) Entity2.Value) {
-										Iterator.add(Pages
-												.get(Entity2.PageNumber).tuples
-												.get(Entity2.Elementnumber));
-									} else
-										return Iterator;
-								}
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
 
-							} else
-								return Iterator;
+								Entity Entity2 = Densetuples.get(s);
 
-						}
+								if ((int) Val1 >= (int) Entity2.Value) {
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+								} else
+									return Iterator;
+							}
+
+						} else
+							return Iterator;
 
 					}
 
@@ -1170,9 +1178,10 @@ public class Table implements Serializable {
 		}
 		return Iterator;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>> GreaterThanInt(Object Val1,int Brin){
+	public ArrayList<Hashtable<String, Object>> GreaterThanInt(Object Val1,
+			int Brin) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
@@ -1183,43 +1192,38 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity First = FirstPair.getKey();
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					First = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
 				if (((int) Val1) > ((int) First.Value)) {
-					
 
 					BrinFirst BrinFirst = BrinIndex.FirstBrin;
 					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-					for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-						
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(p);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity First1 = FirstPair1.getKey();
-							if (((int) Val1) > ((int) First1.Value)) {
-								
 
-								DenseIndex DenseIndex = BrinFirst.Dense;
-								LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-								for (int s = Entity1.PageNumber; s < Densetuples
-										.size(); s++) {
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-									Entity Entity2 = Densetuples.get(s);
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity First1 = FirstPair1.getKey();
+						if (((int) Val1) > ((int) First1.Value)) {
 
-									if ((int) Val1 > (int) Entity2.Value) {
-										Iterator.add(Pages
-												.get(Entity2.PageNumber).tuples
-												.get(Entity2.Elementnumber));
-									} else
-										return Iterator;
-								}
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
 
-							} else
-								return Iterator;
+								Entity Entity2 = Densetuples.get(s);
 
-						}
+								if ((int) Val1 > (int) Entity2.Value) {
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+								} else
+									return Iterator;
+							}
+
+						} else
+							return Iterator;
 
 					}
 
@@ -1231,12 +1235,14 @@ public class Table implements Serializable {
 
 		return Iterator;
 	}
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>>  LessThanInt(Object Val1,int Brin){
+	public ArrayList<Hashtable<String, Object>> LessThanInt(Object Val1,
+			int Brin) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
-		
+
 		boolean secondNull = false;
-		boolean secondNull1=false;
+		boolean secondNull1 = false;
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 		for (int j = 0; j < BrinPages.size(); j++) {
@@ -1246,192 +1252,132 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
+				Entity Secondd = null;
 				if (Second == null)
-					secondNull=true;
-					if (secondNull||((int) Val1) < ((int) Second.Value)) {
-						secondNull=false;
-						
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(Entity.PageNumber);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity Second1 = FirstPair1.getValue();
-							if (Second1 == null)
-								secondNull1=true;
-								if (secondNull1||((int) Val1) < ((int) Second1.Value)) {
-									secondNull1=false;
-
-									DenseIndex DenseIndex = BrinFirst.Dense;
-									LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-									boolean finish = false;
-									
-									for (int s = Entity1.PageNumber; s < Densetuples
-											.size(); s++) {
-										
-
-										Entity Entity2 = Densetuples
-												.get(s);
-										if ((int) Val1 < (int) Entity2.Value) {
-
-											Iterator.add(Pages
-													.get(Entity2.PageNumber).tuples
-													.get(Entity2.Elementnumber));
-											finish = true;
-										}
-									}
-									if (finish)
-										return Iterator;
-								}
-
-						}
-
-					}
-
-			}
-		}
-		return Iterator;
-	}
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>>  LessThanOrEqualInt(Object Val1,int Brin){
-		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
-		boolean secondNull = false;
-		boolean secondNull1=false;
-		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
-		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
-		for (int j = 0; j < BrinPages.size(); j++) {
-
-			LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-			for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-				Entity Entity = SecondBrinIndexTuples.get(k);
-				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
-				Entity Second = FirstPair.getValue();
-				if (Second == null)
-					secondNull=true;
-					if (secondNull||((int) Val1) <= ((int) Second.Value)) {
-						secondNull=false;
-						
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(Entity.PageNumber);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity Second1 = FirstPair1.getValue();
-							if (Second1 == null)
-								secondNull1=true;
-								if (secondNull1||((int) Val1) <= ((int) Second1.Value)) {
-									secondNull1=false;
-
-									DenseIndex DenseIndex = BrinFirst.Dense;
-									LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-									boolean finish = false;
-									
-									for (int s = Entity1.PageNumber; s < Densetuples
-											.size(); s++) {
-										
-
-										Entity Entity2 = Densetuples
-												.get(s);
-										if ((int) Val1 <= (int) Entity2.Value) {
-
-											Iterator.add(Pages
-													.get(Entity2.PageNumber).tuples
-													.get(Entity2.Elementnumber));
-											finish = true;
-										}
-									}
-									if (finish)
-										return Iterator;
-								}
-
-						}
-
-					}
-
-			}
-		}
-		return Iterator;
-	}
-	
-	
-	
-//////////////////////////////////////////////////////////////String Singleton search operations//////////////////////////////////////////////////
-	
-	
-	
-	
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>> GreaterThanOrEqualString(Object Val1,int Brin){
-		ArrayList<Hashtable<String, Object>> Iterator=new ArrayList<Hashtable<String, Object>>();
-		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
-		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
-		for (int j = 0; j < BrinPages.size(); j++) {
-
-			LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
-			for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
-				Entity Entity = SecondBrinIndexTuples.get(k);
-				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
-				Entity First = FirstPair.getKey();
-				if (((String) Val1).compareTo((String)First.Value)>=0) {
-					
+					secondNull = true;
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					Second = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
+				if (secondNull || ((int) Val1) < ((int) Second.Value)) {
+					secondNull = false;
 
 					BrinFirst BrinFirst = BrinIndex.FirstBrin;
 					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-					for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-						
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(p);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity First1 = FirstPair1.getKey();
-							if (((String) Val1).compareTo((String)First1.Value)>=0) {
-								
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
+							.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-								DenseIndex DenseIndex = BrinFirst.Dense;
-								LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-								for (int s = Entity1.PageNumber ; s < Densetuples
-										.size(); s++) {
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity Second1 = FirstPair1.getValue();
+						if (Second1 == null)
+							secondNull1 = true;
+						if (secondNull1 || ((int) Val1) < ((int) Second1.Value)) {
+							secondNull1 = false;
 
-									Entity Entity2 = Densetuples.get(s);
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							boolean finish = false;
 
-									if (((String) Val1).compareTo((String)Entity2.Value)>=0) {
-										Iterator.add(Pages
-												.get(Entity2.PageNumber).tuples
-												.get(Entity2.Elementnumber));
-									} else
-										return Iterator;
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
+
+								Entity Entity2 = Densetuples.get(s);
+								if ((int) Val1 < (int) Entity2.Value) {
+
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+									finish = true;
 								}
-
-							} else
+							}
+							if (finish)
 								return Iterator;
-
 						}
 
 					}
 
-				} else
-					return Iterator;
+				}
 
 			}
 		}
 		return Iterator;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>> GreaterThanString(Object Val1,int Brin){
+	public ArrayList<Hashtable<String, Object>> LessThanOrEqualInt(Object Val1,
+			int Brin) {
+		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
+		boolean secondNull = false;
+		boolean secondNull1 = false;
+		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
+		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
+		for (int j = 0; j < BrinPages.size(); j++) {
+
+			LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
+			for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
+				Entity Entity = SecondBrinIndexTuples.get(k);
+				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
+				Entity Second = FirstPair.getValue();
+				
+				if (Second == null)
+					secondNull = true;
+				
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					Second = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
+				if (secondNull || ((int) Val1) <= ((int) Second.Value)) {
+					secondNull = false;
+
+					BrinFirst BrinFirst = BrinIndex.FirstBrin;
+					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
+							.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
+
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity Second1 = FirstPair1.getValue();
+						if (Second1 == null)
+							secondNull1 = true;
+						if (secondNull1
+								|| ((int) Val1) <= ((int) Second1.Value)) {
+							secondNull1 = false;
+
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							boolean finish = false;
+
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
+
+								Entity Entity2 = Densetuples.get(s);
+								if ((int) Val1 <= (int) Entity2.Value) {
+
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+									finish = true;
+								}
+							}
+							if (finish)
+								return Iterator;
+						}
+
+					}
+
+				}
+
+			}
+		}
+		return Iterator;
+	}
+
+	// ////////////////////////////////////////////////////////////String
+	// Singleton search
+	// operations//////////////////////////////////////////////////
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Hashtable<String, Object>> GreaterThanOrEqualString(
+			Object Val1, int Brin) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
@@ -1442,43 +1388,96 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity First = FirstPair.getKey();
-				if (((String) Val1).compareTo((String)First.Value)>0) {
-					
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					First = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
+				if (((String) Val1).compareTo((String) First.Value) >= 0) {
 
 					BrinFirst BrinFirst = BrinIndex.FirstBrin;
 					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
-					for (int p = Entity.PageNumber; p <= Entity.PageNumber; p++) {
-						
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(p);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity First1 = FirstPair1.getKey();
-							if (((String) Val1).compareTo((String)First1.Value)>0) {
-								
 
-								DenseIndex DenseIndex = BrinFirst.Dense;
-								LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-								for (int s = Entity1.PageNumber; s < Densetuples
-										.size(); s++) {
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-									Entity Entity2 = Densetuples.get(s);
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity First1 = FirstPair1.getKey();
+						if (((String) Val1).compareTo((String) First1.Value) >= 0) {
 
-									if (((String) Val1).compareTo((String)Entity2.Value)>0) {
-										Iterator.add(Pages
-												.get(Entity2.PageNumber).tuples
-												.get(Entity2.Elementnumber));
-									} else
-										return Iterator;
-								}
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
 
-							} else
-								return Iterator;
+								Entity Entity2 = Densetuples.get(s);
 
-						}
+								if (((String) Val1)
+										.compareTo((String) Entity2.Value) >= 0) {
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+								} else
+									return Iterator;
+							}
+
+						} else
+							return Iterator;
+
+					}
+
+				} else
+					return Iterator;
+
+			}
+		}
+		return Iterator;
+	}
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Hashtable<String, Object>> GreaterThanString(Object Val1,
+			int Brin) {
+		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
+		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
+		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
+		for (int j = 0; j < BrinPages.size(); j++) {
+
+			LinkedList<Entity> SecondBrinIndexTuples = BrinPages.get(j);
+			for (int k = 0; k < SecondBrinIndexTuples.size(); k++) {
+				Entity Entity = SecondBrinIndexTuples.get(k);
+				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
+				Entity First = FirstPair.getKey();
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					First = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
+				if (((String) Val1).compareTo((String) First.Value) > 0) {
+
+					BrinFirst BrinFirst = BrinIndex.FirstBrin;
+					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
+
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity First1 = FirstPair1.getKey();
+						if (((String) Val1).compareTo((String) First1.Value) > 0) {
+
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
+
+								Entity Entity2 = Densetuples.get(s);
+
+								if (((String) Val1)
+										.compareTo((String) Entity2.Value) > 0) {
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+								} else
+									return Iterator;
+							}
+
+						} else
+							return Iterator;
 
 					}
 
@@ -1490,12 +1489,14 @@ public class Table implements Serializable {
 
 		return Iterator;
 	}
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>>  LessThanString(Object Val1,int Brin){
+	public ArrayList<Hashtable<String, Object>> LessThanString(Object Val1,
+			int Brin) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
-		
+
 		boolean secondNull = false;
-		boolean secondNull1=false;
+		boolean secondNull1 = false;
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 		for (int j = 0; j < BrinPages.size(); j++) {
@@ -1505,62 +1506,67 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
+				Entity Secondd = null;
 				if (Second == null)
-					secondNull=true;
-					if (secondNull||((String) Val1).compareTo((String)Second.Value)<0) {
-						secondNull=false;
-						
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(Entity.PageNumber);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity Second1 = FirstPair1.getValue();
-							if (Second1 == null)
-								secondNull1=true;
-								if (secondNull1||((String) Val1).compareTo((String)Second1.Value)<0) {
-									secondNull1=false;
+					secondNull = true;
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					Second = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
+				if (secondNull
+						|| ((String) Val1).compareTo((String) Secondd.Value) < 0) {
+					secondNull = false;
 
-									DenseIndex DenseIndex = BrinFirst.Dense;
-									LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-									boolean finish = false;
-									
-									for (int s = Entity1.PageNumber; s < Densetuples
-											.size(); s++) {
-										
+					BrinFirst BrinFirst = BrinIndex.FirstBrin;
+					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
+							.get(Entity.PageNumber);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-										Entity Entity2 = Densetuples
-												.get(s);
-										if (((String) Val1).compareTo((String)Entity2.Value)<0) {
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity Second1 = FirstPair1.getValue();
+						if (Second1 == null)
+							secondNull1 = true;
+						if (secondNull1
+								|| ((String) Val1)
+										.compareTo((String) Second1.Value) < 0) {
+							secondNull1 = false;
 
-											Iterator.add(Pages
-													.get(Entity2.PageNumber).tuples
-													.get(Entity2.Elementnumber));
-											finish = true;
-										}
-									}
-									if (finish)
-										return Iterator;
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							boolean finish = false;
+
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
+
+								Entity Entity2 = Densetuples.get(s);
+								if (((String) Val1)
+										.compareTo((String) Entity2.Value) < 0) {
+
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+									finish = true;
 								}
-
+							}
+							if (finish)
+								return Iterator;
 						}
 
 					}
+
+				}
 
 			}
 		}
 		return Iterator;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Hashtable<String, Object>>  LessThanOrEqualString(Object Val1,int Brin){
+	public ArrayList<Hashtable<String, Object>> LessThanOrEqualString(
+			Object Val1, int Brin) {
 		ArrayList<Hashtable<String, Object>> Iterator = new ArrayList<Hashtable<String, Object>>();
 		boolean secondNull = false;
-		boolean secondNull1=false;
+		boolean secondNull1 = false;
 		BrinIndex BrinIndex = this.BrinIndecies.get(Brin);
 		ArrayList<LinkedList<Entity>> BrinPages = BrinIndex.BrinPages;
 		for (int j = 0; j < BrinPages.size(); j++) {
@@ -1570,58 +1576,62 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
-				if (Second == null)
-					secondNull=true;
-					if (secondNull||((String) Val1).compareTo((String)Second.Value)<=0) {
-						secondNull=false;
-						
-						BrinFirst BrinFirst = BrinIndex.FirstBrin;
-						ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;							
-						LinkedList<Entity> FirstBrinIndexTuples = BrinPages1
-								.get(Entity.PageNumber);
-						for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
-							
-							Entity Entity1 = FirstBrinIndexTuples
-									.get(r);
-							Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
-							Entity Second1 = FirstPair1.getValue();
-							if (Second1 == null)
-								secondNull1=true;
-								if (secondNull1||((String) Val1).compareTo((String)Second1.Value)<=0) {
-									secondNull1=false;
+				Entity Secondd = null;
+				if (Second == null) {
+					secondNull = true;
+				}
+				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
+					Second = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
+				}
 
-									DenseIndex DenseIndex = BrinFirst.Dense;
-									LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
-									boolean finish = false;
-									
-									for (int s = Entity1.PageNumber; s < Densetuples
-											.size(); s++) {
-										
+				if (secondNull
+						|| ((String) Val1).compareTo((String) Second.Value) <= 0) {
+					secondNull = false;
 
-										Entity Entity2 = Densetuples
-												.get(s);
-										if (((String) Val1).compareTo((String)Entity2.Value)<=0) {
+					BrinFirst BrinFirst = BrinIndex.FirstBrin;
+					ArrayList<LinkedList<Entity>> BrinPages1 = BrinFirst.BrinPages;
+					LinkedList<Entity> FirstBrinIndexTuples = BrinPages1.get(0);
+					for (int r = 0; r < FirstBrinIndexTuples.size(); r++) {
 
-											Iterator.add(Pages
-													.get(Entity2.PageNumber).tuples
-													.get(Entity2.Elementnumber));
-											finish = true;
-										}
-									}
-									if (finish)
-										return Iterator;
+						Entity Entity1 = FirstBrinIndexTuples.get(r);
+						Pair<Entity, Entity> FirstPair1 = (Pair<Entity, Entity>) Entity1.Value;
+						Entity Second1 = FirstPair1.getValue();
+						if (Second1 == null)
+							secondNull1 = true;
+						if (secondNull1
+								|| ((String) Val1)
+										.compareTo((String) Second1.Value) <= 0) {
+							secondNull1 = false;
+
+							DenseIndex DenseIndex = BrinFirst.Dense;
+							LinkedList<Entity> Densetuples = DenseIndex.Densetuples;
+							boolean finish = false;
+
+							for (int s = Entity1.PageNumber; s < Densetuples
+									.size(); s++) {
+
+								Entity Entity2 = Densetuples.get(s);
+								if (((String) Val1)
+										.compareTo((String) Entity2.Value) <= 0) {
+
+									Iterator.add(Pages.get(Entity2.PageNumber).tuples
+											.get(Entity2.Elementnumber));
+									finish = true;
 								}
-
+							}
+							if (finish)
+								return Iterator;
 						}
 
 					}
+
+				}
 
 			}
 		}
 		return Iterator;
 	}
-	
-	
+
 	public void DeleteFromTable(Hashtable<String, Object> htblColNameVale)
 			throws DBAppException {
 
@@ -1681,7 +1691,7 @@ public class Table implements Serializable {
 						// first page of
 						if ((Upper > 0 && Lower < 0) || (Upper > 0)
 								|| (Lower < 0)) { // ////Fixed the exception
-							//System.out.println("Entered to delete from string");
+							// System.out.println("Entered to delete from string");
 							Pages.get(i).DeleteFromPage(htblColNameVale,
 									primary, -1, !IsString);
 
@@ -1689,7 +1699,7 @@ public class Table implements Serializable {
 
 							updatePagesD(i, !IsString);
 							;
-							//System.out.println("1");
+							// System.out.println("1");
 
 							LoadAll();
 
@@ -1794,36 +1804,37 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException("please add the clustering key");// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO
+																		// message
 		}
 		UpdateBrins();
 	}
-		
 
-   public void UpdateBrins(){
-    	ArrayList<String> KeyNames=new ArrayList<String>();
-    	if(this.BrinIndecies!=null){
-    		//System.out.println(BrinIndecies.size()+"Here");
-    		//System.out.println("Updating brins");
-    	for(int i=0;i<this.BrinIndecies.size();i++){
-    		KeyNames.add(this.BrinIndecies.get(i).ColumnName);
-    		//System.out.println(this.BrinIndecies.get(i).ColumnName);
-    		
-    		
-    	}
-    	this.BrinIndecies=new ArrayList<BrinIndex>();
-        for(int i=0;i<KeyNames.size();i++){
-        	try {
-				CreateBrinIndex(KeyNames.get(i));
-				//System.out.println(this.BrinIndecies.size());
-			} catch (DBAppException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+	public void UpdateBrins() {
+		ArrayList<String> KeyNames = new ArrayList<String>();
+		if (this.BrinIndecies != null) {
+			// System.out.println(BrinIndecies.size()+"Here");
+			// System.out.println("Updating brins");
+			for (int i = 0; i < this.BrinIndecies.size(); i++) {
+				KeyNames.add(this.BrinIndecies.get(i).ColumnName);
+				// System.out.println(this.BrinIndecies.get(i).ColumnName);
+
 			}
-        	
-        }}
-    	
-    }
+			this.BrinIndecies = new ArrayList<BrinIndex>();
+			for (int i = 0; i < KeyNames.size(); i++) {
+				try {
+					CreateBrinIndex(KeyNames.get(i));
+					// System.out.println(this.BrinIndecies.size());
+				} catch (DBAppException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+		}
+
+	}
+
 	public void updatePagesD(int startingPage, boolean flag) { // Update On
 																// delete
 
@@ -1895,14 +1906,12 @@ public class Table implements Serializable {
 		 */
 
 	}
-	
-	public void UpdateMeta()
-	{
-		
-		
+
+	public void UpdateMeta() {
+
 		try {
 			FileWriter writer = new FileWriter(this.strTableName
-					+"metadata.csv");
+					+ "metadata.csv");
 
 			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
 
@@ -1913,57 +1922,46 @@ public class Table implements Serializable {
 			writer.append("Key?" + ",");
 			writer.append("Indexed?" + ",");
 			writer.append("\n");
-			int brincount=0;
+			int brincount = 0;
 			while (Iterator.hasNext()) {
 				Entry<String, String> en = Iterator.next();
 				writer.append(strTableName + ",");
 				writer.append(en.getKey() + ",");
 				writer.append(en.getValue() + ",");
-			if (strClusteringKeyColumn.equals(en.getKey())) {
-						
-						writer.append("True" + ",");
-		    } 
-			else 
-			{
-						writer.append("False" + ",");
-					}
-			boolean indexed=false;	
-		   if(brincount<BrinIndecies.size()){
-			for(int i=0;i<BrinIndecies.size();i++){
-				BrinIndex I=BrinIndecies.get(i);
-	        
-				if(I.ColumnName.equals(en.getKey())){
-				
-				writer.append("True"+ ",");
-				brincount++;
-				indexed=true;
+				if (strClusteringKeyColumn.equals(en.getKey())) {
+
+					writer.append("True" + ",");
+				} else {
+					writer.append("False" + ",");
 				}
-			}
-			   
-				
-				
-				
-			}
-		   else if(!indexed ){
-			   
-				writer.append("False"+ ",");
+				boolean indexed = false;
+				if (brincount < BrinIndecies.size()) {
+					for (int i = 0; i < BrinIndecies.size(); i++) {
+						BrinIndex I = BrinIndecies.get(i);
 
-		   }
-		   indexed=false;
-			writer.append("\n");
-			
-			
-		
+						if (I.ColumnName.equals(en.getKey())) {
 
-				
+							writer.append("True" + ",");
+							brincount++;
+							indexed = true;
+						}
+					}
+
+				} else if (!indexed) {
+
+					writer.append("False" + ",");
+
+				}
+				indexed = false;
+				writer.append("\n");
+
 			}
-
 
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}}
-		
+		}
+	}
 
 }

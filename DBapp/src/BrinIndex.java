@@ -47,6 +47,7 @@ public class BrinIndex {
 			Entity Value = new Entity(EntityPair,j,-1);
 			InsertIntoBrinPage(Value);
 			
+		
 			
 			
 		}
@@ -80,7 +81,7 @@ public class BrinIndex {
 	}
 	
 	public boolean check(){
-	       return this.currentLine>3;
+	       return this.currentLine>14;
 	    }
 	public void loadFirst(int Index, String columnName) {
 

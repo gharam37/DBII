@@ -24,9 +24,9 @@ public class BrinFirst {
 	public void CreateFirstBrin(){
 		LinkedList<Entity> Densetuples =this.Dense.Densetuples;
 		int i=0;
-		for( i=0;i<Densetuples.size()-9;i+=10){
+		for( i=0;i<Densetuples.size()-199;i+=200){
 			Entity First=Densetuples.get(i);
-			Entity Last=Densetuples.get(i+9);
+			Entity Last=Densetuples.get(i+199);
 			Pair<Entity,Entity> EntityPair=new Pair<Entity,Entity>(First,Last);
 			Entity Value = new Entity(EntityPair,i,-1);
 			InsertIntoBrinPage(Value);
@@ -62,7 +62,7 @@ public class BrinFirst {
 	}
 	
 	public boolean check(){
-	       return this.currentLine>3;
+	       return this.currentLine>14;
 	    }
 	public void loadFirst(int Index, String columnName) {
 

@@ -39,7 +39,7 @@ public class Page implements Serializable {
     //if full it calls WritePage 
     
 	public boolean check(){
-       return this.currentLine>9;
+       return this.currentLine>199;
     }
 	public boolean IsEmpty(){
 		return(this.tuples.isEmpty());
