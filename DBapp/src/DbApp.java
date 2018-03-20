@@ -66,22 +66,7 @@ public class DbApp {
 		}
 		
 	}
-	/*public static void DeleteDenseIndex(String strTableName,String ColumnName,Entity Entity) throws DBAppException{
-		//table.CreateDenseTable(ColumnName);
-		boolean Flag = true;
-		for(int i = 0; i<Tables.size();i++){
-			if((((Table)Tables.get(i)).strTableName).equals(strTableName)){
-				((Table)Tables.get(i)).DeleteDenseTable(ColumnName, Entity);
-				
-				Flag = false;
-				break;
-			}
-		}
-		if(Flag){
-			System.out.println("Table Name not found");
-		}
-		
-	}*/
+	
 	public static void deleteFromTable(String strTableName,Hashtable<String,Object> htblColNameValue)throws DBAppException{
 		boolean Flag = true;
 		for(int i = 0; i<Tables.size();i++){
@@ -204,7 +189,7 @@ public class DbApp {
 		Hashtable<String,Object> htblColName90 = new Hashtable<String,Object>( );
 		htblColName90.put("Social Security number", new Integer( 67891189 ));
 		htblColName90.put("address", new String("Bakry st" ) );
-		htblColName90.put("name", new String("Cenq David1" ) );
+		htblColName90.put("name", new String("Cenq David one" ) );
 		htblColName90.put("age", new Integer( 2048 ) );
 		 insertIntoTable( strTableName1 , htblColName90);
 		for(int i =0;i<200;i++){
@@ -221,7 +206,7 @@ public class DbApp {
 		
 		CreateBrinIndex(strTableName1,"address");
 		
-		/*try        
+		try        
 		{
 		    Thread.sleep(10000);
 		    deleteFromTable( strTableName1,htblColName20);
@@ -231,7 +216,7 @@ public class DbApp {
 		    Thread.currentThread().interrupt();
 		}
 		
-		*/
+		
 		Hashtable<String,Object> htblColName900 = new Hashtable<String,Object>( );
 		htblColName900.put("Social Security number", new Integer(19000));
 		htblColName900.put("address", new String("Nasr St" ) );
@@ -243,7 +228,7 @@ public class DbApp {
 		htblColName901.put("address", new String("zah nasr St" ) );
 		htblColName901.put("name", new String("Gharam Zakaria" ) );
 		htblColName901.put("age", new Integer( 20 ) );
-		/*try        
+		try        
 		{
 		    Thread.sleep(10000);
 		    insertIntoTable( strTableName1,htblColName900);
@@ -262,19 +247,18 @@ public class DbApp {
 		{
 		    Thread.currentThread().interrupt();
 		}
-		*/
+		
 		Object[]objarrValues = new Object[2];
-		objarrValues[0] = new String("z");
-		objarrValues[1] = new String("k");
+		objarrValues[0] = new Integer(55);
+		objarrValues[1] = new Integer(45);
 		String[] strarrOperators = new String[2];
-		strarrOperators[0] = ">="; // z>=address<k
+		strarrOperators[0] = ">="; 
 		strarrOperators[1] = ">=";
-		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "address",
+		ArrayList<Hashtable<String, Object>> resultSet =  selectFromTable(strTableName1, "age",
 		objarrValues, strarrOperators );
 		for(int i = 0; i<resultSet.size();i++){
 			System.out.println(resultSet.get(i));
 		}
-		//System.out.println("a".compareTo("ab"));
 		/*String strTableName = "Student";
 		@SuppressWarnings("rawtypes")
 		Hashtable htblColNameType = new Hashtable( );
@@ -339,7 +323,7 @@ public class DbApp {
 
 		htblColName6.put("id", new Integer( 453455 ));
 		htblColName6.put("name", new String("Ahmed Mohammed abdullah khaled bassim aly mohamed" ) );
-		htblColName6.put("gpa", new Double( 199799.199799 ) )
+		htblColName6.put("gpa", new Double( 199799.199799 ) );
 		updateTable( strTableName ,"", htblColName6 );
 		deleteFromTable( strTableName,htblColName4);
 		deleteFromTable( strTableName,htblColName3); */
