@@ -204,7 +204,7 @@ public class DenseIndex {
 				}
 
 			} else {
-				throw new DBAppException();
+				throw new DBAppException("sorry this table is empty insert first");
 			}
 
 		}
@@ -249,7 +249,7 @@ public class DenseIndex {
 			}
 
 			else {
-				throw new DBAppException();
+				throw new DBAppException("sorry this table is empty insert first");
 			}
 		}
 
@@ -307,7 +307,7 @@ public class DenseIndex {
 				}
 
 			} else {
-				throw new DBAppException();
+				throw new DBAppException("sorry this table is empty insert first");
 			}
 
 		}
@@ -348,7 +348,7 @@ public class DenseIndex {
 			}
 
 			else {
-				throw new DBAppException();
+				throw new DBAppException("sorry this table is empty insert first");
 			}
 		}
 

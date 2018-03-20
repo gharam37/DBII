@@ -319,7 +319,7 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException();// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO message
 		}
 		
 		UpdateBrins();
@@ -441,7 +441,7 @@ public class Table implements Serializable {
 					}
 
 					else {
-						throw new DBAppException();
+						throw new DBAppException("Sorry this table is empty insert first");
 
 					}
 
@@ -506,7 +506,7 @@ public class Table implements Serializable {
 					}
 
 					else {
-						throw new DBAppException();
+						throw new DBAppException("Sorry this table is empty insert first");
 					}
 				}
 
@@ -515,7 +515,7 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException();// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO message
 		}
 		
 		UpdateBrins();
@@ -539,7 +539,7 @@ public class Table implements Serializable {
 
 		if (!foundname) {
 
-			throw new DBAppException(); // } else { for(int
+			throw new DBAppException("sorry this column is not found"); // } else { for(int
 		} else {
 			// here
 			DenseIndex dense = new DenseIndex(this, ColumnName);
@@ -1793,7 +1793,7 @@ public class Table implements Serializable {
 		}
 
 		else {
-			throw new DBAppException();// TO-DO message
+			throw new DBAppException("please add the clustering key");// TO-DO message
 		}
 		UpdateBrins();
 	}
