@@ -1252,7 +1252,6 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
-				Entity Secondd = null;
 				if (Second == null)
 					secondNull = true;
 				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
@@ -1506,14 +1505,14 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
-				Entity Secondd = null;
+				
 				if (Second == null)
 					secondNull = true;
 				if(BrinIndex.FirstBrin.Dense.Densetuples.size()<201){
 					Second = ((Pair<Entity, Entity>) (FirstPair.getKey().Value)).getKey();
 				}
 				if (secondNull
-						|| ((String) Val1).compareTo((String) Secondd.Value) < 0) {
+						|| ((String) Val1).compareTo((String) Second.Value) < 0) {
 					secondNull = false;
 
 					BrinFirst BrinFirst = BrinIndex.FirstBrin;
@@ -1576,7 +1575,6 @@ public class Table implements Serializable {
 				Entity Entity = SecondBrinIndexTuples.get(k);
 				Pair<Entity, Entity> FirstPair = (Pair<Entity, Entity>) Entity.Value;
 				Entity Second = FirstPair.getValue();
-				Entity Secondd = null;
 				if (Second == null) {
 					secondNull = true;
 				}
