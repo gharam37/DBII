@@ -229,9 +229,9 @@ public class DbApp {
 		catch(InterruptedException ex) 
 		{
 		    Thread.currentThread().interrupt();
-		}*/
+		}
 		
-		
+		*/
 		Hashtable<String,Object> htblColName900 = new Hashtable<String,Object>( );
 		htblColName900.put("Social Security number", new Integer(19000));
 		htblColName900.put("address", new String("Nasr St" ) );
@@ -261,8 +261,8 @@ public class DbApp {
 		catch(InterruptedException ex) 
 		{
 		    Thread.currentThread().interrupt();
-		}*/
-		
+		}
+		*/
 		Object[]objarrValues = new Object[2];
 		objarrValues[0] = new String("n");
 		objarrValues[1] = new String( "B" );

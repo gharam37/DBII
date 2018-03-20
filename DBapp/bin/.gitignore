@@ -1,2 +1,5 @@
 /DbApp.class
 /Table.class
+/DBAppException.class
+/DenseIndex.class
+/Page.class

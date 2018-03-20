@@ -548,7 +548,6 @@ public class Table implements Serializable {
 			BrinFirst FirstBrin = new BrinFirst(dense);
 			BrinIndex BrinIndex = new BrinIndex(FirstBrin);
 			this.BrinIndecies.add(BrinIndex);
-			UpdateMeta();
 			
 		}
 
@@ -1895,75 +1894,5 @@ public class Table implements Serializable {
 		 */
 
 	}
-	
-	public void UpdateMeta()
-	{
-		
-		
-		try {
-			FileWriter writer = new FileWriter(this.strTableName
-					+"metadata.csv");
-
-			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
-
-			Iterator<Entry<String, String>> Iterator = FirstTuple.iterator();
-			writer.append("Table name" + ",");
-			writer.append("Column Name" + ",");
-			writer.append("Column Type" + ",");
-			writer.append("Key?" + ",");
-			writer.append("Indexed?" + ",");
-			writer.append("\n");
-			int brincount=0;
-			while (Iterator.hasNext()) {
-				Entry<String, String> en = Iterator.next();
-				writer.append(strTableName + ",");
-				writer.append(en.getKey() + ",");
-				writer.append(en.getValue() + ",");
-			if (strClusteringKeyColumn.equals(en.getKey())) {
-						
-						writer.append("True" + ",");
-		    } 
-			else 
-			{
-						writer.append("False" + ",");
-					}
-			boolean indexed=false;	
-		   if(brincount<BrinIndecies.size()){
-			for(int i=0;i<BrinIndecies.size();i++){
-				BrinIndex I=BrinIndecies.get(i);
-	        
-				if(I.ColumnName.equals(en.getKey())){
-				
-				writer.append("True"+ ",");
-				brincount++;
-				indexed=true;
-				}
-			}
-			   
-				
-				
-				
-			}
-		   else if(!indexed ){
-			   
-				writer.append("False"+ ",");
-
-		   }
-		   indexed=false;
-			writer.append("\n");
-			
-			
-		
-
-				
-			}
-
-
-			writer.flush();
-			writer.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}}
-		
 
 }

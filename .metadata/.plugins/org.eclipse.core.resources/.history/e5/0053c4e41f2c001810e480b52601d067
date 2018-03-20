@@ -548,7 +548,6 @@ public class Table implements Serializable {
 			BrinFirst FirstBrin = new BrinFirst(dense);
 			BrinIndex BrinIndex = new BrinIndex(FirstBrin);
 			this.BrinIndecies.add(BrinIndex);
-			UpdateMeta();
 			
 		}
 
@@ -1963,7 +1962,7 @@ public class Table implements Serializable {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}}
+		}
 		
 
 }

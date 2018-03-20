@@ -112,7 +112,7 @@ public class Page implements Serializable {
 	    	
 	    			
 	    	else if(HashCurrentValue.compareTo(KeyValue)==0){
-	    				throw new DBAppException(); ///print already exists
+	    				throw new DBAppException("sorry there exists another entity with the same culstering key "); ///print already exists
 	    				
 	    	}
 	    		
@@ -170,7 +170,7 @@ public class Page implements Serializable {
    				
    			}
                else if(ToIntHashCurrentValue==clusterKeyPrimary){
-    				throw new DBAppException(); ///print already exists
+    				throw new DBAppException("sorry there exists another entity with the same culstering key "); ///print already exists
     				
     			}
     			
@@ -374,7 +374,7 @@ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String Key
 				
 			}
 			else{
-				throw new DBAppException();
+				throw new DBAppException("sorry this table is empty insert first");
 				
 			}
 
@@ -430,7 +430,7 @@ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String Key
 		 
 		 
 		 else{
-			throw new DBAppException();
+			throw new DBAppException("sorry this table is empty insert first");
 		 }
 		}
  		
@@ -598,7 +598,7 @@ public void updateIntoPage(Hashtable<String, Object> htblColNameVale, String Key
  			 
  			 
  			 else{
- 				throw new DBAppException();
+ 				throw new DBAppException("sorry this table is empty insert first");
  			 }
  			}
  	 		
