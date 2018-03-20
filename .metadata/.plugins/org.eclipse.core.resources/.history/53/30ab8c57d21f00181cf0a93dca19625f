@@ -1,8 +1,0 @@
-
-public class Entity {
-	int number;
-	Object Value;
-	
-	
-
-}

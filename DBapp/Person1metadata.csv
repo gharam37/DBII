@@ -1,0 +1,5 @@
+Table name,Column Name,Column Type,Key?,Indexed?,
+Person,address,java.lang.String,False,False,True,
+Person,age,java.lang.double,False,True,False,
+Person,Social Security number,java.lang.Integer,False,False,False,
+Person,name,java.lang.String,True,False,False,

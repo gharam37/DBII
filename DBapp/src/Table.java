@@ -89,19 +89,7 @@ public class Table implements Serializable {
 			Hashtable<String, String> htblColNameTypehtblColNameType)
 			throws DBAppException {
 
-		/*
-		 * ObjectOutputStream ObjectOutputStream; try { ObjectOutputStream = new
-		 * ObjectOutputStream(new FileOutputStream( new
-		 * File(this.strTableName+"0" + ".ser"))); //intially writing the table
-		 * as a big fat serializable thing .. make this our first page XD ..
-		 * when we merge i'll be put it in the array of pages
-		 * ObjectOutputStream.writeObject(this); /// instead of .strtablename it
-		 * will be 0.ser ObjectOutputStream.close();
-		 * 
-		 * } catch (FileNotFoundException e) { // TODO Auto-generated catch
-		 * block e.printStackTrace(); } catch (IOException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 */
+		
 
 		try {
 			FileWriter writer = new FileWriter(this.strTableName
@@ -131,14 +119,12 @@ public class Table implements Serializable {
 				writer.append("\n");
 			}
 
-			// generate whatever data you want
 
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println("meta");
 	}
 
 	// checks if no pages exist or page is full to create new page and insert in
@@ -548,6 +534,7 @@ public class Table implements Serializable {
 			BrinFirst FirstBrin = new BrinFirst(dense);
 			BrinIndex BrinIndex = new BrinIndex(FirstBrin);
 			this.BrinIndecies.add(BrinIndex);
+			UpdateMeta();
 			
 		}
 
@@ -1893,6 +1880,90 @@ public class Table implements Serializable {
 		 * //System.out.println(Pages.get(i).currentLine); }
 		 */
 
+	}
+	
+	public void UpdateMeta()
+	{
+		
+		
+		try {
+			FileWriter writer = new FileWriter(this.strTableName
+					+"metadata.csv");
+
+			Set<Entry<String, String>> FirstTuple = htblColNameType.entrySet();
+
+			Iterator<Entry<String, String>> Iterator = FirstTuple.iterator();
+			writer.append("Table name" + ",");
+			writer.append("Column Name" + ",");
+			writer.append("Column Type" + ",");
+			writer.append("Key?" + ",");
+			writer.append("Indexed?" + ",");
+			writer.append("\n");
+			int brincount=0;
+			while (Iterator.hasNext()) {
+				Entry<String, String> en = Iterator.next();
+				writer.append(strTableName + ",");
+				writer.append(en.getKey() + ",");
+				writer.append(en.getValue() + ",");
+			if (strClusteringKeyColumn.equals(en.getKey())) {
+						
+						writer.append("True" + ",");
+		    } 
+			else 
+			{
+						writer.append("False" + ",");
+					}
+			boolean indexed=false;	
+		   if(brincount<BrinIndecies.size()){
+			for(int i=0;i<BrinIndecies.size();i++){
+				BrinIndex I=BrinIndecies.get(i);
+	        
+				if(I.ColumnName.equals(en.getKey())){
+				
+				writer.append("True"+ ",");
+				brincount++;
+				indexed=true;
+				}
+			}
+			   
+				
+				
+				
+			}
+		   else if(!indexed ){
+			   
+				writer.append("False"+ ",");
+
+		   }
+		   indexed=false;
+			writer.append("\n");
+			
+			
+		
+
+				
+			}
+
+
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }
